@@ -1,0 +1,10 @@
+﻿<div class="edit-field">
+    <div >
+        <div class="form-group label-floating">
+            <label for="input1" class="control-label">{{item.title}}</label>
+            <input type="{{item.type}}" class="form-control" id="input1" pattern="{{item.pattern}}" [(ngModel)]="item.value">
+            <p class="help-block">{{item.hint}}</p>
+        </div>
+    </div>
+    <span>{{item.value}}</span> 
+</div>

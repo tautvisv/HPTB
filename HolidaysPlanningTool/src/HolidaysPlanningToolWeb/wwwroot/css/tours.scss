@@ -1,0 +1,102 @@
+﻿$tours-light-grey-color: #dfdfdf;
+$tours-grey-color: #cdcdcd;
+$tours-dark-grey-color: #777;
+$tours-dark-color: #333;
+$tours-light-blue: #00a0dc;
+$component-item-padding: 2px;
+$progress-start-color: #5cb85c;
+$progress-mid-color: #f0ad4e;
+$progress-end-color: #d9534f; 
+.component {
+    border-radius: 2px;
+    box-shadow: 0 2px 5px 0;
+    margin-bottom: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+}
+.component-header {
+    padding: 24px 24px 0 24px;
+}
+.component-footer {
+    padding: 20px;
+}
+.component-header-title {
+    color: #181818;
+    font-size: 16px;
+}
+.component-header-body {
+    margin-top: 23px;
+    padding-right: 60px;
+    color: #737373;
+    font-size: 14px;
+    margin-bottom: 23px;
+}
+.component-body {
+    padding: 5px 0;
+}
+.component .form-control {
+    max-width: 1000px;
+}
+
+.component .control-panel {
+    cursor: pointer;
+    position: absolute;
+    right: 15px;
+}
+.component .control-panel .close{
+    padding: 0 2px;
+}
+.component .item .row {
+    margin-left: -$component-item-padding;
+    margin-right: -$component-item-padding
+}
+.component .item {
+    background: $tours-grey-color;
+    margin-bottom: $component-item-padding;
+    padding: $component-item-padding;
+}
+.component .edit-field {
+    padding: 5px;
+}
+.component .edit-field .edit-field-title {
+    display: inline-block; 
+    min-width: 70px
+}
+.component .edit-field span {
+    color: $tours-dark-color;
+    cursor: pointer;
+    padding: 4px 4px;
+}
+.component .edit-field span:hover {
+    background-color: $tours-light-blue;
+    color: white;
+}
+@media (min-width: 992px) {
+    .left {
+        float: left;
+    }
+    .right {
+        float: right;
+    }
+}
+.component .tools {
+    display: inline-block;
+}
+.component .inline {
+    display: inline-block;
+}
+.notification-message {
+    position: fixed; 
+    top: 30px; 
+    right: 40px; 
+    z-index: 2000;
+    min-width: 150px;
+}
+.my-progress-bar {
+    background: $progress-start-color; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(0, $progress-end-color,  $progress-mid-color, $progress-start-color); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(0, $progress-end-color,  $progress-mid-color, $progress-start-color); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(0, $progress-end-color,  $progress-mid-color, $progress-start-color); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(90deg, $progress-end-color,  $progress-mid-color, $progress-start-color); /* Standard syntax */
+}

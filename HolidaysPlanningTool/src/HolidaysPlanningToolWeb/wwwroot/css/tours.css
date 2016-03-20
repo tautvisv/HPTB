@@ -1,0 +1,95 @@
+﻿.component {
+  border-radius: 2px;
+  box-shadow: 0 2px 5px 0;
+  margin-bottom: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: white; }
+
+.component-header {
+  padding: 24px 24px 0 24px; }
+
+.component-footer {
+  padding: 20px; }
+
+.component-header-title {
+  color: #181818;
+  font-size: 16px; }
+
+.component-header-body {
+  margin-top: 23px;
+  padding-right: 60px;
+  color: #737373;
+  font-size: 14px;
+  margin-bottom: 23px; }
+
+.component-body {
+  padding: 5px 0; }
+
+.component .form-control {
+  max-width: 1000px; }
+
+.component .control-panel {
+  cursor: pointer;
+  position: absolute;
+  right: 15px; }
+
+.component .control-panel .close {
+  padding: 0 2px; }
+
+.component .item .row {
+  margin-left: -2px;
+  margin-right: -2px; }
+
+.component .item {
+  background: #cdcdcd;
+  margin-bottom: 2px;
+  padding: 2px; }
+
+.component .edit-field {
+  padding: 5px; }
+
+.component .edit-field .edit-field-title {
+  display: inline-block;
+  min-width: 70px; }
+
+.component .edit-field span {
+  color: #333;
+  cursor: pointer;
+  padding: 4px 4px; }
+
+.component .edit-field span:hover {
+  background-color: #00a0dc;
+  color: white; }
+
+@media (min-width: 992px) {
+  .left {
+    float: left; }
+  .right {
+    float: right; } }
+
+.component .tools {
+  display: inline-block; }
+
+.component .inline {
+  display: inline-block; }
+
+.notification-message {
+  position: fixed;
+  top: 30px;
+  right: 40px;
+  z-index: 2000;
+  min-width: 150px; }
+
+.my-progress-bar {
+  background: #5cb85c;
+  /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(0, #d9534f, #f0ad4e, #5cb85c);
+  /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(0, #d9534f, #f0ad4e, #5cb85c);
+  /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(0, #d9534f, #f0ad4e, #5cb85c);
+  /* For Firefox 3.6 to 15 */
+  background: linear-gradient(90deg, #d9534f, #f0ad4e, #5cb85c);
+  /* Standard syntax */ }
+

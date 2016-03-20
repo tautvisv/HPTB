@@ -1,0 +1,28 @@
+@{
+}
+<link href="~/css/tours.css" rel="stylesheet" />
+
+
+<main-app>
+    <div class="navbar-collapse collapse navbar-responsive-collapse">
+        Loading... 2
+    </div>
+</main-app>
+
+<script>
+    System.config({
+      //  baseUrl:"/test",
+        transpiler: 'typescript',
+        typescriptOptions: { emitDecoratorMetadata: true },
+        packages: { 'app': { defaultExtension: 'ts' }, 'userPanel': { defaultExtension: 'ts' } },
+        map: {
+            'notifications': 'node_modules/angular2-notifications'
+        }
+      });
+      System.import('app/main')
+            .then(null, console.error.bind(console));
+      console.log("done!!!!");
+      //System.import('app/main2')
+      //      .then(null, console.error.bind(console));
+</script>
+<div style="height: 1000px"></div>

@@ -1,0 +1,10 @@
+﻿<div class="component col-md-4"  [ngClass]="{left: optionsList.isPositionLeft, right: !optionsList.isPositionLeft}">
+    <i class="fa fa-angle-double-right" (click)="optionsList.isPositionLeft=!optionsList.isPositionLeft"></i>
+    <header-component></header-component>
+    <div class="component-body">
+        <!--<div *ngFor='#option of optionsList'> tests</div>-->
+        <user-options-item *ngFor='#option of optionsList.items' [option]="option"></user-options-item>
+    </div>
+    <div class="component-footer">
+    </div>
+</div>
