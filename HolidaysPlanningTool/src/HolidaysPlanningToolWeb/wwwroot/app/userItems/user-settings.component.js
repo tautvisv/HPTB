@@ -6,26 +6,39 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var core_1 = require('angular2/core');
-var editable_item_component_1 = require('./editable-item.component');
-var user_settings_mock_1 = require('./user-settings-mock');
+var user_settings_item_component_1 = require('./user-settings-item.component');
+var user_settings_service_1 = require('./user-settings.service');
+var user_settings_1 = require('./user-settings');
 var UserSettingsComponent = (function () {
-    function UserSettingsComponent(userInfo, _notificationService) {
-        this.userInfo = userInfo;
+    function UserSettingsComponent(_settingsService, _notificationService, router) {
+        this._settingsService = _settingsService;
         this._notificationService = _notificationService;
+        this.router = router;
+        this.userInfo = new user_settings_1.UserSettingsViewItem();
     }
     UserSettingsComponent.prototype.saveSettings = function () {
-        this._notificationService.success("nustatymai išsaugoti");
-        console.log("saving");
+        var _this = this;
+        this._settingsService.saveUserSettings({ test: "yra test" }).subscribe(function (res) {
+            _this._notificationService.success("Vartotojo informacija atnaujinta, atsakas iš serverio: " + JSON.stringify(res));
+            _this.router.navigate(["List", { id: 1120 }]);
+        }, function (err) { return _this._notificationService.error("Atnaujinti vartotojo duomenų nepavyko: kodas: " + err.status); });
     };
     UserSettingsComponent.prototype.cancelSettings = function () {
-        this._notificationService.error("nustatymai neišsaugoti");
+        this._notificationService.info("nustatymai neišsaugoti");
+    };
+    UserSettingsComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this._settingsService.getUserSettingsData(51).subscribe(function (res) {
+            _this.userInfo.createFromUserSettings(res);
+            _this._notificationService.success("Vartotojo informacija užkrauta, atsakas iš serverio: " + JSON.stringify(res));
+        }, function (err) { return _this._notificationService.error("Gauti vartotojo duomenų nepavyko: kodas: " + err.status); });
     };
     UserSettingsComponent = __decorate([
         core_1.Component({
             selector: 'user-settings',
             templateUrl: './app/userItems/user-settings.component.html',
-            directives: [editable_item_component_1.EditableItemComponent],
-            providers: [user_settings_mock_1.UserSettingsMock]
+            directives: [user_settings_item_component_1.UserSettingsItemComponent],
+            providers: [user_settings_service_1.UserSettingsService]
         })
     ], UserSettingsComponent);
     return UserSettingsComponent;

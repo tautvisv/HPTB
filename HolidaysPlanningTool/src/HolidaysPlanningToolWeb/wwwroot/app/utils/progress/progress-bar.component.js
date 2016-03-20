@@ -12,7 +12,6 @@ var ProgressBar = (function () {
         this.callback = new core_1.EventEmitter();
         this.width = 100;
         this.timePassed = 0;
-        this.type = "#5cb85c"; //"progress-bar-success" "progress-bar-warning" "progress-bar-danger";
     }
     ProgressBar.prototype.consume = function () {
         if (!this.active) {
@@ -21,15 +20,6 @@ var ProgressBar = (function () {
         if (this.timePassed < this.duration) {
             this.timePassed += ProgressBar.refreshTime;
             this.width = parseInt(((this.timePassed + ProgressBar.refreshTime) * 100 / this.duration).toFixed(0));
-            if (this.width > 75) {
-                this.type = "#5cb85c";
-            }
-            else if (this.width > 45) {
-                this.type = "#f0ad4e";
-            }
-            else {
-                this.type = "#d9534f";
-            }
             setTimeout(this.consume.bind(this), ProgressBar.refreshTime);
         }
         else {

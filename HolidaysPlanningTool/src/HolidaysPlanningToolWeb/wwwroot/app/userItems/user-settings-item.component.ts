@@ -4,12 +4,12 @@ import { UserSettingsItem } from './user-settings';
 
 @Component({
     // Declare the tag name in index.html to where the component attaches
-    selector: 'editable-item',
-    templateUrl: './app/userItems/editable-item.component.html',
+    selector: 'user-settings-item',
+    templateUrl: './app/userItems/user-settings-item.component.html',
     directives: [],
     inputs: ['item']
 })
-export class EditableItemComponent {
+export class UserSettingsItemComponent {
     private readonly: boolean;
     constructor() {
         this.readonly = true;

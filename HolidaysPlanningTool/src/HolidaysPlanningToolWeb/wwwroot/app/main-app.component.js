@@ -9,6 +9,7 @@ var router_1 = require('angular2/router');
 var notification_component_1 = require('./utils/notification.component');
 var core_1 = require('angular2/core');
 var user_settings_component_1 = require('./userItems/user-settings.component');
+var travel_create_component_1 = require('./travel/travel-create.component');
 var router_2 = require('angular2/router');
 var core_2 = require('angular2/core');
 var MainApp = (function () {
@@ -23,12 +24,12 @@ var MainApp = (function () {
             {
                 path: '/ToursList',
                 name: 'ToursList',
-                component: user_settings_component_1.UserSettingsComponent
+                component: travel_create_component_1.TravelComponent
             },
             {
                 path: '/List/:id',
                 name: 'List',
-                component: user_settings_component_1.UserSettingsComponent
+                component: travel_create_component_1.TravelComponent
             },
             {
                 path: '/Settings',

@@ -1,9 +1,9 @@
-﻿import {MyNumber} from './mock-data.service';
-import {Injectable } from 'angular2/core';
+﻿import {Injectable } from 'angular2/core';
 import {Component, View, EventEmitter, ElementRef } from 'angular2/core'
 import {CORE_DIRECTIVES } from 'angular2/common';
+import {Injector} from 'angular2/core';
 
-interface INotify {
+export interface INotify {
     error(message: string): void;
     warning(message: string): void;
     success(message: string): void;
@@ -36,7 +36,7 @@ export class NotificationService implements INotify {
     }
 
     error(message: string) {
-        this._alerts.push({ type:"alert-danger", notification: message });
+        this._alerts.push({ type: "alert-danger", notification: message });
     }
     warning(message: string) {
         this._alerts.push({ type: "alert-warning", notification: message });

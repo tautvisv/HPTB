@@ -3,6 +3,7 @@ import {NotificationService, Alerts} from './utils/notification.service';
 import {NotificationComponent} from './utils/notification.component';
 import {Component, OnInit } from 'angular2/core';
 import {UserSettingsComponent} from './userItems/user-settings.component';
+import {TravelComponent} from './travel/travel-create.component';
 
 import {LocationStrategy, HashLocationStrategy} from 'angular2/router';
 import { provide } from 'angular2/core';
@@ -11,12 +12,12 @@ import { provide } from 'angular2/core';
     {
         path: '/ToursList',
         name: 'ToursList',
-        component: UserSettingsComponent
+        component: TravelComponent
     },
     {
         path: '/List/:id',
         name: 'List',
-        component: UserSettingsComponent
+        component: TravelComponent
     },
     {
         path: '/Settings',

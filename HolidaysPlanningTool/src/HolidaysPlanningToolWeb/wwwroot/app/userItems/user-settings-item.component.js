@@ -6,8 +6,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var core_1 = require('angular2/core');
-var EditableItemComponent = (function () {
-    function EditableItemComponent() {
+var UserSettingsItemComponent = (function () {
+    function UserSettingsItemComponent() {
         var _this = this;
         this.isInEditMode = false;
         this.setEditMode = function () {
@@ -18,18 +18,18 @@ var EditableItemComponent = (function () {
         };
         this.readonly = true;
     }
-    EditableItemComponent.prototype.saveChanges = function (item) {
+    UserSettingsItemComponent.prototype.saveChanges = function (item) {
     };
-    EditableItemComponent = __decorate([
+    UserSettingsItemComponent = __decorate([
         core_1.Component({
             // Declare the tag name in index.html to where the component attaches
-            selector: 'editable-item',
-            templateUrl: './app/userItems/editable-item.component.html',
+            selector: 'user-settings-item',
+            templateUrl: './app/userItems/user-settings-item.component.html',
             directives: [],
             inputs: ['item']
         })
-    ], EditableItemComponent);
-    return EditableItemComponent;
+    ], UserSettingsItemComponent);
+    return UserSettingsItemComponent;
 }());
-exports.EditableItemComponent = EditableItemComponent;
-//# sourceMappingURL=editable-item.component.js.map
+exports.UserSettingsItemComponent = UserSettingsItemComponent;
+//# sourceMappingURL=user-settings-item.component.js.map

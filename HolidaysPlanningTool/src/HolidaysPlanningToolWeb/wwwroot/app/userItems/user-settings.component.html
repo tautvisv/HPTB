@@ -7,10 +7,10 @@
     </div>
     <div class="component-body">
         <div class="col-sm-6">
-            <editable-item [item]="userInfo.name"></editable-item>
-            <editable-item [item]="userInfo.address"></editable-item>
-            <editable-item [item]="userInfo.email"></editable-item>
-            <editable-item [item]="userInfo.description"></editable-item>
+            <user-settings-item [item]="userInfo.name"></user-settings-item>
+            <user-settings-item [item]="userInfo.address"></user-settings-item>
+            <user-settings-item [item]="userInfo.email"></user-settings-item>
+            <user-settings-item [item]="userInfo.description"></user-settings-item>
             <div class="edit-field">
                 <div>
                     <div class="form-group label-floating">
@@ -19,13 +19,12 @@
                         <p class="help-block">{{userInfo.description.hint}}</p>
                     </div>
                 </div>
-                <span>{{userInfo.description.value}}</span>
             </div>
         </div>
         <div class="col-sm-6">
-            <editable-item [item]="userInfo.surname"></editable-item>
-            <editable-item [item]="userInfo.phone"></editable-item>
-            <editable-item [item]="userInfo.extra_info"></editable-item>
+            <user-settings-item [item]="userInfo.surname"></user-settings-item>
+            <user-settings-item [item]="userInfo.phone"></user-settings-item>
+            <user-settings-item [item]="userInfo.extra_info"></user-settings-item>
         </div>
         <div style='clear: both'></div>
     </div>
