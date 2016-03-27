@@ -6,15 +6,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var router_1 = require('angular2/router');
-var notification_component_1 = require('./utils/notification.component');
 var core_1 = require('angular2/core');
 var user_settings_component_1 = require('./userItems/user-settings.component');
 var travel_create_component_1 = require('./travel/travel-create.component');
+//import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 var router_2 = require('angular2/router');
 var core_2 = require('angular2/core');
 var MainApp = (function () {
-    function MainApp(ser) {
-        this.ser = ser;
+    function MainApp() {
         this.title = 'Tour of Heroes';
     }
     MainApp.prototype.ngOnInit = function () {
@@ -42,7 +41,7 @@ var MainApp = (function () {
             // Declare the tag name in index.html to where the component attaches
             selector: 'main-app',
             // Location of the template for this component
-            directives: [router_1.ROUTER_DIRECTIVES, notification_component_1.NotificationComponent],
+            directives: [router_1.ROUTER_DIRECTIVES],
             templateUrl: './app/main-app.component.html',
             providers: [router_1.ROUTER_PROVIDERS, core_2.provide(router_2.LocationStrategy, { useClass: router_2.HashLocationStrategy })]
         })

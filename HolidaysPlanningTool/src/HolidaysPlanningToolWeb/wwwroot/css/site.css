@@ -138,3 +138,7 @@ textarea {
     background-color: #ff5722;
     color: rgba(255,255,255,.84);
 }
+#toast-container {
+    position: fixed !important;
+    top: 70px;
+}

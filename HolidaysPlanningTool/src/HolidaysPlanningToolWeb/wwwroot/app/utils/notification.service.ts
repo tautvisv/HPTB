@@ -1,5 +1,5 @@
 ﻿import {Injectable } from 'angular2/core';
-import {Component, View, EventEmitter, ElementRef } from 'angular2/core'
+import {Component, EventEmitter, ElementRef } from 'angular2/core'
 import {CORE_DIRECTIVES } from 'angular2/common';
 import {Injector} from 'angular2/core';
 

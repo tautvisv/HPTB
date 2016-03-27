@@ -1,9 +1,9 @@
 ﻿import {Component, OnInit } from 'angular2/core';
 import { UserSettingsItemComponent } from './user-settings-item.component';
 import { UserSettingsItem } from './user-settings';
-import { NotificationService } from '../utils/notification.service';
 import { UserSettingsService } from './user-settings.service';
 import { UserSettingsViewItem } from './user-settings';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import {ROUTER_DIRECTIVES, Router, Location} from "angular2/router";
 
 @Component({
@@ -14,7 +14,7 @@ import {ROUTER_DIRECTIVES, Router, Location} from "angular2/router";
 })
 export class UserSettingsComponent implements OnInit {
     private userInfo: UserSettingsViewItem;
-    constructor(public _settingsService: UserSettingsService, private _notificationService: NotificationService, private router: Router) {
+    constructor(public _settingsService: UserSettingsService, private _notificationService: ToastsManager, private router: Router) {
         this.userInfo = new UserSettingsViewItem();
     }
     saveSettings(): void {

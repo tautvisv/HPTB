@@ -6,23 +6,28 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var core_1 = require('angular2/core');
+var GoogleMap_1 = require("./maps/GoogleMap");
 var TravelMapComponent = (function () {
-    function TravelMapComponent(_notificationService) {
-        this._notificationService = _notificationService;
+    function TravelMapComponent(notificationService) {
+        this.notificationService = notificationService;
+        // google maps zoom level
+        this.zoom = 8;
     }
-    TravelMapComponent.prototype.saveSettings = function () {
-    };
-    TravelMapComponent.prototype.cancelSettings = function () {
-        this._notificationService.info("nustatymai neišsaugoti");
-    };
     TravelMapComponent.prototype.ngOnInit = function () {
+        var mapContainer = document.getElementById("the_map");
+        var mapObj = new google.maps.Map(mapContainer, {
+            zoom: 8,
+            center: new google.maps.LatLng(54.8985049, 23.9578067),
+        });
+        var map = new GoogleMap_1.GoogleMaps(mapObj, new GoogleMap_1.RouteService(mapObj), this.notificationService);
     };
     TravelMapComponent = __decorate([
         core_1.Component({
             selector: 'travel-map',
             templateUrl: './app/travel/travel-map.component.html',
             directives: [],
-            providers: []
+            providers: [],
+            styles: []
         })
     ], TravelMapComponent);
     return TravelMapComponent;

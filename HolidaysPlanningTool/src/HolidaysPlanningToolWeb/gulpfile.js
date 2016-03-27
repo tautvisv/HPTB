@@ -1,6 +1,7 @@
 ﻿/// <reference path="node_modules/bootstrap-material-design/dist/js/material.min.js" />
 /// <reference path="node_modules/bootstrap-material-design/dist/js/material.min.js" />
 /// <binding BeforeBuild='default' />
+/// <reference path="node_modules/ng2-toastr/bundles/ng2-toastr.min.js" />
 
 "use strict";
 
@@ -14,7 +15,7 @@ var angularJs = [
     './node_modules/angular2/bundles/angular2.dev.js',
     './node_modules/angular2/bundles/router.dev.js',
     './node_modules/angular2/bundles/angular2-polyfills.js',
-    './node_modules/angular2/bundles/http.dev.js'
+    './node_modules/angular2/bundles/http.dev.js',
 ];
 
 var jasmineJs = [
@@ -31,6 +32,7 @@ var js = [
     './node_modules/jquery/dist/jquery.js',
     './node_modules/bootstrap-material-design/dist/js/material.min.js',
     './node_modules/bootstrap-material-design/dist/js/ripples.min.js',
+    './node_modules/ng2-toastr/bundles/ng2-toastr.min.js',
 
 ];
 
@@ -38,12 +40,13 @@ var css = [
     './node_modules/bootstrap/dist/css/bootstrap.css',
     './node_modules/jasmine-core/lib/jasmine-core/jasmine.css',
     './node_modules/bootstrap-material-design/dist/css/bootstrap-material-design.min.css',
-    './node_modules/bootstrap-material-design/dist/css/ripples.min.css'
+    './node_modules/bootstrap-material-design/dist/css/ripples.min.css',
+    './node_modules/ng2-toastr/bundles/ng2-toastr.min.css'
 ];
 
 var fonts = [
     './node_modules/bootstrap/dist/fonts/*.*'
-];zz
+];
 
 gulp.task('copy-js', function () {
     _.forEach(js, function (file, _) {

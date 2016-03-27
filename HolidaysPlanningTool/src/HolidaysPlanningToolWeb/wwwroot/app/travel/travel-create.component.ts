@@ -1,5 +1,5 @@
 ﻿import {Component, OnInit } from 'angular2/core';
-import { NotificationService } from '../utils/notification.service';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { TravelMapComponent } from './travel-map.component';
 import {ROUTER_DIRECTIVES, Router, Location} from "angular2/router";
 
@@ -11,11 +11,10 @@ import {ROUTER_DIRECTIVES, Router, Location} from "angular2/router";
 })
 export class TravelComponent implements OnInit {
 
-    constructor(private _notificationService: NotificationService, private router: Router) {
+    constructor(private _notificationService: ToastsManager, private router: Router) {
         
     }
     saveSettings(): void {
-        
     }
     cancelSettings(): void {
         this._notificationService.info("nustatymai neišsaugoti");
