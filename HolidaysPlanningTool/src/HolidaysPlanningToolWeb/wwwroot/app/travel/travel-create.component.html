@@ -7,7 +7,37 @@
             </div>
         </div>
 
-        <div>Creating travel</div>
+        <ul>
+            <li>
+                <div class="travel-item">
+                    <p-calendar [(value)]="travelHome.Date" [inline]="true"></p-calendar>
+                    <input type="date" [(ngModel)]="travelHome.Date"/>
+                    <div class="tavel-item-name">{{travelHome.Name}}</div>
+                    <div class="tavel-item-name">{{travelHome.Date}}</div>
+                    <div class="travel-item-row">
+                        <div class="travel-item-date">2016-04-01</div>
+                        <div class="travel-item-image"></div>
+                        <div class="travel-item-location">{{travelHome.Point?travelHome.Point.Address:"-"}}</div>
+                    </div>
+                    <div class="tavel-item-description"></div>
+                </div>
+                <travel-day-item-component [travel]="travelHome"></travel-day-item-component>
+            </li>
+            <li *ngFor="#travel of travels">
+                <travel-day-item-component [travel]="travel">loading</travel-day-item-component>
+            </li>
+            <li>
+                <travel-day-item-component [travel]="travelHome"></travel-day-item-component>
+            </li>
+        </ul>
+
+        <div class="component-footer">
+            <a (click)="saveTravel()" class="btn btn-raised btn-success">
+                Išsaugoti
+                <div class="ripple-container"></div>
+            </a>
+            <a (click)="cancelTravel()" class="btn btn-raised btn-danger">Atšaukti</a>
+        </div>
     </div>
 </div>
 <div class="col-md-6">

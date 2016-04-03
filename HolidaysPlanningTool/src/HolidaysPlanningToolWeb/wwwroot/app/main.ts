@@ -14,7 +14,7 @@ import {ToastOptions} from "ng2-toastr/ng2-toastr";
 import {MainApp} from './main-app.component';
 
 let notificationOptions = {
-    autoDismiss: false,
+    autoDismiss: true,
     positionClass: 'toast-top-right',
 
 };

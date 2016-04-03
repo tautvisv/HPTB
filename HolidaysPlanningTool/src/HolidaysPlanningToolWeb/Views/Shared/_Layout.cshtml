@@ -19,8 +19,9 @@
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true"/>
         <link href="~/css/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet"/>
     </environment>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSjYCCntbYJDDuF4CLpX61HV4PqlqSuIw"
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSjYCCntbYJDDuF4CLpX61HV4PqlqSuIw&?onload=__onGoogleLoaded"
             type="text/javascript"></script>
+
     @Html.ApplicationInsightsJavaScript(TelemetryConfiguration)
 </head>
 <body>
@@ -61,7 +62,7 @@
     <script src="~/js/angular2/angular2-polyfills.js"></script>
     <script src="~/js/angular2/http.dev.js"></script>
     <script src="~/js/angular2/router.dev.js"></script>
-    <script src="~/js/ng2-toastr.min.js"></script>
+    <script src="~/js/ng2-toastr.js"></script>
 
     <script src="~/js/site.js" asp-append-version="true"></script>
 </environment>

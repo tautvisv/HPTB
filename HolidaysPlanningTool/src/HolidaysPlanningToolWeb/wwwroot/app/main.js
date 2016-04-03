@@ -11,7 +11,7 @@ var ng2_toastr_1 = require('ng2-toastr/ng2-toastr');
 var ng2_toastr_2 = require("ng2-toastr/ng2-toastr");
 var main_app_component_1 = require('./main-app.component');
 var notificationOptions = {
-    autoDismiss: false,
+    autoDismiss: true,
     positionClass: 'toast-top-right',
 };
 browser_1.bootstrap(main_app_component_1.MainApp, [ng2_toastr_1.ToastsManager, core_1.provide(ng2_toastr_2.ToastOptions, { useValue: new ng2_toastr_2.ToastOptions(notificationOptions) }), Constants_1.Constants, http_1.HTTP_PROVIDERS]); //

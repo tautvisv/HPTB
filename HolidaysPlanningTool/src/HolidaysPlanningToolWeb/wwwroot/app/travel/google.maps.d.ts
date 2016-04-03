@@ -485,7 +485,7 @@ declare module google.maps {
     }
 
     export interface GeocoderRequest {
-        address: string;
+        address?: string;
         bounds?: LatLngBounds;
         location?: LatLng;
         region?: string;

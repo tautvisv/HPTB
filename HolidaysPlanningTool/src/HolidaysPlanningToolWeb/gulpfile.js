@@ -32,7 +32,7 @@ var js = [
     './node_modules/jquery/dist/jquery.js',
     './node_modules/bootstrap-material-design/dist/js/material.min.js',
     './node_modules/bootstrap-material-design/dist/js/ripples.min.js',
-    './node_modules/ng2-toastr/bundles/ng2-toastr.min.js',
+    './node_modules/ng2-toastr/bundles/ng2-toastr.js',
 
 ];
 
