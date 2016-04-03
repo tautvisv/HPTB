@@ -9,11 +9,12 @@ var core_1 = require('angular2/core');
 var travel_map_component_1 = require('./travel-map.component');
 var travel_day_item_component_1 = require('./travel-day-item.component');
 var TravelClass_1 = require("./TravelClass");
+//import {Accordion} from 'primeng/primeng';
 var TravelComponent = (function () {
     function TravelComponent(_notificationService, router) {
         this._notificationService = _notificationService;
         this.router = router;
-        this.travelHome = new TravelClass_1.TravelClass();
+        this.travelHome = new TravelClass_1.TravelClass(new TravelClass_1.Point());
         this.zone = new core_1.NgZone({ enableLongStackTrace: false });
     }
     TravelComponent.prototype.onChanges = function (changes) {
@@ -35,7 +36,6 @@ var TravelComponent = (function () {
         var clicks = {
             click: function (homePoint, endPoint, waypoints, index, coords, address) {
                 if (index === -2) {
-                    _this.travelHome = new TravelClass_1.TravelClass();
                     _this.travelHome.Point = new TravelClass_1.Point(coords.lat(), coords.lng());
                     _this.travelHome.Point.Address = address;
                 }
@@ -45,9 +45,9 @@ var TravelComponent = (function () {
                     _this.travels.push(travelDay);
                 }
                 _this._notificationService.warning("click" + _this.travels.length);
-                //this.zone.run(() => {
-                //    console.log('Updated List: ');
-                //});
+                _this.zone.run(function () {
+                    console.log('Updated List: ');
+                });
             },
             dragged: function (coords, index) { _this._notificationService.warning("drag"); },
             rightClick: function (index) { _this._notificationService.warning("right"); }

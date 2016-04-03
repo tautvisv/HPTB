@@ -14,6 +14,9 @@ var TravelDayComponent = (function () {
     __decorate([
         core_1.Input()
     ], TravelDayComponent.prototype, "travel", void 0);
+    __decorate([
+        core_1.Input()
+    ], TravelDayComponent.prototype, "title", void 0);
     TravelDayComponent = __decorate([
         core_1.Component({
             // Declare the tag name in index.html to where the component attaches

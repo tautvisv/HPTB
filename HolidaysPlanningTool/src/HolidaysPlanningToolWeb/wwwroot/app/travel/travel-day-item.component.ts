@@ -10,6 +10,7 @@ import { Point, TravelClass, TravelDayPlan, UserLocation } from "./TravelClass";
 })
 export class TravelDayComponent implements OnInit {
     @Input() travel: TravelClass;
+    @Input() title: string;
     constructor() {
         
     }

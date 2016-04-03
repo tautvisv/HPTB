@@ -31,6 +31,7 @@
 /// <reference path="js/jquery.js" />
 /// <reference path="js/material.min.js" />
 /// <reference path="js/ng2-toastr.js" />
+/// <reference path="js/primeui-ng-all.js" />
 /// <reference path="js/ripples.min.js" />
 /// <reference path="js/Rx.js" />
 /// <reference path="js/system.js" />

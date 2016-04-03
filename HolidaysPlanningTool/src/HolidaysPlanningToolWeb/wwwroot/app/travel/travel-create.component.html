@@ -7,26 +7,14 @@
             </div>
         </div>
 
-        <ul>
-            <li>
-                <div class="travel-item">
-                    <p-calendar [(value)]="travelHome.Date" [inline]="true"></p-calendar>
-                    <input type="date" [(ngModel)]="travelHome.Date"/>
-                    <div class="tavel-item-name">{{travelHome.Name}}</div>
-                    <div class="tavel-item-name">{{travelHome.Date}}</div>
-                    <div class="travel-item-row">
-                        <div class="travel-item-date">2016-04-01</div>
-                        <div class="travel-item-image"></div>
-                        <div class="travel-item-location">{{travelHome.Point?travelHome.Point.Address:"-"}}</div>
-                    </div>
-                    <div class="tavel-item-description"></div>
-                </div>
+        <ul class="travel-items">
+            <li class="first">
                 <travel-day-item-component [travel]="travelHome"></travel-day-item-component>
             </li>
-            <li *ngFor="#travel of travels">
-                <travel-day-item-component [travel]="travel">loading</travel-day-item-component>
+            <li *ngFor="#travel of travels; #i = index">
+                <travel-day-item-component [travel]="travel" [title]="i+1">loading</travel-day-item-component>
             </li>
-            <li>
+            <li class="last">
                 <travel-day-item-component [travel]="travelHome"></travel-day-item-component>
             </li>
         </ul>

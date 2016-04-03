@@ -33,6 +33,7 @@ var js = [
     './node_modules/bootstrap-material-design/dist/js/material.min.js',
     './node_modules/bootstrap-material-design/dist/js/ripples.min.js',
     './node_modules/ng2-toastr/bundles/ng2-toastr.js',
+    './node_modules/primeui/primeui-ng-all.js'
 
 ];
 
@@ -41,7 +42,8 @@ var css = [
     './node_modules/jasmine-core/lib/jasmine-core/jasmine.css',
     './node_modules/bootstrap-material-design/dist/css/bootstrap-material-design.min.css',
     './node_modules/bootstrap-material-design/dist/css/ripples.min.css',
-    './node_modules/ng2-toastr/bundles/ng2-toastr.min.css'
+    './node_modules/ng2-toastr/bundles/ng2-toastr.min.css',
+    './node_modules/primeui/primeui-ng-all.min.css',
 ];
 
 var fonts = [

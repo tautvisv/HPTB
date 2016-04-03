@@ -4,13 +4,15 @@
   "dependencies": {
     "angular2": "2.0.0-beta.12",
     "bootstrap": "3.3.6",
-    "systemjs": "0.19.6",
     "es6-promise": "^3.0.2",
     "es6-shim": "^0.35.0",
+    "jquery": "2.1.4",
+    "primeng": "^0.9.1",
+    "primeui": "^4.1.6",
     "reflect-metadata": "0.1.2",
     "rxjs": "5.0.0-beta.2",
-    "zone.js": "^0.6.4",
-    "jquery": "2.1.4"
+    "systemjs": "0.19.24",
+    "zone.js": "^0.6.4"
   },
   "devDependencies": {
     "concurrently": "^1.0.0",

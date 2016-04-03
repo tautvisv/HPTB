@@ -7,6 +7,9 @@ $component-item-padding: 2px;
 $progress-start-color: #5cb85c;
 $progress-mid-color: #f0ad4e;
 $progress-end-color: #d9534f; 
+$travel-item-image-width-size: 200px;
+$travel-item-image-height-size: 100px;
+$travel-list-image-size: 40px;
 .component {
     border-radius: 2px;
     box-shadow: 0 2px 5px 0;
@@ -99,4 +102,54 @@ $progress-end-color: #d9534f;
     background: -o-linear-gradient(0, $progress-end-color,  $progress-mid-color, $progress-start-color); /* For Opera 11.1 to 12.0 */
     background: -moz-linear-gradient(0, $progress-end-color,  $progress-mid-color, $progress-start-color); /* For Firefox 3.6 to 15 */
     background: linear-gradient(90deg, $progress-end-color,  $progress-mid-color, $progress-start-color); /* Standard syntax */
+}
+.travel-items {
+    margin-right: 10px;
+}
+.travel-items li {
+    position: relative; 
+    padding-left: 45px;    
+    list-style: none;
+}
+.travel-items .pre-item {
+    position: absolute;
+    left: 0;
+    text-align: center;
+    height: 100%;
+}
+.travel-items .pre-item .pre-item-icon {
+    font-size: $travel-list-image-size;
+    border: 2px solid $progress-start-color;
+    border-radius: 36px;
+    display: block;
+}
+.travel-items .step-1-city-order {
+    background: #2a97b4 none repeat scroll 0 0;
+    color: #fff;
+    height: 40px;
+    line-height: 38px;
+    text-align: center;
+    width: 40px;
+    border-radius: 50%;
+    box-shadow: 0 2px 2px 0#e4e4e4;
+    font-size: 25px;
+}
+.travel-items .pre-item .joiner {
+    width: 5px;
+    height: calc(100% - #{$travel-list-image-size});
+    background: $progress-start-color;
+    text-align: center;
+    display: inline-block;
+}
+.travel-items .travel-item-row {
+    display: block;
+}
+.travel-near-image-item {
+    width: calc(100% - (#{$travel-item-image-width-size} + 10px));
+    display: inline-block;
+}
+.travel-image {
+    max-width: $travel-item-image-width-size;
+    max-height: $travel-item-image-height-size;
+    display: inline-block;
 }

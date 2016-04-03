@@ -4,6 +4,7 @@ import { TravelMapComponent } from './travel-map.component';
 import { TravelDayComponent } from './travel-day-item.component';
 import {ROUTER_DIRECTIVES, Router, Location} from "angular2/router";
 import { Point, TravelClass, TravelDayPlan, UserLocation } from "./TravelClass";
+//import {Accordion} from 'primeng/primeng';
 
 @Component({
     selector: 'travel',
@@ -17,7 +18,7 @@ export class TravelComponent implements OnInit {
     private travelHome: TravelClass;
     zone: NgZone;
     constructor(private _notificationService: ToastsManager, private router: Router) {
-        this.travelHome = new TravelClass();
+        this.travelHome = new TravelClass(new Point());
         this.zone = new NgZone({ enableLongStackTrace: false });
     }
     onChanges(changes) {
@@ -39,7 +40,6 @@ export class TravelComponent implements OnInit {
         var clicks = {
             click: (homePoint: google.maps.DirectionsWaypoint, endPoint: google.maps.DirectionsWaypoint, waypoints: google.maps.DirectionsWaypoint[], index: number, coords: google.maps.LatLng, address: string) => {
                 if (index === -2) {
-                    this.travelHome = new TravelClass();
                     this.travelHome.Point = new Point(coords.lat(), coords.lng());
                     this.travelHome.Point.Address = address;
                 } else {
@@ -48,9 +48,9 @@ export class TravelComponent implements OnInit {
                     this.travels.push(travelDay);
                 }
                 this._notificationService.warning("click" + this.travels.length);
-                //this.zone.run(() => {
-                //    console.log('Updated List: ');
-                //});
+                this.zone.run(() => {
+                    console.log('Updated List: ');
+                });
             },
             dragged: (coords: google.maps.LatLng, index: number) => { this._notificationService.warning("drag") },
             rightClick: (index: number) => { this._notificationService.warning("right") }
