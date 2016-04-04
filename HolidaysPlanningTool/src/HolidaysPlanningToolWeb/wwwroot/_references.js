@@ -4,6 +4,7 @@
 /// <reference path="app/main.js" />
 /// <reference path="app/main-app.component.js" />
 /// <reference path="app/travel/maps/googlemap.js" />
+/// <reference path="app/travel/travel.service.js" />
 /// <reference path="app/travel/travelclass.js" />
 /// <reference path="app/travel/travel-create.component.js" />
 /// <reference path="app/travel/travel-day-item component.js" />

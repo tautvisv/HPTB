@@ -19,6 +19,21 @@ var TravelMapComponent = (function () {
     TravelMapComponent.prototype.setMapClicks = function (clicks) {
         this.map.setCallBacks(clicks);
     };
+    TravelMapComponent.prototype.setWaypoints = function (travel) {
+        var _this = this;
+        var list = [];
+        travel.wayPoints.forEach(function (day) {
+            list.push(_this.travelToWaypoint(day));
+        });
+        this.map.setWayPoints(this.travelToWaypoint(travel.startDay), this.travelToWaypoint(travel.endDay), list); //, travel.endDay, []);
+    };
+    TravelMapComponent.prototype.travelToWaypoint = function (travel, stopover) {
+        if (stopover === void 0) { stopover = false; }
+        return {
+            location: new google.maps.LatLng(travel.Point.Latitude, travel.Point.Longitude),
+            stopover: stopover
+        };
+    };
     TravelMapComponent.prototype.ngOnInit = function () {
         this.map.initialise();
         //var mapContainer = document.getElementById("the_map");

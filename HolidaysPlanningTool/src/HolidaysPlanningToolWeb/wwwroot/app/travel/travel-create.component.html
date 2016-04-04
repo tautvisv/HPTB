@@ -9,13 +9,13 @@
 
         <ul class="travel-items">
             <li class="first">
-                <travel-day-item-component [travel]="travelHome"></travel-day-item-component>
+                <travel-day-item-component [travel]="travel.startDay" ></travel-day-item-component>
             </li>
-            <li *ngFor="#travel of travels; #i = index">
-                <travel-day-item-component [travel]="travel" [title]="i+1">loading</travel-day-item-component>
+            <li *ngFor="#travela of travel.wayPoints; #i = index">
+                <travel-day-item-component [travel]="travela" [title]="i+1">loading</travel-day-item-component>
             </li>
             <li class="last">
-                <travel-day-item-component [travel]="travelHome"></travel-day-item-component>
+                <travel-day-item-component [travel]="travel.endDay"></travel-day-item-component>
             </li>
         </ul>
 

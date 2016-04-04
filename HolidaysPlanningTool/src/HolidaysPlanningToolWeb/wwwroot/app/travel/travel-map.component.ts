@@ -2,6 +2,7 @@
 import {Component, OnInit } from 'angular2/core';
 import {GoogleMaps, RouteService, MapClickCallbacks} from "./maps/GoogleMap";
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { FullTravel, TravelClass } from "./TravelClass";
 
 //, provide(google.maps.MapOptions, { useValue: {} })
 @Component({
@@ -19,6 +20,19 @@ export class TravelMapComponent implements OnInit {
     }
     public setMapClicks(clicks: MapClickCallbacks) {
        this. map.setCallBacks(clicks);
+    }
+    public setWaypoints(travel: FullTravel) {
+        var list: google.maps.DirectionsWaypoint[] = [];
+        travel.wayPoints.forEach( (day) => {
+            list.push(this.travelToWaypoint(day));
+        });
+        this.map.setWayPoints(this.travelToWaypoint(travel.startDay), this.travelToWaypoint(travel.endDay), list); //, travel.endDay, []);
+    }
+    private travelToWaypoint(travel: TravelClass, stopover: boolean = false): google.maps.DirectionsWaypoint {
+        return {
+            location: new google.maps.LatLng(travel.Point.Latitude, travel.Point.Longitude),
+            stopover: stopover
+        }
     }
     ngOnInit() {
 

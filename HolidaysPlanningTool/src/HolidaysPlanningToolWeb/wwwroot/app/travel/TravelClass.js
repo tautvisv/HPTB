@@ -29,4 +29,10 @@ var TravelClass = (function () {
     return TravelClass;
 }());
 exports.TravelClass = TravelClass;
+var FullTravel = (function () {
+    function FullTravel() {
+    }
+    return FullTravel;
+}());
+exports.FullTravel = FullTravel;
 //# sourceMappingURL=TravelClass.js.map

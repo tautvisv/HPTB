@@ -7,7 +7,7 @@ import {Injectable} from 'angular2/core';
 export interface MapClickCallbacks {
     rightClick(index: number): any;
     click(homePoint: google.maps.DirectionsWaypoint, endPoint: google.maps.DirectionsWaypoint, waypoints: google.maps.DirectionsWaypoint[], index: number, coords: google.maps.LatLng, address: string): any;
-    dragged(coords: google.maps.LatLng, index: number): any;
+    dragged(homePoint: google.maps.DirectionsWaypoint, endPoint: google.maps.DirectionsWaypoint, waypoints: google.maps.DirectionsWaypoint[], index: number, coords: google.maps.LatLng, address: string): any;
 }
 @Injectable()
 export class GoogleMaps {
@@ -16,6 +16,7 @@ export class GoogleMaps {
     public endPoint: google.maps.DirectionsWaypoint;
     private markers: google.maps.Marker[];
     private homeMarker: google.maps.Marker;
+    private endMarker: google.maps.Marker;
     private clickFunctions: MapClickCallbacks;
     private geocoder = new google.maps.Geocoder;
     protected wayPointsCount = 5;
@@ -33,41 +34,80 @@ export class GoogleMaps {
         }
         this.clickFunctions = clickFunction;
     }
+    private setMarkersListiner(marker: google.maps.Marker, index: number) {
+
+        google.maps.event.addListener(marker, 'rightclick', ($event) => {
+        
+            if (index === -1) {
+                debugger;
+                throw "unexpected marker";
+            }
+            if (index < -1) {
+                this.notificationServiceToaster.warning("Pašalinti pradžios ir pabaigos taškų negalima");
+                return;
+            }
+            this.clickFunctions.rightClick(index);
+            marker.setMap(null);
+            
+            this.wayPoints.splice(index, 1);
+            this.resetMarkers();
+            this.findRoute();
+
+        })
+        google.maps.event.addListener(marker, 'dragend', ($event) => {
+
+            if (index  === -1) {
+                debugger;
+                throw "unexpected marker";
+            }
+
+            var coordinates = $event.latLng;
+            this.geocoder.geocode({ location: coordinates }, (results, status) => {
+                if (status === google.maps.GeocoderStatus.OK) {
+                    if (results[0]) {
+                        if (index === -2) {
+                            this.startPoint.location = coordinates;
+                        } else if (index === -3) {
+                            this.endPoint.location = coordinates;
+                        } else this.wayPoints[index].location = coordinates;
+                        this.clickFunctions.dragged(this.startPoint, this.endPoint, this.wayPoints, index, coordinates, results[0].formatted_address);
+                        this.findRoute();
+                    } else {
+                        window.alert('No results found');
+                    }
+                } else {
+                    window.alert('Geocoder failed due to: ' + status);
+                }
+            });
+            
+        });
+    }
+
+
     public initialise(): void {
 
         var mapContainer = document.getElementById("the_map");
         var mapObj = new google.maps.Map(mapContainer, {
             zoom: 8,
-            maxZoom: 12,
             center: new google.maps.LatLng(54.8985049, 23.9578067),
+            maxZoom: 16
          });
         this.map = mapObj;
         this.routeService = new RouteService(mapObj);
 
 
         for (let i = 0; i < this.wayPointsCount; i++) {
-            this.addEmptyMarker(i.toString());
+            this.addEmptyMarker(i, (i+1).toString());
         }
         this.homeMarker = this.createEmptyMarker("H");
+        this.setMarkersListiner(this.homeMarker, -2);
 
-        google.maps.event.addListener(this.homeMarker, 'rightclick', ($event) => {
-            this.clickFunctions.rightClick(-2);
-            this.homeMarker.setMap(null);
-            this.resetMarkers();
-            this.findRoute();
-        })
-        google.maps.event.addListener(this.homeMarker, 'dragend', ($event) => {
-            var coords = $event.latLng;
-            this.startPoint.location = coords;
-            this.endPoint.location = coords;
-            this.clickFunctions.dragged(coords, -2);
-            this.findRoute();
-        });
-
+        this.endMarker = this.createEmptyMarker("L");
+        this.setMarkersListiner(this.endMarker, -3);
         
         var clicks = {
             click: (homePoint: google.maps.DirectionsWaypoint, endPoint: google.maps.DirectionsWaypoint, waypoints: google.maps.DirectionsWaypoint[], index: number, coords: google.maps.LatLng, address: string) => { },
-            dragged: (coords: google.maps.LatLng, index: number) => { },
+            dragged: (homePoint: google.maps.DirectionsWaypoint, endPoint: google.maps.DirectionsWaypoint, waypoints: google.maps.DirectionsWaypoint[], index: number, coords: google.maps.LatLng, address: string) => { },
             rightClick: (index: number) => { }
         };
         this.clickFunctions = clicks;
@@ -82,7 +122,7 @@ export class GoogleMaps {
                 if (status === google.maps.GeocoderStatus.OK) {
                     if (results[0]) {
                         var index: number;
-                        var waypoint = { location: coordinates, stopover: false };
+                        var waypoint = { location: coordinates, stopover: true };
 
                         if (!this.startPoint) {
                             this.startPoint = waypoint;
@@ -112,11 +152,17 @@ export class GoogleMaps {
 
         });
     }
-    setWayPoints(newWaypoints: google.maps.DirectionsWaypoint[]) {
+    setWayPoints(firstPoint: google.maps.DirectionsWaypoint, lastPoint: google.maps.DirectionsWaypoint, newWaypoints: google.maps.DirectionsWaypoint[]) {
+        if (!firstPoint || !lastPoint || !newWaypoints) {
+            throw `GoogleMaps.ts: all points ust be set`;
+        }
         if (newWaypoints.length > this.wayPointsCount) {
             throw `GoogleMaps.ts: maximum waypoints length expected: ${this.wayPointsCount} but found ${newWaypoints.length}`;
         }
         this.wayPoints = newWaypoints;
+        this.startPoint = firstPoint;
+        this.endPoint = lastPoint;
+        this.resetMarkers();
         this.findRoute();
     }
     private createEmptyMarker(label: string) {
@@ -127,44 +173,9 @@ export class GoogleMaps {
         });
         return marker
     }
-    private addEmptyMarker(label: string ) {
+    private addEmptyMarker(index: number, label: string) {
         var marker = this.createEmptyMarker(label);
-        google.maps.event.addListener(marker, 'rightclick', ($event) => {
-            var index = this.markers.lastIndexOf(marker);
-            if (index < 0) {
-                debugger;
-                throw "unexpected marker";
-            }
-            this.clickFunctions.rightClick(index)
-            this.wayPoints.splice(index, 1);
-            this.markers[index].setMap(null);
-            this.resetMarkers();
-            this.findRoute();
-        })
-        google.maps.event.addListener(marker, 'dragend', ($event) => {
-            var index = this.markers.lastIndexOf(marker);
-            if (index < 0) {
-                debugger;
-                throw "unexpected marker";
-            }
-            var coords = $event.latLng;
-            this.geocoder.geocode({ location: coords }, (results, status) => {
-                if (status === google.maps.GeocoderStatus.OK) {
-                    debugger;
-                    if (results[0]) {
-                        this.wayPoints[index].location = coords;
-                        this.clickFunctions.dragged(coords, index);
-                        this.findRoute();
-                        //
-                        //this.map.setZoom(11);
-                    } else {
-                        window.alert('No results found');
-                    }
-                } else {
-                    window.alert('Geocoder failed due to: ' + status);
-                }
-            });
-        });
+        this.setMarkersListiner(marker, index);
         this.markers.push(marker);
     }
     private resetMarkers() {
@@ -174,10 +185,14 @@ export class GoogleMaps {
         }
         for (var j = i; j < this.wayPointsCount; j++) {
             this.markers[j].setMap(null);
-        }
-        if (this.startPoint && this.endPoint) {
+        } 
+        if (this.startPoint) {
             this.homeMarker.setMap(this.map);
             this.homeMarker.setPosition(this.startPoint.location);
+        }
+        if (this.endPoint) {
+            this.endMarker.setMap(this.map);
+            this.endMarker.setPosition(this.endPoint.location);
         }
     }
 
@@ -202,8 +217,10 @@ export class RouteService implements IRouteService {
 
     constructor(private _map: google.maps.Map) {
         this.directionsService = new google.maps.DirectionsService;
-        this.directionsDisplay = new google.maps.DirectionsRenderer;
-        this.directionsDisplay.setOptions({ suppressMarkers: false });
+        this.directionsDisplay = new google.maps.DirectionsRenderer({
+            
+        });
+        this.directionsDisplay.setOptions({ suppressMarkers: true });
         this.directionsDisplay.setMap(this._map);
     }
     findRoute(firstPoint: google.maps.LatLng | string, lastPoint: google.maps.LatLng | string, waypoints: google.maps.DirectionsWaypoint[], focus?: boolean) {
@@ -215,7 +232,7 @@ export class RouteService implements IRouteService {
             origin: firstPoint,
             destination: lastPoint,
             waypoints: waypoints,
-            optimizeWaypoints: true,
+            optimizeWaypoints: false,
             travelMode: google.maps.TravelMode.DRIVING
         }, (response, status) => {
             if (status === google.maps.DirectionsStatus.OK) {

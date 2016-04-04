@@ -21,36 +21,73 @@ var GoogleMaps = (function () {
         }
         this.clickFunctions = clickFunction;
     };
+    GoogleMaps.prototype.setMarkersListiner = function (marker, index) {
+        var _this = this;
+        google.maps.event.addListener(marker, 'rightclick', function ($event) {
+            if (index === -1) {
+                debugger;
+                throw "unexpected marker";
+            }
+            if (index < -1) {
+                _this.notificationServiceToaster.warning("Pašalinti pradžios ir pabaigos taškų negalima");
+                return;
+            }
+            _this.clickFunctions.rightClick(index);
+            marker.setMap(null);
+            _this.wayPoints.splice(index, 1);
+            _this.resetMarkers();
+            _this.findRoute();
+        });
+        google.maps.event.addListener(marker, 'dragend', function ($event) {
+            if (index === -1) {
+                debugger;
+                throw "unexpected marker";
+            }
+            var coordinates = $event.latLng;
+            _this.geocoder.geocode({ location: coordinates }, function (results, status) {
+                if (status === google.maps.GeocoderStatus.OK) {
+                    if (results[0]) {
+                        if (index === -2) {
+                            _this.startPoint.location = coordinates;
+                        }
+                        else if (index === -3) {
+                            _this.endPoint.location = coordinates;
+                        }
+                        else
+                            _this.wayPoints[index].location = coordinates;
+                        _this.clickFunctions.dragged(_this.startPoint, _this.endPoint, _this.wayPoints, index, coordinates, results[0].formatted_address);
+                        _this.findRoute();
+                    }
+                    else {
+                        window.alert('No results found');
+                    }
+                }
+                else {
+                    window.alert('Geocoder failed due to: ' + status);
+                }
+            });
+        });
+    };
     GoogleMaps.prototype.initialise = function () {
         var _this = this;
         var mapContainer = document.getElementById("the_map");
         var mapObj = new google.maps.Map(mapContainer, {
             zoom: 8,
-            maxZoom: 12,
             center: new google.maps.LatLng(54.8985049, 23.9578067),
+            maxZoom: 16
         });
         this.map = mapObj;
         this.routeService = new RouteService(mapObj);
         for (var i = 0; i < this.wayPointsCount; i++) {
-            this.addEmptyMarker(i.toString());
+            this.addEmptyMarker(i, (i + 1).toString());
         }
         this.homeMarker = this.createEmptyMarker("H");
-        google.maps.event.addListener(this.homeMarker, 'rightclick', function ($event) {
-            _this.clickFunctions.rightClick(-2);
-            _this.homeMarker.setMap(null);
-            _this.resetMarkers();
-            _this.findRoute();
-        });
-        google.maps.event.addListener(this.homeMarker, 'dragend', function ($event) {
-            var coords = $event.latLng;
-            _this.startPoint.location = coords;
-            _this.endPoint.location = coords;
-            _this.clickFunctions.dragged(coords, -2);
-            _this.findRoute();
-        });
+        this.setMarkersListiner(this.homeMarker, -2);
+        this.endMarker = this.createEmptyMarker("L");
+        this.setMarkersListiner(this.endMarker, -3);
         var clicks = {
             click: function (homePoint, endPoint, waypoints, index, coords, address) { },
-            dragged: function (coords, index) { },
+            dragged: function (homePoint, endPoint, waypoints, index, coords, address) { },
             rightClick: function (index) { }
         };
         this.clickFunctions = clicks;
@@ -65,7 +102,7 @@ var GoogleMaps = (function () {
                 if (status === google.maps.GeocoderStatus.OK) {
                     if (results[0]) {
                         var index;
-                        var waypoint = { location: coordinates, stopover: false };
+                        var waypoint = { location: coordinates, stopover: true };
                         if (!_this.startPoint) {
                             _this.startPoint = waypoint;
                             _this.endPoint = waypoint;
@@ -92,11 +129,17 @@ var GoogleMaps = (function () {
             });
         });
     };
-    GoogleMaps.prototype.setWayPoints = function (newWaypoints) {
+    GoogleMaps.prototype.setWayPoints = function (firstPoint, lastPoint, newWaypoints) {
+        if (!firstPoint || !lastPoint || !newWaypoints) {
+            throw "GoogleMaps.ts: all points ust be set";
+        }
         if (newWaypoints.length > this.wayPointsCount) {
             throw "GoogleMaps.ts: maximum waypoints length expected: " + this.wayPointsCount + " but found " + newWaypoints.length;
         }
         this.wayPoints = newWaypoints;
+        this.startPoint = firstPoint;
+        this.endPoint = lastPoint;
+        this.resetMarkers();
         this.findRoute();
     };
     GoogleMaps.prototype.createEmptyMarker = function (label) {
@@ -107,45 +150,9 @@ var GoogleMaps = (function () {
         });
         return marker;
     };
-    GoogleMaps.prototype.addEmptyMarker = function (label) {
-        var _this = this;
+    GoogleMaps.prototype.addEmptyMarker = function (index, label) {
         var marker = this.createEmptyMarker(label);
-        google.maps.event.addListener(marker, 'rightclick', function ($event) {
-            var index = _this.markers.lastIndexOf(marker);
-            if (index < 0) {
-                debugger;
-                throw "unexpected marker";
-            }
-            _this.clickFunctions.rightClick(index);
-            _this.wayPoints.splice(index, 1);
-            _this.markers[index].setMap(null);
-            _this.resetMarkers();
-            _this.findRoute();
-        });
-        google.maps.event.addListener(marker, 'dragend', function ($event) {
-            var index = _this.markers.lastIndexOf(marker);
-            if (index < 0) {
-                debugger;
-                throw "unexpected marker";
-            }
-            var coords = $event.latLng;
-            _this.geocoder.geocode({ location: coords }, function (results, status) {
-                if (status === google.maps.GeocoderStatus.OK) {
-                    debugger;
-                    if (results[0]) {
-                        _this.wayPoints[index].location = coords;
-                        _this.clickFunctions.dragged(coords, index);
-                        _this.findRoute();
-                    }
-                    else {
-                        window.alert('No results found');
-                    }
-                }
-                else {
-                    window.alert('Geocoder failed due to: ' + status);
-                }
-            });
-        });
+        this.setMarkersListiner(marker, index);
         this.markers.push(marker);
     };
     GoogleMaps.prototype.resetMarkers = function () {
@@ -156,9 +163,13 @@ var GoogleMaps = (function () {
         for (var j = i; j < this.wayPointsCount; j++) {
             this.markers[j].setMap(null);
         }
-        if (this.startPoint && this.endPoint) {
+        if (this.startPoint) {
             this.homeMarker.setMap(this.map);
             this.homeMarker.setPosition(this.startPoint.location);
+        }
+        if (this.endPoint) {
+            this.endMarker.setMap(this.map);
+            this.endMarker.setPosition(this.endPoint.location);
         }
     };
     GoogleMaps.prototype.findRoute = function () {
@@ -179,8 +190,8 @@ var RouteService = (function () {
     function RouteService(_map) {
         this._map = _map;
         this.directionsService = new google.maps.DirectionsService;
-        this.directionsDisplay = new google.maps.DirectionsRenderer;
-        this.directionsDisplay.setOptions({ suppressMarkers: false });
+        this.directionsDisplay = new google.maps.DirectionsRenderer({});
+        this.directionsDisplay.setOptions({ suppressMarkers: true });
         this.directionsDisplay.setMap(this._map);
     }
     RouteService.prototype.findRoute = function (firstPoint, lastPoint, waypoints, focus) {
@@ -193,7 +204,7 @@ var RouteService = (function () {
             origin: firstPoint,
             destination: lastPoint,
             waypoints: waypoints,
-            optimizeWaypoints: true,
+            optimizeWaypoints: false,
             travelMode: google.maps.TravelMode.DRIVING
         }, function (response, status) {
             if (status === google.maps.DirectionsStatus.OK) {

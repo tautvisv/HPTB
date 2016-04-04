@@ -35,3 +35,8 @@ export class TravelClass {
         this.Point = point;
     }
 }
+export class FullTravel {
+    public startDay: TravelClass;
+    public endDay: TravelClass;
+    public wayPoints: TravelClass[];
+}
