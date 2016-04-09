@@ -11,9 +11,9 @@ import { TravelService } from './travel.service';
     selector: 'travel',
     templateUrl: './app/travel/travel-create.component.html',
     directives: [TravelMapComponent, TravelDayComponent],
-    providers: [TravelService]
+    providers: []
 })
-export class TravelComponent implements OnInit {
+export class TravelCreateComponent implements OnInit {
     @ViewChild(TravelMapComponent) mapComponent: TravelMapComponent;
    // private travels: TravelClass[];
   //  private travelHome: TravelClass;

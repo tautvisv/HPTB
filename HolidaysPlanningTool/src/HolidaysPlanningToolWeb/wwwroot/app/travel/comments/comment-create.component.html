@@ -1,0 +1,14 @@
+﻿<div>
+    <h4>Jūsų komentaras:</h4>
+    <div class="edit-field">
+        <div class="form-group label-floating is-empty">
+            <label class="control-label" for="comment">Palikite komentarą</label>
+            <textarea class="form-control ng-pristine ng-valid ng-touched" id="comment" rows="5" [(ngModel)]="comment.Text"></textarea>
+            <p class="help-block">Vartotojo komentaras apie kelionę</p>
+        </div>
+    </div>
+    <a class="btn btn-raised btn-success" (click)="saveComment()">
+        Išsaugoti
+        <div class="ripple-container"></div>
+    </a>
+</div>

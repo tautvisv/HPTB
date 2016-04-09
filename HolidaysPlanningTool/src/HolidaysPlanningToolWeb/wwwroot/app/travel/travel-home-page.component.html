@@ -1,0 +1,5 @@
+﻿<div class="travel-container">
+    <travel-list *ngIf="TravelInformation.NewTravels" [travels]="TravelInformation.NewTravels" [title]="'Naujausios kelionės'"></travel-list>
+    <travel-list *ngIf="TravelInformation.TravelList"  [travels]="TravelInformation.TravelList" [title]="'Kelionių sąrašas'"></travel-list>
+    <travel-list *ngIf="TravelInformation.RecommendedTravels" [travels]="TravelInformation.RecommendedTravels"  [title]="'Rekomenduojamos kelionės'"></travel-list>
+</div>

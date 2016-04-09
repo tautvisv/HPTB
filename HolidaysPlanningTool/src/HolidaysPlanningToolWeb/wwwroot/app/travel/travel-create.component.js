@@ -9,10 +9,9 @@ var core_1 = require('angular2/core');
 var travel_map_component_1 = require('./travel-map.component');
 var travel_day_item_component_1 = require('./travel-day-item.component');
 var TravelClass_1 = require("./TravelClass");
-var travel_service_1 = require('./travel.service');
 //import {Accordion} from 'primeng/primeng';
-var TravelComponent = (function () {
-    function TravelComponent(_notificationService, router, travelService) {
+var TravelCreateComponent = (function () {
+    function TravelCreateComponent(_notificationService, router, travelService) {
         this._notificationService = _notificationService;
         this.router = router;
         this.travelService = travelService;
@@ -25,14 +24,14 @@ var TravelComponent = (function () {
         this.zone = new core_1.NgZone({ enableLongStackTrace: false });
     }
     ;
-    TravelComponent.prototype.setNewTravel = function (travel) {
+    TravelCreateComponent.prototype.setNewTravel = function (travel) {
         this.travel = travel;
         this.mapComponent.setWaypoints(travel);
     };
-    TravelComponent.prototype.onChanges = function (changes) {
+    TravelCreateComponent.prototype.onChanges = function (changes) {
         console.log("pasikeit4 compoennt create", changes);
     };
-    TravelComponent.prototype.saveTravel = function () {
+    TravelCreateComponent.prototype.saveTravel = function () {
         var _this = this;
         this.travelService.saveTravel(this.travel).subscribe(function () {
             _this._notificationService.success("kelionė sėkmingai išsaugota");
@@ -40,10 +39,10 @@ var TravelComponent = (function () {
             _this._notificationService.error("nenumatyta klaida, prane6kite administratoriui");
         });
     };
-    TravelComponent.prototype.cancelTravel = function () {
+    TravelCreateComponent.prototype.cancelTravel = function () {
         this._notificationService.info("nustatymai neišsaugoti");
     };
-    TravelComponent.prototype.ngOnInit = function () {
+    TravelCreateComponent.prototype.ngOnInit = function () {
         var _this = this;
         //  this.travels = [];
         // this.travelHome.Name = "Namai";
@@ -53,7 +52,7 @@ var TravelComponent = (function () {
             _this._notificationService.error("nepavyko gauti duomenų");
         });
     };
-    TravelComponent.prototype.ngAfterViewInit = function () {
+    TravelCreateComponent.prototype.ngAfterViewInit = function () {
         var _this = this;
         this._notificationService.warning("vaikas sukurtas");
         var clicks = {
@@ -104,16 +103,16 @@ var TravelComponent = (function () {
     };
     __decorate([
         core_1.ViewChild(travel_map_component_1.TravelMapComponent)
-    ], TravelComponent.prototype, "mapComponent", void 0);
-    TravelComponent = __decorate([
+    ], TravelCreateComponent.prototype, "mapComponent", void 0);
+    TravelCreateComponent = __decorate([
         core_1.Component({
             selector: 'travel',
             templateUrl: './app/travel/travel-create.component.html',
             directives: [travel_map_component_1.TravelMapComponent, travel_day_item_component_1.TravelDayComponent],
-            providers: [travel_service_1.TravelService]
+            providers: []
         })
-    ], TravelComponent);
-    return TravelComponent;
+    ], TravelCreateComponent);
+    return TravelCreateComponent;
 }());
-exports.TravelComponent = TravelComponent;
+exports.TravelCreateComponent = TravelCreateComponent;
 //# sourceMappingURL=travel-create.component.js.map

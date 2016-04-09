@@ -1,0 +1,25 @@
+﻿<div class="component">
+    <like-directive [status]="1" [travelId]="travel.Id" ></like-directive>
+    <div class="component-header">
+        <h4>{{travel.Name}}</h4>
+    </div>
+    <div class="component-body">
+        <div class="">
+            <p>
+                {{travel.Descrription}}
+            </p>
+            <img src="{{travel.ImageUrl}}" alt="" class="author-icon">
+        </div>
+        <div class="">
+            Kelionės trukmė: {{duration()}}
+        </div>
+    </div>
+</div>
+
+<div class="component" style="width: 400px; margin-left: 0">
+    <div class="component-header"><div class="component-header-title">Komentarai</div></div>
+    <div class="component-body">
+        <comments-list [comments]="travel.Comments"></comments-list>
+        <comment-create></comment-create>
+    </div>
+</div>

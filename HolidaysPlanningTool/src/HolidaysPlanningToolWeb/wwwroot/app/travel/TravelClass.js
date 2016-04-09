@@ -35,4 +35,23 @@ var FullTravel = (function () {
     return FullTravel;
 }());
 exports.FullTravel = FullTravel;
+var Comment = (function () {
+    function Comment(text, date) {
+        if (text === void 0) { text = ""; }
+        if (date === void 0) { date = new Date(); }
+        this.Text = text;
+        this.Date = date;
+        this.Author = new Author();
+        this.Author.Name = "TestinisAutorius";
+        this.Author.ImageUrl = "https://dn1w8s6xszn0j.cloudfront.net/resources_version/desktop/img/default/user/t1/default_3.jpg";
+    }
+    return Comment;
+}());
+exports.Comment = Comment;
+var Author = (function () {
+    function Author() {
+    }
+    return Author;
+}());
+exports.Author = Author;
 //# sourceMappingURL=TravelClass.js.map

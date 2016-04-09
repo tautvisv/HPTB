@@ -10,6 +10,8 @@ import {HTTP_PROVIDERS} from 'angular2/http';
 //import {NotificationService, Alerts} from './utils/notification.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import {ToastOptions} from "ng2-toastr/ng2-toastr";
+import { TravelService } from './travel/travel.service';
+import { MiscService } from './services/misc.service';
 
 import {MainApp} from './main-app.component';
 
@@ -19,4 +21,4 @@ let notificationOptions = {
 
 };
 
-bootstrap(MainApp, [ToastsManager, provide(ToastOptions, { useValue: new ToastOptions(notificationOptions) }), Constants, HTTP_PROVIDERS]); //
+bootstrap(MainApp, [ToastsManager, TravelService, MiscService, provide(ToastOptions, { useValue: new ToastOptions(notificationOptions) }), Constants, HTTP_PROVIDERS]); //

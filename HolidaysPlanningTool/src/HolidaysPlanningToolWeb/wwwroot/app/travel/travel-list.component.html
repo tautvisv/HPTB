@@ -1,0 +1,12 @@
+﻿<div class="travel-container row">
+    <div class="travel-container-divider">
+        <span class="line">
+            <span class="inner-line"></span>
+        </span>
+        <h4>{{title}}</h4>
+        <span class="line">
+            <span class="inner-line"></span>
+        </span>
+    </div>
+    <travel-item *ngFor="#travel of travels" [travel]="travel"></travel-item>
+</div>

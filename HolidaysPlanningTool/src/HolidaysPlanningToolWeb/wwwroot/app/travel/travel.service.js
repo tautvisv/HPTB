@@ -28,6 +28,7 @@ var TravelClassMock = (function (_super) {
         this.Name = "Kelione";
         this.Point = new TravelClass_1.Point(54.5 + randomStuff, 24 + randomStuff);
         this.TravelDays = null;
+        this.ImageUrl = "/images/Banner-01-Azure.png";
         // this.Point.Address = `Taikos pr. ${}, Kaunas 51297, Lietuva`
     }
     return TravelClassMock;
@@ -38,7 +39,17 @@ var FullTravelMock = (function (_super) {
         _super.call(this);
         this.startDay = new TravelClassMock();
         this.endDay = new TravelClassMock();
+        this.endDay.Date = new Date("2016-04-10");
+        this.startDay.Date = new Date("2016-04-05");
         this.wayPoints = [new TravelClassMock(), new TravelClassMock()];
+        this.Descrription = "Sistemos Apra6ymas;";
+        this.ImageUrl = "https://dn1w8s6xszn0j.cloudfront.net/media/image/p24/itinerary_images/5113b6bd408698fb70000000/new697d0560ea5234e35fed58670d590613.jpg";
+        this.Id = 135452;
+        this.Likes = parseInt("" + Math.random() * 30);
+        this.Views = parseInt("" + Math.random() * 30);
+        this.CommentsCount = parseInt("" + Math.random() * 30);
+        this.Comments = [new TravelClass_1.Comment("pirmas", new Date()), new TravelClass_1.Comment("antras", new Date()), new TravelClass_1.Comment("ir t.t.", new Date())];
+        this.Name = "Test PAvadinamas";
     }
     return FullTravelMock;
 }(TravelClass_1.FullTravel));
@@ -64,7 +75,16 @@ var TravelService = (function () {
             .map(function (response) { return response.json(); }).map(function (result) {
             console.log("response from API:", result);
             //TODO return result
-            return [new FullTravelMock(), new FullTravelMock()];
+            return [new FullTravelMock(), new FullTravelMock(), new FullTravelMock(), new FullTravelMock(), new FullTravelMock()];
+        });
+    };
+    TravelService.prototype.getRecentTravels = function (filter) {
+        console.log("service gettings data from", Constants_1.Constants.WebAPIUrl);
+        return this.http.get(Constants_1.Constants.WebAPIUrl + this._controllerName + filter)
+            .map(function (response) { return response.json(); }).map(function (result) {
+            console.log("response from API:", result);
+            //TODO return result
+            return [new FullTravelMock(), new FullTravelMock(), new FullTravelMock(), new FullTravelMock()];
         });
     };
     TravelService.prototype.saveTravel = function (travel) {

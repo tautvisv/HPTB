@@ -1,7 +1,9 @@
 ﻿import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/router';
 import {Component, OnInit } from 'angular2/core';
 import {UserSettingsComponent} from './userItems/user-settings.component';
-import {TravelComponent} from './travel/travel-create.component';
+import {TravelCreateComponent} from './travel/travel-create.component';
+import {TravelViewComponent} from './travel/travel-view.component';
+import {TravelHomePageComponent} from './travel/travel-home-page.component';
 //import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 import {LocationStrategy, HashLocationStrategy} from 'angular2/router';
@@ -9,14 +11,19 @@ import { provide } from 'angular2/core';
 
 @RouteConfig([
     {
+        path: '/Tour/:id',
+        name: 'Tour',
+        component: TravelViewComponent
+    },
+    {
         path: '/ToursList',
         name: 'ToursList',
-        component: TravelComponent
+        component: TravelHomePageComponent
     },
     {
         path: '/List/:id',
         name: 'List',
-        component: TravelComponent
+        component: TravelCreateComponent
     },
     {
         path: '/Settings',

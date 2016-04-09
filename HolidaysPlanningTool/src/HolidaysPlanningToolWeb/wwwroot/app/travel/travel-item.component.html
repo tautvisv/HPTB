@@ -1,0 +1,21 @@
+﻿<div class="travel-item well well-sm">
+    <div class="blocklist-trip-name-wrapper">
+        <a href="#/Tour/{{travel.Id}}">
+            <img nopin="nopin" src="{{travel.ImageUrl}}">
+        </a>
+    </div>
+    <div class="travel-item-details">
+        <img src="https://dn1w8s6xszn0j.cloudfront.net/resources_version/desktop/img/default/user/t1/default_3.jpg" alt="" class="author-icon">
+        <div class="travel-item-details">
+            <div class="travel-item-name">Kelione test</div>
+            <div class="travel-item-cities">Kaunas, Vilnius</div>
+        </div>
+    </div>
+    <div class="travel-item-misc">
+        <span class="item pull-left"><i class="fa fa-calendar"></i>{{travel.wayPoints.length}} Days</span>
+        <span class="item pull-right"><i class="fa fa-thumbs-o-up"></i>{{travel.Likes}}</span>
+        <span class="item pull-right"><i class="fa fa-comments"></i>{{travel.CommentsCount}}</span>
+        <span class="item pull-right" title="Views"><i class="fa fa-eye"></i>{{travel.Views}}</span>
+        <div style="clear: both"></div>
+    </div>
+</div>
