@@ -6,6 +6,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var core_1 = require('angular2/core');
+var router_1 = require("angular2/router");
 var TravelItemComponent = (function () {
     function TravelItemComponent() {
     }
@@ -20,7 +21,7 @@ var TravelItemComponent = (function () {
             selector: 'travel-item',
             // Location of the template for this component
             templateUrl: './app/travel/travel-item.component.html',
-            directives: []
+            directives: [router_1.RouterLink]
         })
     ], TravelItemComponent);
     return TravelItemComponent;

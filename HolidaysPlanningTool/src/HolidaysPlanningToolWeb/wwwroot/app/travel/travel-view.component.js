@@ -27,6 +27,10 @@ var TravelViewComponent = (function () {
         var d = (s - mins) / 60 / 24;
         return d + 'dienos' + hrs + 'valandos' + mins + 'minutės';
     };
+    TravelViewComponent.prototype.addComment = function (comment) {
+        console.log("coment was dadded to view", comment);
+        this.travel.Comments.push(comment);
+    };
     TravelViewComponent.prototype.duration = function () {
         if (!this.travel.endDay || !this.travel.startDay)
             return "datos nenurodytos";

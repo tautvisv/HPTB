@@ -4,12 +4,24 @@ import {UserSettingsComponent} from './userItems/user-settings.component';
 import {TravelCreateComponent} from './travel/travel-create.component';
 import {TravelViewComponent} from './travel/travel-view.component';
 import {TravelHomePageComponent} from './travel/travel-home-page.component';
+import {LoginComponent} from './account/account-login.component';
+import {LogoutComponent} from './account/account-logout.component';
 //import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 import {LocationStrategy, HashLocationStrategy} from 'angular2/router';
 import { provide } from 'angular2/core';
 
 @RouteConfig([
+    {
+        path: '/Login',
+        name: 'Login',
+        component: LoginComponent
+    },
+    {
+        path: '/Logout',
+        name: 'Logout',
+        component: LogoutComponent
+    },
     {
         path: '/Tour/:id',
         name: 'Tour',
@@ -21,8 +33,8 @@ import { provide } from 'angular2/core';
         component: TravelHomePageComponent
     },
     {
-        path: '/List/:id',
-        name: 'List',
+        path: '/CreateTour',
+        name: 'CreateTour',
         component: TravelCreateComponent
     },
     {

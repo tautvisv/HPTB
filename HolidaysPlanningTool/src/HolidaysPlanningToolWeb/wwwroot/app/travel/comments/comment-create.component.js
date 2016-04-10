@@ -10,13 +10,21 @@ var TravelClass_1 = require('../TravelClass');
 var CommentCreateComponent = (function () {
     function CommentCreateComponent(service) {
         this.service = service;
+        this.addComment = new core_1.EventEmitter();
         this.comment = new TravelClass_1.Comment();
     }
     CommentCreateComponent.prototype.ngOnInit = function () {
     };
     CommentCreateComponent.prototype.saveComment = function () {
-        this.service.saveComment(this.comment).subscribe(function () { console.log("komentaras isaugotas"); }, function () { console.error("komentaras neisaugotas", arguments); });
+        var _this = this;
+        this.service.saveComment(this.comment).subscribe(function (comment) {
+            _this.addComment.next(comment);
+            _this.comment.Text = "";
+        }, function () { console.error("komentaras neisaugotas", arguments); });
     };
+    __decorate([
+        core_1.Output()
+    ], CommentCreateComponent.prototype, "addComment", void 0);
     CommentCreateComponent = __decorate([
         core_1.Component({
             selector: 'comment-create',

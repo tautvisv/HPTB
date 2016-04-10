@@ -1,0 +1,30 @@
+﻿<div class="component account">
+    <div class="component-header">
+        <div class="component-header-title">
+            <h4>Prisijungimas</h4>
+        </div>
+    </div>
+    <div class="component-body">
+        <div class="edit-field">
+            <div class="form-group label-floating">
+                <label for="login_user_name" class="control-label">Vardas:</label>
+                <input type="text" class="form-control" id="login_user_name" [(ngModel)]="name" required="">
+                <p class="help-block">Vartotojo prisijungimo vardas arba el. paštas</p>
+            </div>
+        </div>
+        <div class="edit-field">
+            <div class="form-group label-floating">
+                <label for="password" class="control-label">Vartotojo slaptažodis:</label>
+                <input type="password" class="form-control" id="password" [(ngModel)]="password" required="">
+            </div>
+        </div>
+    </div>
+    <div class="component-footer">
+        <a class="btn btn-raised btn-success" (click)="login()">
+            Prisijungti
+        </a>
+        <a class="btn btn-raised btn-info"  href="#/TourList">
+            Atgal
+        </a>
+    </div>
+</div>

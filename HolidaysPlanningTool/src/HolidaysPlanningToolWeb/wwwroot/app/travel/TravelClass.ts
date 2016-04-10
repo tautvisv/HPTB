@@ -51,12 +51,18 @@ export class FullTravel {
 }
 
 export class Comment {
-    constructor(text: string = "", date: Date = new Date()) {
-        this.Text = text;
-        this.Date = date;
-        this.Author = new Author();
-        this.Author.Name = "TestinisAutorius";
-        this.Author.ImageUrl = "https://dn1w8s6xszn0j.cloudfront.net/resources_version/desktop/img/default/user/t1/default_3.jpg";
+    constructor(comment: Comment = null) {
+        if (comment != null) {
+            this.Text = comment.Text;
+            this.Date = comment.Date;
+            this.Author = comment.Author;
+        } else {
+            this.Text = "Testinis komentaras kurio tekstas yra labai ilgas";
+            this.Date = new Date();
+            this.Author = new Author();
+            this.Author.Name = "TestinisAutorius";
+            this.Author.ImageUrl = "https://dn1w8s6xszn0j.cloudfront.net/resources_version/desktop/img/default/user/t1/default_3.jpg";
+        }
     }
     public Date: Date;
     public Author: Author;

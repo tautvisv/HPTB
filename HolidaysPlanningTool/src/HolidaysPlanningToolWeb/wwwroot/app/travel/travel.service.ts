@@ -37,7 +37,7 @@ class FullTravelMock extends FullTravel {
         this.Likes = parseInt("" + Math.random() * 30);
         this.Views = parseInt("" + Math.random() * 30);
         this.CommentsCount = parseInt("" + Math.random() * 30);
-        this.Comments = [new Comment("pirmas", new Date()), new Comment("antras", new Date()), new Comment("ir t.t.", new Date())];
+        this.Comments = [new Comment(), new Comment(), new Comment()];
         this.Name = "Test PAvadinamas";
     }
 }

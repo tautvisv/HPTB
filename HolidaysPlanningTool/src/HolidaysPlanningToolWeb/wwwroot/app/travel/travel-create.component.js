@@ -35,12 +35,14 @@ var TravelCreateComponent = (function () {
         var _this = this;
         this.travelService.saveTravel(this.travel).subscribe(function () {
             _this._notificationService.success("kelionė sėkmingai išsaugota");
+            _this.router.navigate(["Tour", { id: _this.travel.Id }]);
         }, function () {
             _this._notificationService.error("nenumatyta klaida, prane6kite administratoriui");
         });
     };
     TravelCreateComponent.prototype.cancelTravel = function () {
         this._notificationService.info("nustatymai neišsaugoti");
+        this.router.navigate(["TourList"]);
     };
     TravelCreateComponent.prototype.ngOnInit = function () {
         var _this = this;

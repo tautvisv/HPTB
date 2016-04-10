@@ -2,7 +2,7 @@
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { TravelMapComponent } from './travel-map.component';
 import { TravelDayComponent } from './travel-day-item.component';
-import {ROUTER_DIRECTIVES, Router, Location} from "angular2/router";
+import { Router, Location} from "angular2/router";
 import { FullTravel, Point, TravelClass, TravelDayPlan, UserLocation } from "./TravelClass";
 import { TravelService } from './travel.service';
 //import {Accordion} from 'primeng/primeng';
@@ -36,12 +36,14 @@ export class TravelCreateComponent implements OnInit {
     saveTravel(): void {
         this.travelService.saveTravel(this.travel).subscribe(() => {
             this._notificationService.success("kelionė sėkmingai išsaugota");
+            this.router.navigate(["Tour", { id: this.travel.Id }]);
         }, () => {
             this._notificationService.error("nenumatyta klaida, prane6kite administratoriui");
         });
     }
     cancelTravel(): void {
         this._notificationService.info("nustatymai neišsaugoti");
+        this.router.navigate(["TourList"]);
     }
     ngOnInit() {
 

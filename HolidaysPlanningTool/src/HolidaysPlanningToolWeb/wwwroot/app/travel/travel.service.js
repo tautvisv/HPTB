@@ -48,7 +48,7 @@ var FullTravelMock = (function (_super) {
         this.Likes = parseInt("" + Math.random() * 30);
         this.Views = parseInt("" + Math.random() * 30);
         this.CommentsCount = parseInt("" + Math.random() * 30);
-        this.Comments = [new TravelClass_1.Comment("pirmas", new Date()), new TravelClass_1.Comment("antras", new Date()), new TravelClass_1.Comment("ir t.t.", new Date())];
+        this.Comments = [new TravelClass_1.Comment(), new TravelClass_1.Comment(), new TravelClass_1.Comment()];
         this.Name = "Test PAvadinamas";
     }
     return FullTravelMock;

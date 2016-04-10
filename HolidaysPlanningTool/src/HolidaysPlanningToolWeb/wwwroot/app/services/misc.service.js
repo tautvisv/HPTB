@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var core_1 = require('angular2/core');
 var http_1 = require('angular2/http');
 var Constants_1 = require('../utils/Constants');
+var TravelClass_1 = require('../travel/TravelClass');
 require('rxjs/add/operator/map');
 require('rxjs/operator/delay');
 require('rxjs/operator/mergeMap');
@@ -29,7 +30,7 @@ var MiscService = (function () {
         });
     };
     MiscService.prototype.saveComment = function (comment) {
-        ///TODO p
+        //Padaryti užklausos atšaukimą
         /*
             if (!comment || !comment.Text) {
                 console.warn("komentaras privalo tur4ti tekstą, užklausa neišsiųsta");
@@ -37,10 +38,14 @@ var MiscService = (function () {
             }*/
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
-        return this.http.post(Constants_1.Constants.WebAPIUrl + this._controllerName + 5, JSON.stringify({}), {
+        return this.http.post(Constants_1.Constants.WebAPIUrl + this._controllerName + 5, JSON.stringify(comment), {
             headers: headers
         })
-            .map(function (response) { return response.json(); });
+            .map(function (response) { return response.json(); }).map(function (result) {
+            var re = new TravelClass_1.Comment();
+            re.Text = comment.Text;
+            return re;
+        });
     };
     MiscService.prototype.like = function (travelId, status) {
         var headers = new http_1.Headers();

@@ -20,6 +20,6 @@
     <div class="component-header"><div class="component-header-title">Komentarai</div></div>
     <div class="component-body">
         <comments-list [comments]="travel.Comments"></comments-list>
-        <comment-create></comment-create>
+        <comment-create (addComment)="addComment($event)"></comment-create>
     </div>
 </div>

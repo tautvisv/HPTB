@@ -2,6 +2,7 @@
 import {Http, HTTP_PROVIDERS, Headers } from 'angular2/http';
 import {Constants} from '../utils/Constants';
 import {Observable} from 'rxjs/Observable';
+import { Comment } from '../travel/TravelClass';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/operator/delay';
@@ -25,7 +26,7 @@ export class MiscService {
                 return {};
             });
     }
-    saveComment(comment: any) {
+    saveComment(comment: Comment) {
     //Padaryti užklausos atšaukimą
     /*
         if (!comment || !comment.Text) {
@@ -35,10 +36,15 @@ export class MiscService {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         return this.http.post(Constants.WebAPIUrl + this._controllerName + 5,
-            JSON.stringify({}), {
+            JSON.stringify(comment), {
                 headers: headers
             })
-            .map(response => response.json());
+            .map(response => response.json()).map((result: Comment) => {
+                var re = new Comment();
+                re.Text = comment.Text;
+                re.Author = comment.Author;
+                return re;
+            });
     }
     like(travelId: number, status: number) {
         var headers = new Headers();

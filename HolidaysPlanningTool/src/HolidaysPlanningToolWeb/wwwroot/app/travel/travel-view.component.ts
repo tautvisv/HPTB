@@ -1,5 +1,5 @@
 ﻿import {Component, OnInit, Input } from 'angular2/core';
-import { FullTravel } from "./TravelClass";
+import { FullTravel, Comment } from "./TravelClass";
 import { TravelService } from './travel.service';
 import { Router, RouteParams } from 'angular2/router';
 import { CommentsComponent } from './comments/comments.component';
@@ -15,7 +15,7 @@ import { LikeDirectiveComponent } from './like-directive.component';
 })
 export class TravelViewComponent implements OnInit {
     private travel: FullTravel;
-    
+
     constructor(private _router: Router,
         private _routeParams: RouteParams,
         private travelService: TravelService) {
@@ -33,6 +33,10 @@ export class TravelViewComponent implements OnInit {
         return d + 'dienos' + hrs + 'valandos' + mins + 'minutės';
     }
 
+    addComment(comment: Comment) {
+        console.log("coment was dadded to view", comment);
+        this.travel.Comments.push(comment);
+    }
 
     duration() {
         if (!this.travel.endDay || !this.travel.startDay) return "datos nenurodytos";

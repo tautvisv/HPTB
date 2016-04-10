@@ -1,6 +1,6 @@
 ﻿<div class="travel-item well well-sm">
     <div class="blocklist-trip-name-wrapper">
-        <a href="#/Tour/{{travel.Id}}">
+        <a [routerLink]="['Tour', {id: travel.Id} ]">
             <img nopin="nopin" src="{{travel.ImageUrl}}">
         </a>
     </div>

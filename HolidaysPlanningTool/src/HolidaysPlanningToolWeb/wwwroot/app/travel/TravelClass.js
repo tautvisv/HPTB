@@ -36,14 +36,20 @@ var FullTravel = (function () {
 }());
 exports.FullTravel = FullTravel;
 var Comment = (function () {
-    function Comment(text, date) {
-        if (text === void 0) { text = ""; }
-        if (date === void 0) { date = new Date(); }
-        this.Text = text;
-        this.Date = date;
-        this.Author = new Author();
-        this.Author.Name = "TestinisAutorius";
-        this.Author.ImageUrl = "https://dn1w8s6xszn0j.cloudfront.net/resources_version/desktop/img/default/user/t1/default_3.jpg";
+    function Comment(comment) {
+        if (comment === void 0) { comment = null; }
+        if (comment != null) {
+            this.Text = comment.Text;
+            this.Date = comment.Date;
+            this.Author = comment.Author;
+        }
+        else {
+            this.Text = "Testinis komentaras kurio tekstas yra labai ilgas";
+            this.Date = new Date();
+            this.Author = new Author();
+            this.Author.Name = "TestinisAutorius";
+            this.Author.ImageUrl = "https://dn1w8s6xszn0j.cloudfront.net/resources_version/desktop/img/default/user/t1/default_3.jpg";
+        }
     }
     return Comment;
 }());
