@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var core_1 = require('angular2/core');
 var travel_map_component_1 = require('./travel-map.component');
 var travel_day_item_component_1 = require('./travel-day-item.component');
+var travel_day_item_details_component_1 = require('./travel-day-item-details.component');
 var TravelClass_1 = require("./TravelClass");
 //import {Accordion} from 'primeng/primeng';
 var TravelCreateComponent = (function () {
@@ -28,6 +29,9 @@ var TravelCreateComponent = (function () {
         this.travel = travel;
         this.mapComponent.setWaypoints(travel);
     };
+    TravelCreateComponent.prototype.openTravelDayModal = function (travelDay) {
+        this.travelDayModal.openModal(travelDay, travelDay.Point);
+    };
     TravelCreateComponent.prototype.onChanges = function (changes) {
         console.log("pasikeit4 compoennt create", changes);
     };
@@ -42,7 +46,7 @@ var TravelCreateComponent = (function () {
     };
     TravelCreateComponent.prototype.cancelTravel = function () {
         this._notificationService.info("nustatymai neišsaugoti");
-        this.router.navigate(["TourList"]);
+        this.router.navigate(["ToursList"]);
     };
     TravelCreateComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -56,7 +60,6 @@ var TravelCreateComponent = (function () {
     };
     TravelCreateComponent.prototype.ngAfterViewInit = function () {
         var _this = this;
-        this._notificationService.warning("vaikas sukurtas");
         var clicks = {
             click: function (homePoint, endPoint, waypoints, index, coords, address) {
                 if (index === -2) {
@@ -70,6 +73,7 @@ var TravelCreateComponent = (function () {
                 else {
                     var travelDay = new TravelClass_1.TravelClass(new TravelClass_1.Point(coords.lat(), coords.lng()));
                     travelDay.Point.Address = address;
+                    travelDay.OrderIndex = index + 2;
                     _this.travel.wayPoints.push(travelDay);
                 }
                 _this._notificationService.warning("click" + _this.travel.wayPoints.length);
@@ -94,6 +98,10 @@ var TravelCreateComponent = (function () {
                 });
             },
             rightClick: function (index) {
+                if (index < 0) {
+                    _this._notificationService.warning("Pašalinti pradžios ir pabaigos taškų negalima");
+                    return;
+                }
                 _this.travel.wayPoints.splice(index, 1);
                 _this._notificationService.warning("right");
                 _this.zone.run(function () {
@@ -106,11 +114,14 @@ var TravelCreateComponent = (function () {
     __decorate([
         core_1.ViewChild(travel_map_component_1.TravelMapComponent)
     ], TravelCreateComponent.prototype, "mapComponent", void 0);
+    __decorate([
+        core_1.ViewChild(travel_day_item_details_component_1.TravelDayDetailsComponent)
+    ], TravelCreateComponent.prototype, "travelDayModal", void 0);
     TravelCreateComponent = __decorate([
         core_1.Component({
             selector: 'travel',
             templateUrl: './app/travel/travel-create.component.html',
-            directives: [travel_map_component_1.TravelMapComponent, travel_day_item_component_1.TravelDayComponent],
+            directives: [travel_map_component_1.TravelMapComponent, travel_day_item_component_1.TravelDayComponent, travel_day_item_details_component_1.TravelDayDetailsComponent],
             providers: []
         })
     ], TravelCreateComponent);

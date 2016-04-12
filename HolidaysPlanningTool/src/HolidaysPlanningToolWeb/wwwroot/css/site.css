@@ -142,3 +142,9 @@ textarea {
     position: fixed !important;
     top: 70px;
 }
+
+@media (min-width: 1800px) {
+    .container {
+        width: 1700px !important;
+    }
+}

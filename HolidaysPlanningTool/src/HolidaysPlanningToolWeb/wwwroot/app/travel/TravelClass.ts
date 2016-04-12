@@ -1,4 +1,30 @@
-﻿export class Point {
+﻿import {Injectable } from 'angular2/core';
+
+@Injectable()
+export class TravelMethodsHelper {
+    constructor() {
+        
+    }
+    public convertPointToGooglePoint(point: Point): google.maps.LatLng {
+        return new google.maps.LatLng(point.Latitude, point.Longitude);
+    }
+    public convertPointToDirectionsWaypoint(point: Point, stopover: boolean = true): google.maps.DirectionsWaypoint {
+        return { location: new google.maps.LatLng(point.Latitude, point.Longitude), stopover: stopover };
+    }
+    public convertILocationPointsToDirectionsWaypoint(points: ILocationPoint[]): google.maps.DirectionsWaypoint[]{
+        var newList: google.maps.DirectionsWaypoint[] = [];
+        //points.forEach(function (pointableObject: ILocationPoint) {
+        //});
+        for (let i = 1; i < points.length - 1; i++) {
+            newList.push(this.convertPointToDirectionsWaypoint(points[i].Point));
+        }
+        return newList;
+    }
+}
+export interface ILocationPoint {
+    Point: Point;
+}
+export class Point {
     public Latitude: number;
     public Longitude: number;
     public Address: string;
@@ -6,31 +32,34 @@
         this.Latitude = latitude;
         this.Longitude = longitude;
     }
+
+    public ToGooglePoint(): google.maps.LatLng {
+        return new google.maps.LatLng(this.Latitude, this.Longitude);
+    }
 }
 export class UserLocation {
     public Name: string;
     public Description: string;
     public Point: Point;
 }
-export class TravelDayPlan {
+export class TravelDayPlan implements ILocationPoint {
     public Name: string;
     public Description: string;
     public Date: Date;
-    public Duration: number;
-    public Points: UserLocation[];
+    public Duration: string;
     public Point: Point;
     constructor(point: Point) {
-        this.Points = [];
         this.Point = point;
     }
 }
-export class TravelClass {
+export class TravelClass implements ILocationPoint  {
     public Name: string;
     public Description: string;
     public TravelDays: TravelDayPlan[];
     public Date: Date;
     public Point: Point;
     public ImageUrl: string;
+    public OrderIndex: number;
     constructor(point?: Point) {
         this.TravelDays = [];
         this.Point = point;

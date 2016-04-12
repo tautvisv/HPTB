@@ -21,13 +21,14 @@ export class UserSettingsComponent implements OnInit {
         this._settingsService.saveUserSettings({ test: "yra test"}).subscribe(
             res => {
                 this._notificationService.success("Vartotojo informacija atnaujinta, atsakas iš serverio: " + JSON.stringify(res));
-                this.router.navigate(["List", { id: 1120 }])
+                this.router.navigate(["ToursList"])
             },
-            (err: any) => this._notificationService.error("Atnaujinti vartotojo duomenų nepavyko: kodas: " + err.status)
+            (err: any) => { this._notificationService.error("Atnaujinti vartotojo duomenų nepavyko: kodas: " + err.status); }
         );
     }
     cancelSettings(): void {
         this._notificationService.info("nustatymai neišsaugoti");
+        this.router.navigate(["ToursList"])
     }
     ngOnInit() {
         this._settingsService.getUserSettingsData(51).subscribe(

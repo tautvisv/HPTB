@@ -1,19 +1,19 @@
 ﻿<div>
     <div class="pre-item">
         <div class="step-1-city-order"  *ngIf="title">
-            {{title}}
+            {{travel.OrderIndex}}
         </div>
         <i *ngIf="!title" class="fa fa-home pre-item-icon" style=""></i>
         <div class="joiner"></div>
     </div>
-    <div class="travel-item">
+    <div class="travel-create-item">
         <div class="travel-item-row">
-            <input type="datetime-local" class="travel-near-image-item form-control" [(ngModel)]="travel.Date" />
-            <img class="travel-image" src="{{travel.ImageUrl}}" />
+            <input type="datetime-local" class="travel-near-image-item form-control" [(ngModel)]="travel.Date"/>
+            <img class="travel-image" src="{{travel.ImageUrl}}"/>
         </div>
         <div class="form-group label-floating col-sm-6">
             <label for="name" class="control-label">Pavadinimas</label>
-            <input type="text" [(ngModel)]="travel.Name" id="name" class="form-control" />
+            <input type="text" [(ngModel)]="travel.Name" id="name" class="form-control"/>
         </div>
 
         <div class="form-group label-floating col-sm-6">

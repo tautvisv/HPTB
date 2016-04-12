@@ -1,13 +1,24 @@
 ﻿import {Component, Injectable } from 'angular2/core';
 import {Constants} from '../utils/Constants';
 import {Http, HTTP_PROVIDERS, Headers } from 'angular2/http';
-import { FullTravel, TravelClass, Point, Comment } from './TravelClass';
+import { FullTravel, TravelClass, TravelDayPlan, Point, Comment } from './TravelClass';
 import {Observable} from 'rxjs/Observable';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/operator/delay';
 import 'rxjs/operator/mergeMap';
 import 'rxjs/operator/switchMap';
+
+class TravelDayPlanMock extends TravelDayPlan {
+    constructor() {
+        var randomStuff = Math.random();
+        super(new Point(54.5 + randomStuff, 24 + randomStuff));
+        this.Date = new Date("2016-01-25");
+        this.Description = "Trumpas čia toks yra";
+        this.Duration = "22:31";
+        this.Name = "Testinis taškas";
+    }
+}
 
 class TravelClassMock extends TravelClass {
     constructor() {
@@ -17,8 +28,9 @@ class TravelClassMock extends TravelClass {
         this.Description = "trumpas aprasymas";
         this.Name = "Kelione";
         this.Point = new Point(54.5 + randomStuff, 24 + randomStuff);
-        this.TravelDays = null;
+        this.TravelDays = [new TravelDayPlanMock(), new TravelDayPlanMock(), new TravelDayPlanMock()];
         this.ImageUrl = `/images/Banner-01-Azure.png`;
+        this.OrderIndex = -1;
        // this.Point.Address = `Taikos pr. ${}, Kaunas 51297, Lietuva`
     }
 

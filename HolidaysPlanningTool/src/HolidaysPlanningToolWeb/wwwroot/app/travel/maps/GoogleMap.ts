@@ -22,6 +22,7 @@ export class GoogleMaps {
     protected wayPointsCount = 5;
     private routeService: IRouteService;
     private map: google.maps.Map;
+    private autoFindRoute: boolean = true;
 
     constructor(private notificationServiceToaster: ToastsManager) {//private map: google.maps.Map, private routeService: IRouteService, 
        // var mapOption = new google.maps.MapOptions();
@@ -34,6 +35,24 @@ export class GoogleMaps {
         }
         this.clickFunctions = clickFunction;
     }
+    public getMap() {
+        return this.map;
+    }
+    public setAutoFind(autofind: boolean) {
+        this.autoFindRoute = autofind;
+    }
+    public setView(coords: google.maps.LatLng, zoom: number = 8) {
+        console.log("zooming map to", zoom);
+        this.map.setCenter(coords);
+        this.map.setZoom(zoom);
+    }
+    public removeRoute() {
+        this.routeService.removeRoute();
+        this.startPoint = null;
+        this.endPoint = null;
+        this.wayPoints = [];
+        this.resetMarkers();
+    }
     private setMarkersListiner(marker: google.maps.Marker, index: number) {
 
         google.maps.event.addListener(marker, 'rightclick', ($event) => {
@@ -42,16 +61,15 @@ export class GoogleMaps {
                 debugger;
                 throw "unexpected marker";
             }
-            if (index < -1) {
-                this.notificationServiceToaster.warning("Pašalinti pradžios ir pabaigos taškų negalima");
-                return;
-            }
+
             this.clickFunctions.rightClick(index);
             marker.setMap(null);
             
             this.wayPoints.splice(index, 1);
-            this.resetMarkers();
-            this.findRoute();
+            if (this.autoFindRoute) {
+                this.resetMarkers();
+                this.findRoute
+            }
 
         })
         google.maps.event.addListener(marker, 'dragend', ($event) => {
@@ -71,7 +89,7 @@ export class GoogleMaps {
                             this.endPoint.location = coordinates;
                         } else this.wayPoints[index].location = coordinates;
                         this.clickFunctions.dragged(this.startPoint, this.endPoint, this.wayPoints, index, coordinates, results[0].formatted_address);
-                        this.findRoute();
+                        if (this.autoFindRoute) this.findRoute();
                     } else {
                         window.alert('No results found');
                     }
@@ -84,9 +102,9 @@ export class GoogleMaps {
     }
 
 
-    public initialise(): void {
+    public initialise(mapId: string): void {
 
-        var mapContainer = document.getElementById("the_map");
+        var mapContainer = document.getElementById(mapId);
         var mapObj = new google.maps.Map(mapContainer, {
             zoom: 8,
             center: new google.maps.LatLng(54.8985049, 23.9578067),
@@ -138,7 +156,7 @@ export class GoogleMaps {
                             this.markers[index].setPosition(waypoint.location);
                         }
                         this.clickFunctions.click(this.startPoint, this.endPoint, this.wayPoints, index, coordinates, results[0].formatted_address);
-                        this.findRoute();
+                        if (this.autoFindRoute) this.findRoute();
                         //
                         //this.map.setZoom(11);
                     } else {
@@ -153,10 +171,8 @@ export class GoogleMaps {
         });
     }
     setWayPoints(firstPoint: google.maps.DirectionsWaypoint, lastPoint: google.maps.DirectionsWaypoint, newWaypoints: google.maps.DirectionsWaypoint[]) {
-        if (!firstPoint || !lastPoint || !newWaypoints) {
-            throw `GoogleMaps.ts: all points ust be set`;
-        }
         if (newWaypoints.length > this.wayPointsCount) {
+            this.removeRoute();
             throw `GoogleMaps.ts: maximum waypoints length expected: ${this.wayPointsCount} but found ${newWaypoints.length}`;
         }
         this.wayPoints = newWaypoints;
@@ -189,10 +205,14 @@ export class GoogleMaps {
         if (this.startPoint) {
             this.homeMarker.setMap(this.map);
             this.homeMarker.setPosition(this.startPoint.location);
+        } else {
+            this.homeMarker.setMap(null);
         }
         if (this.endPoint) {
             this.endMarker.setMap(this.map);
             this.endMarker.setPosition(this.endPoint.location);
+        } else {
+            this.endMarker.setMap(null);
         }
     }
 

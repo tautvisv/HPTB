@@ -1,0 +1,37 @@
+﻿<modal #myModal class="large">
+    <modal-header [show-close]="true">
+        <h4 class="modal-title" >Dienos: {{travel.OrderIndex}} maršrutas</h4>
+    </modal-header>
+    <modal-body>
+        <div class="row">
+            <div class="col-sm-12">
+                <select [(ngModel)]="selectedDay" class="form-control">
+                    // value is a string or number
+                    <option [value]="null">Pasirinkite tašką</option>
+                    <option *ngFor="#day of travel.TravelDays;  #i = index;" [value]="i">{{day.Name || i}}</option>
+                </select>
+                {{travel && selectedDay?travel.TravelDays[selectedDay].Point.Latitude: '---'}}
+            </div>
+            <div *ngIf="selectedDay || selectedDay == 0">
+                <div class="form-group label-floating col-md-4">
+                    <label for="name" class="control-label">Pavadinimas</label>
+                    <input type="text" [(ngModel)]="travel.TravelDays[selectedDay].Name" id="name" class="form-control" />
+                </div>
+                <div class="form-group label-floating col-md-4">
+                    <label for="duration" class="control-label">Trukmė:</label>
+                    <input type="time" [(ngModel)]="travel.TravelDays[selectedDay].Duration" id="duration" class="form-control" />
+                </div>
+                <div class="form-group label-floating col-md-4">
+                    <label for="date_s" class="control-label">Data:</label>
+                    <input type="datetime-local" [(ngModel)]="travel.TravelDays[selectedDay].Date" id="date_s" class="form-control" />
+                </div>
+                <div class="form-group label-floating col-md-12">
+                    <label for="desc_i" class="control-label">Aprašymas:</label>
+                    <textarea rows="3" type="text" [(ngModel)]="travel.TravelDays[selectedDay].Description" id="desc_i" class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="col-sm-12" id="travel_day_map" style="height: 500px;"></div>
+        </div>
+    </modal-body>
+    <modal-footer></modal-footer>
+</modal>

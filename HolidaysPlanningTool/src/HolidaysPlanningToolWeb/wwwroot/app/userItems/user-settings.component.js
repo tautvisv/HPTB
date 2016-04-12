@@ -20,11 +20,12 @@ var UserSettingsComponent = (function () {
         var _this = this;
         this._settingsService.saveUserSettings({ test: "yra test" }).subscribe(function (res) {
             _this._notificationService.success("Vartotojo informacija atnaujinta, atsakas iš serverio: " + JSON.stringify(res));
-            _this.router.navigate(["List", { id: 1120 }]);
-        }, function (err) { return _this._notificationService.error("Atnaujinti vartotojo duomenų nepavyko: kodas: " + err.status); });
+            _this.router.navigate(["ToursList"]);
+        }, function (err) { _this._notificationService.error("Atnaujinti vartotojo duomenų nepavyko: kodas: " + err.status); });
     };
     UserSettingsComponent.prototype.cancelSettings = function () {
         this._notificationService.info("nustatymai neišsaugoti");
+        this.router.navigate(["ToursList"]);
     };
     UserSettingsComponent.prototype.ngOnInit = function () {
         var _this = this;

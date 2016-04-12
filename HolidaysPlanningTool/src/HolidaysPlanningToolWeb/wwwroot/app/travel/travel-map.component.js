@@ -7,11 +7,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var core_1 = require('angular2/core');
 var GoogleMap_1 = require("./maps/GoogleMap");
+var TravelClass_1 = require("./TravelClass");
 //, provide(google.maps.MapOptions, { useValue: {} })
 var TravelMapComponent = (function () {
     // public map: GoogleMaps;
-    function TravelMapComponent(notificationService, map) {
+    function TravelMapComponent(notificationService, travelMethods, map) {
         this.notificationService = notificationService;
+        this.travelMethods = travelMethods;
         this.map = map;
         // google maps zoom level
         this.zoom = 8;
@@ -23,19 +25,18 @@ var TravelMapComponent = (function () {
         var _this = this;
         var list = [];
         travel.wayPoints.forEach(function (day) {
-            list.push(_this.travelToWaypoint(day));
+            list.push(_this.travelMethods.convertPointToDirectionsWaypoint(day.Point));
         });
-        this.map.setWayPoints(this.travelToWaypoint(travel.startDay), this.travelToWaypoint(travel.endDay), list); //, travel.endDay, []);
+        this.map.setWayPoints(this.travelMethods.convertPointToDirectionsWaypoint(travel.startDay.Point), this.travelMethods.convertPointToDirectionsWaypoint(travel.endDay.Point), list); //, travel.endDay, []);
     };
-    TravelMapComponent.prototype.travelToWaypoint = function (travel, stopover) {
-        if (stopover === void 0) { stopover = false; }
-        return {
-            location: new google.maps.LatLng(travel.Point.Latitude, travel.Point.Longitude),
-            stopover: stopover
-        };
-    };
+    //private travelToWaypoint(travel: TravelClass, stopover: boolean = false): google.maps.DirectionsWaypoint {
+    //    return {
+    //        location: new google.maps.LatLng(travel.Point.Latitude, travel.Point.Longitude),
+    //        stopover: stopover
+    //    }
+    //}
     TravelMapComponent.prototype.ngOnInit = function () {
-        this.map.initialise();
+        this.map.initialise("the_map");
         //var mapContainer = document.getElementById("the_map");
         //var mapObj = new google.maps.Map(mapContainer, {
         //    zoom: 8,
@@ -54,7 +55,7 @@ var TravelMapComponent = (function () {
             selector: 'travel-map',
             templateUrl: './app/travel/travel-map.component.html',
             directives: [],
-            providers: [GoogleMap_1.GoogleMaps],
+            providers: [GoogleMap_1.GoogleMaps, TravelClass_1.TravelMethodsHelper],
             styles: []
         })
     ], TravelMapComponent);

@@ -18,6 +18,18 @@ require('rxjs/add/operator/map');
 require('rxjs/operator/delay');
 require('rxjs/operator/mergeMap');
 require('rxjs/operator/switchMap');
+var TravelDayPlanMock = (function (_super) {
+    __extends(TravelDayPlanMock, _super);
+    function TravelDayPlanMock() {
+        var randomStuff = Math.random();
+        _super.call(this, new TravelClass_1.Point(54.5 + randomStuff, 24 + randomStuff));
+        this.Date = new Date("2016-01-25");
+        this.Description = "Trumpas čia toks yra";
+        this.Duration = "22:31";
+        this.Name = "Testinis taškas";
+    }
+    return TravelDayPlanMock;
+}(TravelClass_1.TravelDayPlan));
 var TravelClassMock = (function (_super) {
     __extends(TravelClassMock, _super);
     function TravelClassMock() {
@@ -27,8 +39,9 @@ var TravelClassMock = (function (_super) {
         this.Description = "trumpas aprasymas";
         this.Name = "Kelione";
         this.Point = new TravelClass_1.Point(54.5 + randomStuff, 24 + randomStuff);
-        this.TravelDays = null;
+        this.TravelDays = [new TravelDayPlanMock(), new TravelDayPlanMock(), new TravelDayPlanMock()];
         this.ImageUrl = "/images/Banner-01-Azure.png";
+        this.OrderIndex = -1;
         // this.Point.Address = `Taikos pr. ${}, Kaunas 51297, Lietuva`
     }
     return TravelClassMock;

@@ -11,6 +11,7 @@ var GoogleMaps = (function () {
         this.notificationServiceToaster = notificationServiceToaster;
         this.geocoder = new google.maps.Geocoder;
         this.wayPointsCount = 5;
+        this.autoFindRoute = true;
         // var mapOption = new google.maps.MapOptions();
         this.wayPoints = [];
         this.markers = [];
@@ -21,6 +22,25 @@ var GoogleMaps = (function () {
         }
         this.clickFunctions = clickFunction;
     };
+    GoogleMaps.prototype.getMap = function () {
+        return this.map;
+    };
+    GoogleMaps.prototype.setAutoFind = function (autofind) {
+        this.autoFindRoute = autofind;
+    };
+    GoogleMaps.prototype.setView = function (coords, zoom) {
+        if (zoom === void 0) { zoom = 8; }
+        console.log("zooming map to", zoom);
+        this.map.setCenter(coords);
+        this.map.setZoom(zoom);
+    };
+    GoogleMaps.prototype.removeRoute = function () {
+        this.routeService.removeRoute();
+        this.startPoint = null;
+        this.endPoint = null;
+        this.wayPoints = [];
+        this.resetMarkers();
+    };
     GoogleMaps.prototype.setMarkersListiner = function (marker, index) {
         var _this = this;
         google.maps.event.addListener(marker, 'rightclick', function ($event) {
@@ -28,15 +48,13 @@ var GoogleMaps = (function () {
                 debugger;
                 throw "unexpected marker";
             }
-            if (index < -1) {
-                _this.notificationServiceToaster.warning("Pašalinti pradžios ir pabaigos taškų negalima");
-                return;
-            }
             _this.clickFunctions.rightClick(index);
             marker.setMap(null);
             _this.wayPoints.splice(index, 1);
-            _this.resetMarkers();
-            _this.findRoute();
+            if (_this.autoFindRoute) {
+                _this.resetMarkers();
+                _this.findRoute;
+            }
         });
         google.maps.event.addListener(marker, 'dragend', function ($event) {
             if (index === -1) {
@@ -56,7 +74,8 @@ var GoogleMaps = (function () {
                         else
                             _this.wayPoints[index].location = coordinates;
                         _this.clickFunctions.dragged(_this.startPoint, _this.endPoint, _this.wayPoints, index, coordinates, results[0].formatted_address);
-                        _this.findRoute();
+                        if (_this.autoFindRoute)
+                            _this.findRoute();
                     }
                     else {
                         window.alert('No results found');
@@ -68,9 +87,9 @@ var GoogleMaps = (function () {
             });
         });
     };
-    GoogleMaps.prototype.initialise = function () {
+    GoogleMaps.prototype.initialise = function (mapId) {
         var _this = this;
-        var mapContainer = document.getElementById("the_map");
+        var mapContainer = document.getElementById(mapId);
         var mapObj = new google.maps.Map(mapContainer, {
             zoom: 8,
             center: new google.maps.LatLng(54.8985049, 23.9578067),
@@ -117,7 +136,8 @@ var GoogleMaps = (function () {
                             _this.markers[index].setPosition(waypoint.location);
                         }
                         _this.clickFunctions.click(_this.startPoint, _this.endPoint, _this.wayPoints, index, coordinates, results[0].formatted_address);
-                        _this.findRoute();
+                        if (_this.autoFindRoute)
+                            _this.findRoute();
                     }
                     else {
                         window.alert('No results found');
@@ -130,10 +150,8 @@ var GoogleMaps = (function () {
         });
     };
     GoogleMaps.prototype.setWayPoints = function (firstPoint, lastPoint, newWaypoints) {
-        if (!firstPoint || !lastPoint || !newWaypoints) {
-            throw "GoogleMaps.ts: all points ust be set";
-        }
         if (newWaypoints.length > this.wayPointsCount) {
+            this.removeRoute();
             throw "GoogleMaps.ts: maximum waypoints length expected: " + this.wayPointsCount + " but found " + newWaypoints.length;
         }
         this.wayPoints = newWaypoints;
@@ -167,9 +185,15 @@ var GoogleMaps = (function () {
             this.homeMarker.setMap(this.map);
             this.homeMarker.setPosition(this.startPoint.location);
         }
+        else {
+            this.homeMarker.setMap(null);
+        }
         if (this.endPoint) {
             this.endMarker.setMap(this.map);
             this.endMarker.setPosition(this.endPoint.location);
+        }
+        else {
+            this.endMarker.setMap(null);
         }
     };
     GoogleMaps.prototype.findRoute = function () {

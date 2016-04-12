@@ -2,21 +2,29 @@
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { TravelMapComponent } from './travel-map.component';
 import { TravelDayComponent } from './travel-day-item.component';
+import { TravelDayDetailsComponent } from './travel-day-item-details.component';
 import { Router, Location} from "angular2/router";
 import { FullTravel, Point, TravelClass, TravelDayPlan, UserLocation } from "./TravelClass";
 import { TravelService } from './travel.service';
+
 //import {Accordion} from 'primeng/primeng';
 
 @Component({
     selector: 'travel',
     templateUrl: './app/travel/travel-create.component.html',
-    directives: [TravelMapComponent, TravelDayComponent],
+    directives: [TravelMapComponent, TravelDayComponent, TravelDayDetailsComponent],
     providers: []
 })
 export class TravelCreateComponent implements OnInit {
-    @ViewChild(TravelMapComponent) mapComponent: TravelMapComponent;
+    @ViewChild(TravelMapComponent)
+    mapComponent: TravelMapComponent;
+
+    @ViewChild(TravelDayDetailsComponent)
+    travelDayModal: TravelDayDetailsComponent;
+
    // private travels: TravelClass[];
   //  private travelHome: TravelClass;
+
     private travel: FullTravel = new FullTravel();;
     zone: NgZone;
 
@@ -29,6 +37,9 @@ export class TravelCreateComponent implements OnInit {
     public setNewTravel(travel: FullTravel) {
         this.travel = travel;
         this.mapComponent.setWaypoints(travel);
+    }
+    openTravelDayModal(travelDay: TravelClass) {
+        this.travelDayModal.openModal(travelDay, travelDay.Point);
     }
     onChanges(changes) {
         console.log("pasikeit4 compoennt create", changes);
@@ -43,7 +54,7 @@ export class TravelCreateComponent implements OnInit {
     }
     cancelTravel(): void {
         this._notificationService.info("nustatymai neišsaugoti");
-        this.router.navigate(["TourList"]);
+        this.router.navigate(["ToursList"]);
     }
     ngOnInit() {
 
@@ -56,7 +67,6 @@ export class TravelCreateComponent implements OnInit {
         });
     }
     ngAfterViewInit() {
-        this._notificationService.warning("vaikas sukurtas");
         var clicks = {
             click: (homePoint: google.maps.DirectionsWaypoint, endPoint: google.maps.DirectionsWaypoint, waypoints: google.maps.DirectionsWaypoint[], index: number, coords: google.maps.LatLng, address: string) => {
                 if (index === -2) {
@@ -68,6 +78,7 @@ export class TravelCreateComponent implements OnInit {
                 } else {
                     var travelDay = new TravelClass(new Point(coords.lat(), coords.lng()));
                     travelDay.Point.Address = address;
+                    travelDay.OrderIndex = index + 2;
                     this.travel.wayPoints.push(travelDay);
                 }
                 this._notificationService.warning("click" + this.travel.wayPoints.length);
@@ -90,6 +101,10 @@ export class TravelCreateComponent implements OnInit {
                 });
             },
             rightClick: (index: number) => {
+                if (index < 0) {
+                    this._notificationService.warning("Pašalinti pradžios ir pabaigos taškų negalima");
+                    return;
+                }
                 this.travel.wayPoints.splice(index, 1);
                 this._notificationService.warning("right");
                 this.zone.run(() => {
