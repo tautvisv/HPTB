@@ -248,3 +248,22 @@
 .component.account {
   width: 500px; }
 
+.travel-details-display-item {
+  white-space: normal;
+  display: inline-block;
+  width: 300px; }
+
+.travel-days-items {
+  position: relative; }
+
+.scroll-button {
+  position: absolute;
+  padding: 20px 5px;
+  top: calc(50% - 30px); }
+
+.scroll-button.left {
+  left: -20px; }
+
+.scroll-button.right {
+  right: -20px; }
+

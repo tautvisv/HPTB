@@ -20,6 +20,15 @@ export class TravelMethodsHelper {
         }
         return newList;
     }
+    public convertAllILocationPointsToDirectionsWaypoint(points: ILocationPoint[]): google.maps.DirectionsWaypoint[] {
+        var newList: google.maps.DirectionsWaypoint[] = [];
+        //points.forEach(function (pointableObject: ILocationPoint) {
+        //});
+        for (let i = 0; i < points.length; i++) {
+            newList.push(this.convertPointToDirectionsWaypoint(points[i].Point));
+        }
+        return newList;
+    }
 }
 export interface ILocationPoint {
     Point: Point;

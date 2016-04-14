@@ -7,6 +7,28 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var core_1 = require('angular2/core');
 var router_1 = require("angular2/router");
+var TravelCitiesItemComponent = (function () {
+    function TravelCitiesItemComponent() {
+        this.couneter = 0;
+        this.cities = [];
+    }
+    TravelCitiesItemComponent.prototype.ngOnInit = function () {
+    };
+    __decorate([
+        core_1.Input()
+    ], TravelCitiesItemComponent.prototype, "travel", void 0);
+    TravelCitiesItemComponent = __decorate([
+        core_1.Component({
+            // Declare the tag name in index.html to where the component attaches
+            selector: 'travel-cities-item',
+            // Location of the template for this component
+            template: "<div class=\"travel-item-cities\"></div>",
+            directives: []
+        })
+    ], TravelCitiesItemComponent);
+    return TravelCitiesItemComponent;
+}());
+exports.TravelCitiesItemComponent = TravelCitiesItemComponent;
 var TravelItemComponent = (function () {
     function TravelItemComponent() {
     }
@@ -21,7 +43,7 @@ var TravelItemComponent = (function () {
             selector: 'travel-item',
             // Location of the template for this component
             templateUrl: './app/travel/travel-item.component.html',
-            directives: [router_1.RouterLink]
+            directives: [router_1.RouterLink, TravelCitiesItemComponent]
         })
     ], TravelItemComponent);
     return TravelItemComponent;

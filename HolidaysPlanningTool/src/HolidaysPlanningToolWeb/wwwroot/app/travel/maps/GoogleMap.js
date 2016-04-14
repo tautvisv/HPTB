@@ -12,6 +12,7 @@ var GoogleMaps = (function () {
         this.geocoder = new google.maps.Geocoder;
         this.wayPointsCount = 5;
         this.autoFindRoute = true;
+        this.disableClick = false;
         // var mapOption = new google.maps.MapOptions();
         this.wayPoints = [];
         this.markers = [];
@@ -24,9 +25,6 @@ var GoogleMaps = (function () {
     };
     GoogleMaps.prototype.getMap = function () {
         return this.map;
-    };
-    GoogleMaps.prototype.setAutoFind = function (autofind) {
-        this.autoFindRoute = autofind;
     };
     GoogleMaps.prototype.setView = function (coords, zoom) {
         if (zoom === void 0) { zoom = 8; }
@@ -112,6 +110,9 @@ var GoogleMaps = (function () {
         this.clickFunctions = clicks;
         var that = this;
         google.maps.event.addListener(this.map, 'click', function ($event) {
+            if (_this.disableClick) {
+                return;
+            }
             if (_this.wayPointsCount <= _this.wayPoints.length) {
                 _this.notificationServiceToaster.warning("Pasiektas taškų limitas");
                 return;
@@ -159,6 +160,17 @@ var GoogleMaps = (function () {
         this.endPoint = lastPoint;
         this.resetMarkers();
         this.findRoute();
+    };
+    GoogleMaps.prototype.setMapDisableClicks = function (disable) {
+        this.disableClick = disable;
+        this.markers.forEach(function (marker) {
+            marker.setDraggable(!disable);
+        });
+        this.endMarker.setDraggable(!disable);
+        this.homeMarker.setDraggable(!disable);
+    };
+    GoogleMaps.prototype.setAutoFind = function (autofind) {
+        this.autoFindRoute = autofind;
     };
     GoogleMaps.prototype.createEmptyMarker = function (label) {
         var marker = new google.maps.Marker({

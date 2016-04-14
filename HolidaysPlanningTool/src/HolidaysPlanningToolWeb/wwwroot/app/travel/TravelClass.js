@@ -25,6 +25,15 @@ var TravelMethodsHelper = (function () {
         }
         return newList;
     };
+    TravelMethodsHelper.prototype.convertAllILocationPointsToDirectionsWaypoint = function (points) {
+        var newList = [];
+        //points.forEach(function (pointableObject: ILocationPoint) {
+        //});
+        for (var i = 0; i < points.length; i++) {
+            newList.push(this.convertPointToDirectionsWaypoint(points[i].Point));
+        }
+        return newList;
+    };
     TravelMethodsHelper = __decorate([
         core_1.Injectable()
     ], TravelMethodsHelper);

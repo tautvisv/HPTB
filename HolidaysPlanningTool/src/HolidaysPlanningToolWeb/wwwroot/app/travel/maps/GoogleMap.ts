@@ -23,6 +23,7 @@ export class GoogleMaps {
     private routeService: IRouteService;
     private map: google.maps.Map;
     private autoFindRoute: boolean = true;
+    private disableClick: boolean = false;
 
     constructor(private notificationServiceToaster: ToastsManager) {//private map: google.maps.Map, private routeService: IRouteService, 
        // var mapOption = new google.maps.MapOptions();
@@ -37,9 +38,6 @@ export class GoogleMaps {
     }
     public getMap() {
         return this.map;
-    }
-    public setAutoFind(autofind: boolean) {
-        this.autoFindRoute = autofind;
     }
     public setView(coords: google.maps.LatLng, zoom: number = 8) {
         console.log("zooming map to", zoom);
@@ -131,6 +129,9 @@ export class GoogleMaps {
         this.clickFunctions = clicks;
         var that = this;
         google.maps.event.addListener(this.map, 'click', ($event) => {
+            if (this.disableClick) {
+                return;
+            }
             if (this.wayPointsCount <= this.wayPoints.length) {
                 this.notificationServiceToaster.warning("Pasiektas taškų limitas");
                 return;
@@ -180,6 +181,17 @@ export class GoogleMaps {
         this.endPoint = lastPoint;
         this.resetMarkers();
         this.findRoute();
+    }
+    setMapDisableClicks(disable: boolean) {
+        this.disableClick = disable;
+        this.markers.forEach(function (marker) {
+            marker.setDraggable(!disable);
+        });
+        this.endMarker.setDraggable(!disable);
+        this.homeMarker.setDraggable(!disable);
+    }
+    public setAutoFind(autofind: boolean) {
+        this.autoFindRoute = autofind;
     }
     private createEmptyMarker(label: string) {
         var marker = new google.maps.Marker({

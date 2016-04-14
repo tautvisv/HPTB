@@ -7,8 +7,8 @@
     <div class="travel-item-details">
         <img src="https://dn1w8s6xszn0j.cloudfront.net/resources_version/desktop/img/default/user/t1/default_3.jpg" alt="" class="author-icon">
         <div class="travel-item-details">
-            <div class="travel-item-name">Kelione test</div>
-            <div class="travel-item-cities">Kaunas, Vilnius</div>
+            <div class="travel-item-name">{{travel.Name}}</div>
+            <travel-cities-item [travel]="travel"></travel-cities-item>
         </div>
     </div>
     <div class="travel-item-misc">

@@ -1,23 +1,27 @@
-﻿import {Component, OnInit, Input } from 'angular2/core';
-import { FullTravel, Comment } from "./TravelClass";
+﻿import {Component, OnInit } from 'angular2/core';
+import { FullTravel, TravelClass, TravelDayPlan, Comment, TravelMethodsHelper, ILocationPoint } from "./TravelClass";
 import { TravelService } from './travel.service';
 import { Router, RouteParams } from 'angular2/router';
 import { CommentsComponent } from './comments/comments.component';
 import { CommentCreateComponent } from './comments/comment-create.component';
 import { LikeDirectiveComponent } from './like-directive.component';
+import { GoogleMaps } from './maps/GoogleMap';
+import { TravelViewDaysContainerComponent } from './travel-view-days-container.component';
 
 @Component({
     // Declare the tag name in index.html to where the component attaches
     selector: 'travel-view',
     // Location of the template for this component
     templateUrl: './app/travel/travel-view.component.html',
-    directives: [CommentsComponent, CommentCreateComponent, LikeDirectiveComponent]
+    providers: [GoogleMaps, TravelMethodsHelper],
+    directives: [CommentsComponent, CommentCreateComponent, LikeDirectiveComponent, TravelViewDaysContainerComponent]
 })
 export class TravelViewComponent implements OnInit {
     private travel: FullTravel;
-
     constructor(private _router: Router,
         private _routeParams: RouteParams,
+        private map: GoogleMaps,
+        private travelHelper: TravelMethodsHelper,
         private travelService: TravelService) {
         this.travel = new FullTravel();
     }
@@ -37,6 +41,16 @@ export class TravelViewComponent implements OnInit {
         console.log("coment was dadded to view", comment);
         this.travel.Comments.push(comment);
     }
+    showRoute(waypoints: ILocationPoint[]) {
+        var first = this.travelHelper.convertPointToDirectionsWaypoint(waypoints[0].Point);
+        var last = this.travelHelper.convertPointToDirectionsWaypoint(waypoints[waypoints.length - 1].Point);
+        var middles = this.travelHelper.convertILocationPointsToDirectionsWaypoint(waypoints);
+        this.map.setWayPoints(first, last, middles);
+    }
+    showMainRoute() {
+        this.map.setWayPoints(this.travelHelper.convertPointToDirectionsWaypoint(this.travel.startDay.Point), this.travelHelper.convertPointToDirectionsWaypoint(this.travel.endDay.Point), this.travelHelper.convertAllILocationPointsToDirectionsWaypoint(this.travel.wayPoints));
+        //this.map.findRoute();
+    }
 
     duration() {
         if (!this.travel.endDay || !this.travel.startDay) return "datos nenurodytos";
@@ -46,6 +60,12 @@ export class TravelViewComponent implements OnInit {
     ngOnInit() {
         this.travelService.getTravel(this._routeParams.get('id')).subscribe(travel => {
             this.travel = travel;
+            this.showMainRoute();
         });
+        this.map.initialise("the_view_map");
+        this.map.setMapDisableClicks(true);
     }
 }
+
+
+
