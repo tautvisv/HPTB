@@ -3,6 +3,7 @@
 /// <binding BeforeBuild='default' />
 /// <reference path="node_modules/ng2-toastr/bundles/ng2-toastr.min.js" />
 
+
 "use strict";
 
 var _ = require('lodash'),
@@ -34,8 +35,8 @@ var js = [
     './node_modules/bootstrap-material-design/dist/js/ripples.min.js',
     './node_modules/ng2-toastr/bundles/ng2-toastr.js',
     './node_modules/primeui/primeui-ng-all.js',
-    './node_modules/ng2-bs3-modal/bundles/ng2-bs3-modal.min.js'
-
+    './node_modules/ng2-bs3-modal/bundles/ng2-bs3-modal.min.js',
+    "./node_modules/ng2-uploader/bundles/ng2-uploader.js"
 ];
 
 var css = [

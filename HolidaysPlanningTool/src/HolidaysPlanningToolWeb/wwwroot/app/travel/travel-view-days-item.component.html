@@ -1,6 +1,6 @@
 ﻿<div>
     <div>{{travelDay.Name}}</div>
-    <ul class="travel-details-display-item">
+    <ol class="travel-details-display-item">
         <li *ngFor="#point of travelDay.TravelDays"><travel-day-point [point]='point'></travel-day-point></li>
-    </ul>
+    </ol>
 </div>

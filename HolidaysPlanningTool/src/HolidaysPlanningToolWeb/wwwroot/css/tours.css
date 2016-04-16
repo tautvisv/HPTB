@@ -251,7 +251,8 @@
 .travel-details-display-item {
   white-space: normal;
   display: inline-block;
-  width: 300px; }
+  width: 300px;
+  list-style: none; }
 
 .travel-days-items {
   position: relative; }
@@ -266,4 +267,32 @@
 
 .scroll-button.right {
   right: -20px; }
+
+.point-item-name {
+  font-weight: bold;
+  font-size: 20px;
+  display: block;
+  margin-bottom: 10px; }
+
+.point-item-hours {
+  font-weight: bold;
+  color: #00a0dc; }
+
+.travel-details-display-item li {
+  counter-increment: item;
+  margin-bottom: 5px;
+  position: relative; }
+
+.travel-details-display-item li:before {
+  margin-right: 10px;
+  content: counter(item);
+  background: #00a0dc;
+  border-radius: 100%;
+  color: white;
+  width: 1.5em;
+  text-align: center;
+  display: inline-block;
+  position: absolute;
+  left: -25px;
+  top: 5px; }
 

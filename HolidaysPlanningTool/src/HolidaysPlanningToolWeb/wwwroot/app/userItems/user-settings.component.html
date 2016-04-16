@@ -25,6 +25,15 @@
             <user-settings-item [item]="userInfo.surname"></user-settings-item>
             <user-settings-item [item]="userInfo.phone"></user-settings-item>
             <user-settings-item [item]="userInfo.extra_info"></user-settings-item>
+            <div class="form-group is-empty is-fileinput">
+                <label for="inputFile" class="col-md-2 control-label">File</label>
+
+                <div class="col-md-10">
+                    <input type="text" readonly="" class="form-control" placeholder="Browse...">
+                    <input type="file" id="inputFile" multiple="">
+                </div>
+                <span class="material-input"></span>
+            </div>
         </div>
         <div style='clear: both'></div>
     </div>
