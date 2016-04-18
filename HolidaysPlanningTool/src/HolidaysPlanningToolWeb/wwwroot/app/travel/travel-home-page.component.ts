@@ -1,6 +1,6 @@
 ﻿import {Component, OnInit, Input } from 'angular2/core';
 import { FullTravel } from "./TravelClass";
-import { TravelService } from './travel.service';
+import { TravelService } from '../services/travel.service';
 import { TravelListComponent } from './travel-list.component';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 

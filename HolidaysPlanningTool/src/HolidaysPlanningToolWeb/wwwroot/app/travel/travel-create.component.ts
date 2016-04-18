@@ -5,7 +5,7 @@ import { TravelDayComponent } from './travel-day-item.component';
 import { TravelDayDetailsComponent } from './travel-day-item-details.component';
 import { Router, Location} from "angular2/router";
 import { FullTravel, Point, TravelClass, TravelDayPlan, UserLocation } from "./TravelClass";
-import { TravelService } from './travel.service';
+import { TravelService } from '../services/travel.service';
 
 //import {Accordion} from 'primeng/primeng';
 

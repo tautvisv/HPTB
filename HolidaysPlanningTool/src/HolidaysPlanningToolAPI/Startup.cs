@@ -28,6 +28,10 @@ namespace HolidaysPlanningToolAPI
         {
             // Add framework services.
             services.AddMvc();
+
+            services.AddCors();
+
+            services.AddCors(options => options.AddPolicy("AllowAll", p => p.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials() ));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,7 +44,10 @@ namespace HolidaysPlanningToolAPI
 
             app.UseStaticFiles();
 
+            app.UseCors("AllowAll");
+
             app.UseMvc();
+
         }
 
         // Entry point for the application.

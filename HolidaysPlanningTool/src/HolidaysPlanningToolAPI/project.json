@@ -1,4 +1,4 @@
-﻿{
+{
   "version": "1.0.0-*",
   "compilationOptions": {
     "emitEntryPoint": true
@@ -21,7 +21,15 @@
   },
 
   "frameworks": {
-    "dnx451": { },
+    "dnx451": {
+      "dependencies": {
+        "EmptyProject": "1.0.0-*",
+        "FileProcessingLib": "1.0.0-*",
+        "Microsoft.Owin.Cors": "3.0.1"
+      },
+      "frameworkAssemblies": {
+      }
+    },
     "dnxcore50": { }
   },
 

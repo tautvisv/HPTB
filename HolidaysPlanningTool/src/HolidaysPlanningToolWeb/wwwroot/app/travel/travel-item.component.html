@@ -4,13 +4,7 @@
             <img nopin="nopin" src="{{travel.ImageUrl}}">
         </a>
     </div>
-    <div class="travel-item-details">
-        <img src="https://dn1w8s6xszn0j.cloudfront.net/resources_version/desktop/img/default/user/t1/default_3.jpg" alt="" class="author-icon">
-        <div class="travel-item-details">
-            <div class="travel-item-name">{{travel.Name}}</div>
-            <travel-cities-item [travel]="travel"></travel-cities-item>
-        </div>
-    </div>
+    <travel-item-author *ngIf="travel.Author" [author]="travel.Author" [title]="travel.Name"></travel-item-author>
     <div class="travel-item-misc">
         <span class="item pull-left"><i class="fa fa-calendar"></i>{{travel.wayPoints.length}} Days</span>
         <span class="item pull-right"><i class="fa fa-thumbs-o-up"></i>{{travel.Likes}}</span>

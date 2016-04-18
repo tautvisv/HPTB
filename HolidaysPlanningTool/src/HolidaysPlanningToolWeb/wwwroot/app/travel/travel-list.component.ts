@@ -1,5 +1,5 @@
 ﻿import {Component, OnInit, Input } from 'angular2/core';
-import { Point, TravelClass, TravelDayPlan, UserLocation } from "./TravelClass";
+import { Point, FullTravel, TravelDayPlan, UserLocation } from "./TravelClass";
 import { TravelItemComponent } from './travel-item.component';
 
 @Component({
@@ -10,7 +10,7 @@ import { TravelItemComponent } from './travel-item.component';
     directives: [TravelItemComponent]
 })
 export class TravelListComponent implements OnInit {
-    @Input() travels: TravelClass[];
+    @Input() travels: FullTravel[];
     @Input() title: string;
     constructor() {
 

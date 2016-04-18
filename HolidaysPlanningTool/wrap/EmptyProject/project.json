@@ -1,0 +1,19 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net451": {
+      "wrappedProject": "../../EmptyProject/EmptyProject.csproj",
+      "bin": {
+        "assembly": "../../EmptyProject/obj/{configuration}/EmptyProject.dll",
+        "pdb": "../../EmptyProject/obj/{configuration}/EmptyProject.pdb"
+      }
+    },
+    "net45": {
+      "wrappedProject": "../../EmptyProject/EmptyProject.csproj",
+      "bin": {
+        "assembly": "../../EmptyProject/obj/{configuration}/EmptyProject.dll",
+        "pdb": "../../EmptyProject/obj/{configuration}/EmptyProject.pdb"
+      }
+    }
+  }
+}

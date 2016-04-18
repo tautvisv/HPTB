@@ -3,12 +3,17 @@ var Constants = (function () {
     function Constants() {
     }
     Object.defineProperty(Constants, "WebUrl", {
-        get: function () { return "http://localhost:2922/"; },
+        get: function () { return "http://localhost:37096/"; },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(Constants, "WebAPIUrl", {
-        get: function () { return "http://localhost:2922/api/"; },
+        get: function () { return "http://localhost:37096/api/"; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Constants, "WebAPI", {
+        get: function () { return "http://localhost:37096"; },
         enumerable: true,
         configurable: true
     });

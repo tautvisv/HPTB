@@ -40,3 +40,7 @@ Thumbs.db
 ###############3
 bin/
 node_modules/
+obj/
+nuotraukosjega/
+NuotraukosJega123/
+packages/

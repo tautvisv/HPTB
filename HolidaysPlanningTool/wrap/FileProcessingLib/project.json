@@ -1,0 +1,15 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net451": {
+      "wrappedProject": "../../FileProcessingLib/FileProcessingLib.csproj",
+      "bin": {
+        "assembly": "../../FileProcessingLib/obj/{configuration}/FileProcessingLib.dll",
+        "pdb": "../../FileProcessingLib/obj/{configuration}/FileProcessingLib.pdb"
+      },
+      "dependencies": {
+        "ImageProcessor": "2.3.3.0"
+      }
+    }
+  }
+}

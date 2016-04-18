@@ -1,6 +1,6 @@
 ﻿import {Component, OnInit } from 'angular2/core';
 import { FullTravel, TravelClass, TravelDayPlan, Comment, TravelMethodsHelper, ILocationPoint } from "./TravelClass";
-import { TravelService } from './travel.service';
+import { TravelService } from '../services/travel.service';
 import { Router, RouteParams } from 'angular2/router';
 import { CommentsComponent } from './comments/comments.component';
 import { CommentCreateComponent } from './comments/comment-create.component';

@@ -25,6 +25,7 @@ var UserSettingsViewItem = (function () {
         this.description = new UserSettingsItem("", "", "", "", ".*");
         this.extra_info = new UserSettingsItem("", "", "", "", ".*");
         this.email = new UserSettingsItem("", "", "", "", "[a-zA-Z0-9]*@[a-zA-Z0-9]*");
+        this.image = "http://localhost:37096/nuotraukosjega/wisp_wallpaper__dota_2__by_murr3-d5qjkfc.png";
     }
     UserSettingsViewItem.prototype.createFromUserSettings = function (userSettings) {
         this.name = new UserSettingsItem("Vardas", userSettings.name, "name", "vartotojo vardas", ".*");

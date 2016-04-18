@@ -82,6 +82,7 @@ export class FullTravel {
     public wayPoints: TravelClass[];
     public ImageUrl: string;
     public Descrription: string;
+    public Author: Author;
     public Likes: number;
     public Views: number;
     public CommentsCount: number;

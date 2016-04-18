@@ -54,7 +54,20 @@ namespace HolidaysPlanningToolWeb
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy("AllowSpecificOrigin",
+            //            builder => builder.WithOrigins().AllowAnyHeader().AllowAnyMethod().AllowCredentials());
+            //});
+
+
             services.AddMvc();
+
+            //Add Cors support to the service
+            services.AddCors();
+
+            services.AddCors(options => options.AddPolicy("AllowAll", p => p.AllowAnyOrigin()));
+
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
@@ -66,6 +79,15 @@ namespace HolidaysPlanningToolWeb
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+
+            //TODO use settings string
+            // app.UseCors(policy => policy
+            //.AllowAnyMethod()
+            //.AllowAnyOrigin()
+            //.AllowCredentials());
+
+            //app.UseCors("AllowAll");
+            //app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
 
             app.UseApplicationInsightsRequestTelemetry();
 
@@ -98,16 +120,32 @@ namespace HolidaysPlanningToolWeb
 
             app.UseStaticFiles();
 
-            app.UseIdentity();
+            //app.UseIdentity();
 
             // To configure external authentication please see http://go.microsoft.com/fwlink/?LinkID=532715
 
+
+
+            app.UseCors("AllowAll");
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Tours}/{action=Index}/{id?}");
             });
+
+            //app.Use(async (httpContext, next) =>
+            //{
+            //    if (httpContext.Request.Path.Value.Contains("api/") && httpContext.Request.Method == "OPTIONS")
+            //    {
+            //        httpContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { httpContext.Request.Headers["Origin"].FirstOrDefault() });
+            //        httpContext.Response.Headers.Add("Access-Control-Allow-Headers", new[] { "Origin, X-Requested-With, Content-Type, Accept" });
+            //        httpContext.Response.Headers.Add("Access-Control-Allow-Methods", new[] { "GET, POST, PUT, DELETE, OPTIONS" });
+            //        httpContext.Response.Headers.Add("Access-Control-Allow-Credentials", new[] { "true" });
+            //        return;
+            //    }
+            //    await next();
+            //});
         }
 
         // Entry point for the application.

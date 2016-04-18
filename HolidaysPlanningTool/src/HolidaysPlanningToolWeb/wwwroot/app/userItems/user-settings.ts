@@ -13,6 +13,7 @@ export class UserSettings {
     public description: string;
     public extra_info: string;
     public email: string;
+    public image: string;
 }
 
 export class UserSettingsViewItem {
@@ -25,6 +26,7 @@ export class UserSettingsViewItem {
     public description: UserSettingsItem = new UserSettingsItem("", "", "", "", ".*");
     public extra_info: UserSettingsItem = new UserSettingsItem("", "", "", "", ".*");
     public email: UserSettingsItem = new UserSettingsItem("", "", "", "", "[a-zA-Z0-9]*@[a-zA-Z0-9]*");
+    public image = "http://localhost:37096/nuotraukosjega/wisp_wallpaper__dota_2__by_murr3-d5qjkfc.png";
 
     public createFromUserSettings(userSettings: UserSettings): void {
         this.name = new UserSettingsItem("Vardas", userSettings.name, "name", "vartotojo vardas", ".*");

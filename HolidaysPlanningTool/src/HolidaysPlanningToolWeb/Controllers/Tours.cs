@@ -6,6 +6,7 @@ using HolidaysPlanningToolWeb.Models;
 
 namespace HolidaysPlanningToolWeb.Controllers
 {
+
     public class ToursController: Controller
     {
         private ApplicationDbContext _context;

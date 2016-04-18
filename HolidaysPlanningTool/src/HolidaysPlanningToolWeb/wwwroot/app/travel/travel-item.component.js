@@ -7,6 +7,30 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var core_1 = require('angular2/core');
 var router_1 = require("angular2/router");
+var TravelItemAuthorComponent = (function () {
+    function TravelItemAuthorComponent() {
+    }
+    TravelItemAuthorComponent.prototype.ngOnInit = function () {
+    };
+    __decorate([
+        core_1.Input()
+    ], TravelItemAuthorComponent.prototype, "author", void 0);
+    __decorate([
+        core_1.Input()
+    ], TravelItemAuthorComponent.prototype, "title", void 0);
+    TravelItemAuthorComponent = __decorate([
+        core_1.Component({
+            // Declare the tag name in index.html to where the component attaches
+            selector: 'travel-item-author',
+            // Location of the template for this component
+            // templateUrl: './app/travel/travel-item.component.html',
+            template: "<div class=\"travel-item-details\">\n        <img src=\"{{author.ImageUrl}}\" alt=\"\" class=\"author-icon\">\n        <div class=\"travel-item-details\">\n            <div class=\"travel-item-name\">{{title}}</div>\n            <div>Autorius: {{author.Name}}</div>\n            <!--<travel-cities-item [travel]=\"travel\"></travel-cities-item>-->\n        </div>\n    </div>",
+            directives: []
+        })
+    ], TravelItemAuthorComponent);
+    return TravelItemAuthorComponent;
+}());
+exports.TravelItemAuthorComponent = TravelItemAuthorComponent;
 var TravelCitiesItemComponent = (function () {
     function TravelCitiesItemComponent() {
         this.couneter = 0;
@@ -43,7 +67,7 @@ var TravelItemComponent = (function () {
             selector: 'travel-item',
             // Location of the template for this component
             templateUrl: './app/travel/travel-item.component.html',
-            directives: [router_1.RouterLink, TravelCitiesItemComponent]
+            directives: [router_1.RouterLink, TravelCitiesItemComponent, TravelItemAuthorComponent]
         })
     ], TravelItemComponent);
     return TravelItemComponent;
