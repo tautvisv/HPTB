@@ -1,5 +1,7 @@
-﻿<div>
-    <div>{{travelDay.Name}}</div>
+﻿<div class="travel-day-item">
+    <div class="travel-day-item-name">{{travelDay.Name}}</div>
+    <div class="travel-day-item-description">{{travelDay.Description}}</div>
+    <img src="{{travelDay.ImageUrl}}" class="travel-day-item-image"/>
     <ol class="travel-details-display-item">
         <li *ngFor="#point of travelDay.TravelDays"><travel-day-point [point]='point'></travel-day-point></li>
     </ol>
