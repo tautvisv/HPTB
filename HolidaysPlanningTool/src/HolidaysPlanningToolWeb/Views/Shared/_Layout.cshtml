@@ -26,7 +26,7 @@
     @Html.ApplicationInsightsJavaScript(TelemetryConfiguration)
 </head>
 <body>
-<div style="width: 100%; height: 300px; background-color: #008080"></div>
+<div style="width: 100%; height: 300px; background-color: #008080" id="slider_u12"></div>
 
 @*<div class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
@@ -99,41 +99,7 @@
     $(document).ready(function () {
         var counter = 0;
         $.material.init();
-        //TODO fix it
-        setTimeout(setNavLayout, 250);
-        function setNavLayout(){
-            $(document).ready(function () {
-                console.log("init navBar");
-                    var sticyNavbar = $('#navbar_container');
-                    if (!sticyNavbar.length) {
-                        if (counter > 10) return;
-                        counter++;
-                        setTimeout(setNavLayout, 250);
-                        return;
-                    }
-                    var body = $("body");
-                    var stickyNavTop = sticyNavbar.offset().top;
-
-                    var stickyNav = function () {
-                        var scrollTop = $(window).scrollTop();
-
-                        if (scrollTop > stickyNavTop) {
-                            sticyNavbar.addClass('sticky');
-                            body.addClass("sticky-body");
-                        } else {
-                            sticyNavbar.removeClass('sticky');
-                            body.removeClass("sticky-body");
-                        }
-                    };
-
-                    stickyNav();
-
-                    $(window).scroll(function () {
-                        stickyNav();
-                    });
-                });
         
-        }
     });
 </script>
 

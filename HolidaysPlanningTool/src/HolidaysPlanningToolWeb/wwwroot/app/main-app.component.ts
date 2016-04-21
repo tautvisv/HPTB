@@ -1,4 +1,4 @@
-﻿import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/router';
+﻿import { RouteConfig, Router,  ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/router';
 import {Component, OnInit } from 'angular2/core';
 import {UserSettingsComponent} from './userItems/user-settings.component';
 import {TravelCreateComponent} from './travel/travel-create.component';
@@ -54,12 +54,47 @@ import { provide } from 'angular2/core';
 })
 export class MainApp implements OnInit {
     title = 'Tour of Heroes';
-    constructor() {
+    constructor(private router: Router) {
+        
     }
     ngOnInit() {
-        
+        //var sticyNavbar = $('#navbar_container');
+        var slider = $("#slider_u12");
+        var body = $("body");
+        var sticyNavbar = $('#navbar_container');
+        var startingOffset = slider.height();
+
+        var stickyNav = function () {
+            var scrollTop = $(window).scrollTop();
+
+            var stickyNavTop = sticyNavbar.offset().top;
+            if (scrollTop >= startingOffset) {
+                sticyNavbar.addClass('sticky');
+                body.addClass("sticky-body");
+            } else {
+                sticyNavbar.removeClass('sticky');
+                body.removeClass("sticky-body");
+            }
+        };
+        function setNavLayout() {
+            $(document).ready(function () {
+                stickyNav();
+                $(window).scroll(function () {
+                    stickyNav();
+                });
+            });
+        }
+        setNavLayout();
+        this.router.subscribe((val) => {
+            if (val === "ToursList") {
+                startingOffset = slider.height();
+                slider.show();
+                stickyNav();
+            } else {
+                startingOffset = 1;
+                slider.hide();
+            }
+        });
 
     }
 }
-
-console.log("init panel");

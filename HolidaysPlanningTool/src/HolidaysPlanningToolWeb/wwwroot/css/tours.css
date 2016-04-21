@@ -330,3 +330,23 @@
   height: 84px;
   display: inline-block; }
 
+.travel-view {
+  padding: 5px; }
+
+.travel-duration {
+  padding: 5px; }
+
+.travel-view-component-name {
+  font-size: 20px;
+  font-weight: bold; }
+
+.item-description-container {
+  height: 100%;
+  position: absolute;
+  box-shadow: 1px 1px 5px #dfdfdf inset;
+  background-color: #fafafa; }
+
+.item-description {
+  margin-right: 20px;
+  padding-top: 5px; }
+

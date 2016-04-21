@@ -5,11 +5,54 @@ import {GoogleMaps, MapClickCallbacks} from "./maps/GoogleMap";
 
 @Component({
     // Declare the tag name in index.html to where the component attaches
+    selector: 'travel-day-details-edit-modal',
+    // Location of the template for this component
+    //templateUrl: './app/travel/travel-day-item-details.component.html',
+    template: `<div *ngIf="isVisible">
+                <div class="form-group label-floating col-md-4">
+                    <label for="name" class="control-label">Pavadinimas</label>
+                    <input type="text" [(ngModel)]="selectedDay.Name" id="name" class="form-control" />
+                </div>
+                <div class="form-group label-floating col-md-4">
+                    <label for="duration" class="control-label">Trukmė:</label>
+                    <input type="time" [(ngModel)]="selectedDay.Duration" id="duration" class="form-control" />
+                </div>
+                <div class="form-group label-floating col-md-4">
+                    <label for="date_s" class="control-label">Data:</label>
+                    <input type="datetime-local" [(ngModel)]="selectedDay.Date" id="date_s" class="form-control" />
+                </div>
+                <div class="form-group label-floating col-md-12">
+                    <label for="desc_i" class="control-label">Aprašymas:</label>
+                    <textarea rows="3" type="text" [(ngModel)]="selectedDay.Description" id="desc_i" class="form-control"></textarea>
+                </div>
+            </div>`,
+    providers: [],
+    directives: []
+})
+export class TravelDayDetailsEditComponent {
+    @Input("selectedDay")
+    private selectedDay: TravelDayPlan;
+    private isVisible: boolean = true;
+
+    constructor() {
+    }
+    ngOnChanges(changeRecord) {
+        if (!changeRecord.selectedDay.currentValue) {
+            this.selectedDay = new TravelDayPlan(null);
+            this.isVisible = false;
+            return
+        }
+        this.isVisible = true;
+    }
+}
+
+@Component({
+    // Declare the tag name in index.html to where the component attaches
     selector: 'travel-day-details-modal',
     // Location of the template for this component
     templateUrl: './app/travel/travel-day-item-details.component.html',
     providers: [GoogleMaps, TravelMethodsHelper],
-    directives: [MODAL_DIRECTIVES]
+    directives: [MODAL_DIRECTIVES, TravelDayDetailsEditComponent]
 })
 export class TravelDayDetailsComponent implements OnInit {
     //@Input()
@@ -22,6 +65,9 @@ export class TravelDayDetailsComponent implements OnInit {
     private selectedDay: TravelDayPlan;
     constructor(private map: GoogleMaps, private travelMethods: TravelMethodsHelper) {
         this.travel = new TravelClass();
+    }
+    abc(selectedDay) {
+        console.log(selectedDay);
     }
     reinitialise() {
         google.maps.event.trigger(this.map.getMap(), 'resize');
@@ -56,7 +102,7 @@ export class TravelDayDetailsComponent implements OnInit {
 
     ngOnInit() {
         this.map.initialise("travel_day_map");
-
+        this.map.setOptimizeRoute(true);
         var clicks = {
             click: (homePoint: google.maps.DirectionsWaypoint, endPoint: google.maps.DirectionsWaypoint, waypoints: google.maps.DirectionsWaypoint[], index: number, coords: google.maps.LatLng, address: string) => {
                 this.travel.TravelDays.push(new TravelDayPlan(new Point(coords.lat(), coords.lng())));

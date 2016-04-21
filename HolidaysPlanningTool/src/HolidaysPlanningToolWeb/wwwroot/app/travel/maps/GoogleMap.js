@@ -10,7 +10,7 @@ var GoogleMaps = (function () {
     function GoogleMaps(notificationServiceToaster) {
         this.notificationServiceToaster = notificationServiceToaster;
         this.geocoder = new google.maps.Geocoder;
-        this.wayPointsCount = 5;
+        this.wayPointsCount = 8;
         this.autoFindRoute = true;
         this.disableClick = false;
         // var mapOption = new google.maps.MapOptions();
@@ -48,10 +48,20 @@ var GoogleMaps = (function () {
             }
             _this.clickFunctions.rightClick(index);
             marker.setMap(null);
-            _this.wayPoints.splice(index, 1);
+            if (index === -2) {
+                var elem = _this.wayPoints.shift();
+                _this.startPoint = elem;
+            }
+            else if (index === -3) {
+                var elem = _this.wayPoints.pop();
+                _this.endPoint = elem;
+            }
+            else {
+                _this.wayPoints.splice(index, 1);
+            }
             if (_this.autoFindRoute) {
                 _this.resetMarkers();
-                _this.findRoute;
+                _this.findRoute();
             }
         });
         google.maps.event.addListener(marker, 'dragend', function ($event) {
@@ -172,6 +182,13 @@ var GoogleMaps = (function () {
     GoogleMaps.prototype.setAutoFind = function (autofind) {
         this.autoFindRoute = autofind;
     };
+    GoogleMaps.prototype.setOptimizeRoute = function (optimize) {
+        this.routeService.setOptimizeWaypoints(optimize);
+    };
+    GoogleMaps.prototype.setMainMarkersLabels = function (homeMarker, endMarker) {
+        this.homeMarker.setOptions({ label: homeMarker });
+        this.endMarker.setOptions({ label: endMarker });
+    };
     GoogleMaps.prototype.createEmptyMarker = function (label) {
         var marker = new google.maps.Marker({
             map: null,
@@ -225,6 +242,7 @@ exports.GoogleMaps = GoogleMaps;
 var RouteService = (function () {
     function RouteService(_map) {
         this._map = _map;
+        this.isOptimized = false;
         this.directionsService = new google.maps.DirectionsService;
         this.directionsDisplay = new google.maps.DirectionsRenderer({});
         this.directionsDisplay.setOptions({ suppressMarkers: true });
@@ -240,7 +258,7 @@ var RouteService = (function () {
             origin: firstPoint,
             destination: lastPoint,
             waypoints: waypoints,
-            optimizeWaypoints: false,
+            optimizeWaypoints: this.isOptimized,
             travelMode: google.maps.TravelMode.DRIVING
         }, function (response, status) {
             if (status === google.maps.DirectionsStatus.OK) {
@@ -251,6 +269,9 @@ var RouteService = (function () {
                 window.alert('Directions request failed due to ' + status);
             }
         });
+    };
+    RouteService.prototype.setOptimizeWaypoints = function (isOptimized) {
+        this.isOptimized = isOptimized;
     };
     RouteService.prototype.removeRoute = function () {
         this.directionsDisplay.setMap(null);

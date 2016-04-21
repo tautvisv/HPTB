@@ -19,7 +19,7 @@ export class GoogleMaps {
     private endMarker: google.maps.Marker;
     private clickFunctions: MapClickCallbacks;
     private geocoder = new google.maps.Geocoder;
-    protected wayPointsCount = 5;
+    protected wayPointsCount = 8;
     private routeService: IRouteService;
     private map: google.maps.Map;
     private autoFindRoute: boolean = true;
@@ -62,11 +62,19 @@ export class GoogleMaps {
 
             this.clickFunctions.rightClick(index);
             marker.setMap(null);
-            
-            this.wayPoints.splice(index, 1);
+
+            if (index === -2) {
+                var elem = this.wayPoints.shift();
+                this.startPoint = elem;
+            } else if (index === -3) {
+                var elem = this.wayPoints.pop();
+                this.endPoint = elem;
+            } else {
+                this.wayPoints.splice(index, 1);
+            }
             if (this.autoFindRoute) {
                 this.resetMarkers();
-                this.findRoute
+                this.findRoute();
             }
 
         })
@@ -193,6 +201,13 @@ export class GoogleMaps {
     public setAutoFind(autofind: boolean) {
         this.autoFindRoute = autofind;
     }
+    public setOptimizeRoute(optimize: boolean) {
+        this.routeService.setOptimizeWaypoints(optimize);
+    }
+    public setMainMarkersLabels(homeMarker: string, endMarker: string) {
+        this.homeMarker.setOptions({ label: homeMarker });
+        this.endMarker.setOptions({ label: endMarker });
+    }
     private createEmptyMarker(label: string) {
         var marker = new google.maps.Marker({
             map: null,
@@ -241,12 +256,13 @@ export class GoogleMaps {
 export interface IRouteService {
     findRoute(firstPoint: google.maps.LatLng | string, lastPoint: google.maps.LatLng | string, waypoints: google.maps.DirectionsWaypoint[], focus?: boolean): void;
     removeRoute(): void;
+    setOptimizeWaypoints(isOptimized: boolean);
 }
 
 export class RouteService implements IRouteService {
     private directionsService: google.maps.DirectionsService;
     private directionsDisplay: google.maps.DirectionsRenderer;
-
+    private isOptimized: boolean = false;
     constructor(private _map: google.maps.Map) {
         this.directionsService = new google.maps.DirectionsService;
         this.directionsDisplay = new google.maps.DirectionsRenderer({
@@ -264,7 +280,7 @@ export class RouteService implements IRouteService {
             origin: firstPoint,
             destination: lastPoint,
             waypoints: waypoints,
-            optimizeWaypoints: false,
+            optimizeWaypoints: this.isOptimized,
             travelMode: google.maps.TravelMode.DRIVING
         }, (response, status) => {
             if (status === google.maps.DirectionsStatus.OK) {
@@ -282,6 +298,9 @@ export class RouteService implements IRouteService {
                 window.alert('Directions request failed due to ' + status);
             }
         });
+    }
+    setOptimizeWaypoints(isOptimized: boolean) {
+        this.isOptimized = isOptimized;
     }
     removeRoute() {
         this.directionsDisplay.setMap(null);

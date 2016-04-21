@@ -17,10 +17,48 @@ var account_logout_component_1 = require('./account/account-logout.component');
 var router_2 = require('angular2/router');
 var core_2 = require('angular2/core');
 var MainApp = (function () {
-    function MainApp() {
+    function MainApp(router) {
+        this.router = router;
         this.title = 'Tour of Heroes';
     }
     MainApp.prototype.ngOnInit = function () {
+        //var sticyNavbar = $('#navbar_container');
+        var slider = $("#slider_u12");
+        var body = $("body");
+        var sticyNavbar = $('#navbar_container');
+        var startingOffset = slider.height();
+        var stickyNav = function () {
+            var scrollTop = $(window).scrollTop();
+            var stickyNavTop = sticyNavbar.offset().top;
+            if (scrollTop >= startingOffset) {
+                sticyNavbar.addClass('sticky');
+                body.addClass("sticky-body");
+            }
+            else {
+                sticyNavbar.removeClass('sticky');
+                body.removeClass("sticky-body");
+            }
+        };
+        function setNavLayout() {
+            $(document).ready(function () {
+                stickyNav();
+                $(window).scroll(function () {
+                    stickyNav();
+                });
+            });
+        }
+        setNavLayout();
+        this.router.subscribe(function (val) {
+            if (val === "ToursList") {
+                startingOffset = slider.height();
+                slider.show();
+                stickyNav();
+            }
+            else {
+                startingOffset = 1;
+                slider.hide();
+            }
+        });
     };
     MainApp = __decorate([
         router_1.RouteConfig([
@@ -68,5 +106,4 @@ var MainApp = (function () {
     return MainApp;
 }());
 exports.MainApp = MainApp;
-console.log("init panel");
 //# sourceMappingURL=main-app.component.js.map

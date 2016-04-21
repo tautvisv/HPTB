@@ -1,17 +1,20 @@
 ﻿<div class="component">
     <like-directive [status]="1" [travelId]="travel.Id"></like-directive>
     <div class="component-header">
-        <h4>{{travel.Name}}</h4>
+        <div class="travel-view-component-name">{{travel.Name}}</div>
     </div>
     <div class="component-body">
-        <div class="">
-            <p>
-                {{travel.Descrription}}
-            </p>
+        <div class="travel-view" style="position: relative">
+            <div class="col-md-4 item-description-container">
+                
+            </div>
+            <div class="col-md-4 item-description " >{{travel.Descrription}}</div>
             <img src="{{travel.ImageUrl}}" alt="" class="author-icon">
         </div>
-        <div class="">
-            Kelionės trukmė: {{duration()}}
+        <div class="travel-duration" *ngIf="durationString">
+            Numatoma kelionės trukmė: <span class="point-item-hours">{{durationString.days}} </span> {{translateDays(durationString.days)}}
+            <span class="point-item-hours">{{durationString.hours}}</span> {{translateHours(durationString.hours)}}
+            <span class="point-item-hours">{{durationString.minutes}} </span> {{translateMinutes(durationString.minutes)}}
         </div>
         <travel-days-container [days]="travel.wayPoints" (show-route)="showRoute($event)"></travel-days-container>
 

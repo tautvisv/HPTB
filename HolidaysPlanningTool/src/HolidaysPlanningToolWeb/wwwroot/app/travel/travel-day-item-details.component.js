@@ -9,12 +9,44 @@ var core_1 = require('angular2/core');
 var TravelClass_1 = require("./TravelClass");
 var ng2_bs3_modal_1 = require('ng2-bs3-modal/ng2-bs3-modal');
 var GoogleMap_1 = require("./maps/GoogleMap");
+var TravelDayDetailsEditComponent = (function () {
+    function TravelDayDetailsEditComponent() {
+        this.isVisible = true;
+    }
+    TravelDayDetailsEditComponent.prototype.ngOnChanges = function (changeRecord) {
+        if (!changeRecord.selectedDay.currentValue) {
+            this.selectedDay = new TravelClass_1.TravelDayPlan(null);
+            this.isVisible = false;
+            return;
+        }
+        this.isVisible = true;
+    };
+    __decorate([
+        core_1.Input("selectedDay")
+    ], TravelDayDetailsEditComponent.prototype, "selectedDay", void 0);
+    TravelDayDetailsEditComponent = __decorate([
+        core_1.Component({
+            // Declare the tag name in index.html to where the component attaches
+            selector: 'travel-day-details-edit-modal',
+            // Location of the template for this component
+            //templateUrl: './app/travel/travel-day-item-details.component.html',
+            template: "<div *ngIf=\"isVisible\">\n                <div class=\"form-group label-floating col-md-4\">\n                    <label for=\"name\" class=\"control-label\">Pavadinimas</label>\n                    <input type=\"text\" [(ngModel)]=\"selectedDay.Name\" id=\"name\" class=\"form-control\" />\n                </div>\n                <div class=\"form-group label-floating col-md-4\">\n                    <label for=\"duration\" class=\"control-label\">Trukm\u0117:</label>\n                    <input type=\"time\" [(ngModel)]=\"selectedDay.Duration\" id=\"duration\" class=\"form-control\" />\n                </div>\n                <div class=\"form-group label-floating col-md-4\">\n                    <label for=\"date_s\" class=\"control-label\">Data:</label>\n                    <input type=\"datetime-local\" [(ngModel)]=\"selectedDay.Date\" id=\"date_s\" class=\"form-control\" />\n                </div>\n                <div class=\"form-group label-floating col-md-12\">\n                    <label for=\"desc_i\" class=\"control-label\">Apra\u0161ymas:</label>\n                    <textarea rows=\"3\" type=\"text\" [(ngModel)]=\"selectedDay.Description\" id=\"desc_i\" class=\"form-control\"></textarea>\n                </div>\n            </div>",
+            providers: [],
+            directives: []
+        })
+    ], TravelDayDetailsEditComponent);
+    return TravelDayDetailsEditComponent;
+}());
+exports.TravelDayDetailsEditComponent = TravelDayDetailsEditComponent;
 var TravelDayDetailsComponent = (function () {
     function TravelDayDetailsComponent(map, travelMethods) {
         this.map = map;
         this.travelMethods = travelMethods;
         this.travel = new TravelClass_1.TravelClass();
     }
+    TravelDayDetailsComponent.prototype.abc = function (selectedDay) {
+        console.log(selectedDay);
+    };
     TravelDayDetailsComponent.prototype.reinitialise = function () {
         google.maps.event.trigger(this.map.getMap(), 'resize');
         this.recalculateRoute();
@@ -47,6 +79,7 @@ var TravelDayDetailsComponent = (function () {
     TravelDayDetailsComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.map.initialise("travel_day_map");
+        this.map.setOptimizeRoute(true);
         var clicks = {
             click: function (homePoint, endPoint, waypoints, index, coords, address) {
                 _this.travel.TravelDays.push(new TravelClass_1.TravelDayPlan(new TravelClass_1.Point(coords.lat(), coords.lng())));
@@ -93,7 +126,7 @@ var TravelDayDetailsComponent = (function () {
             // Location of the template for this component
             templateUrl: './app/travel/travel-day-item-details.component.html',
             providers: [GoogleMap_1.GoogleMaps, TravelClass_1.TravelMethodsHelper],
-            directives: [ng2_bs3_modal_1.MODAL_DIRECTIVES]
+            directives: [ng2_bs3_modal_1.MODAL_DIRECTIVES, TravelDayDetailsEditComponent]
         })
     ], TravelDayDetailsComponent);
     return TravelDayDetailsComponent;

@@ -1,5 +1,7 @@
 ﻿/// <reference path="../../node_modules/angular2/typings/browser.d.ts" />
 /// <reference path="main-app.component.ts" />
+/// <reference path="jquery.d.ts" />
+
 import {bootstrap}  from 'angular2/platform/browser';
 import {provide} from 'angular2/core';
 

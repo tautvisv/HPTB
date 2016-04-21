@@ -1,6 +1,7 @@
-"use strict";
 /// <reference path="../../node_modules/angular2/typings/browser.d.ts" />
 /// <reference path="main-app.component.ts" />
+/// <reference path="jquery.d.ts" />
+"use strict";
 var browser_1 = require('angular2/platform/browser');
 var core_1 = require('angular2/core');
 var Constants_1 = require('./utils/Constants');
@@ -9,7 +10,7 @@ var http_1 = require('angular2/http');
 //import {NotificationService, Alerts} from './utils/notification.service';
 var ng2_toastr_1 = require('ng2-toastr/ng2-toastr');
 var ng2_toastr_2 = require("ng2-toastr/ng2-toastr");
-var travel_service_1 = require('./travel/travel.service');
+var travel_service_1 = require('./services/travel.service');
 var misc_service_1 = require('./services/misc.service');
 var account_service_1 = require('./services/account.service');
 var main_app_component_1 = require('./main-app.component');

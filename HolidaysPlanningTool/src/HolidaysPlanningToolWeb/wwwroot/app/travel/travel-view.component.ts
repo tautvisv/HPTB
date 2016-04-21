@@ -8,6 +8,13 @@ import { LikeDirectiveComponent } from './like-directive.component';
 import { GoogleMaps } from './maps/GoogleMap';
 import { TravelViewDaysContainerComponent } from './travel-view-days-container.component';
 
+class MyTime {
+    public days: number;
+    public hours: number;
+    public minutes: number;
+    public seconds: number;
+}
+
 @Component({
     // Declare the tag name in index.html to where the component attaches
     selector: 'travel-view',
@@ -18,6 +25,7 @@ import { TravelViewDaysContainerComponent } from './travel-view-days-container.c
 })
 export class TravelViewComponent implements OnInit {
     private travel: FullTravel;
+    private durationString: MyTime;
     constructor(private _router: Router,
         private _routeParams: RouteParams,
         private map: GoogleMaps,
@@ -26,7 +34,8 @@ export class TravelViewComponent implements OnInit {
         this.travel = new FullTravel();
     }
 
-    msToTime(s) {
+    msToTime(s): MyTime {
+        var newTime = new MyTime();
         var ms = s % 1000;
         s = (s - ms) / 1000;
         var secs = s % 60;
@@ -34,7 +43,52 @@ export class TravelViewComponent implements OnInit {
         var mins = s % 60;
         var hrs = (s - mins) / 60 % 24;
         var d = (s - mins) / 60 / 24;
-        return d + 'dienos' + hrs + 'valandos' + mins + 'minutės';
+        //return d + 'dienos' + hrs + 'valandos' + mins + 'minutės';
+        newTime.days = d;
+        newTime.hours = hrs;
+        newTime.minutes = mins;
+        newTime.seconds = s;
+        return newTime;
+    }
+    translateDays(days: number): string {
+        var modItem = days % 10;
+        if (modItem === 0 || days > 9 && days < 20) {
+            return "dienų";
+        }
+        if (modItem === 1) {
+            return "diena";
+        }
+        return "dienos"
+    }
+    translateHours(hours: number): string {
+        var modItem = hours % 10;
+        if (modItem === 0 || hours > 9 && hours < 20) {
+            return "valandų";
+        }
+        if (modItem === 1) {
+            return "valanda";
+        }
+        return "valandos";
+    }
+    translateMinutes(minutes: number): string {
+        var modItem = minutes % 10;
+        if (modItem === 0 || minutes > 9 && minutes < 20) {
+            return "minučių";
+        }
+        if (modItem === 1) {
+            return "minutė";
+        }
+        return "minutės"
+    }
+    translateSeconds(seconds: number): string  {
+        var modItem = seconds % 10;
+        if (modItem === 0 || seconds > 9 && seconds < 20) {
+            return "sekundžių";
+        }
+        if (modItem === 1) {
+            return "sekundė";
+        }
+        return "sekundės";
     }
 
     addComment(comment: Comment) {
@@ -45,21 +99,24 @@ export class TravelViewComponent implements OnInit {
         var first = this.travelHelper.convertPointToDirectionsWaypoint(waypoints[0].Point);
         var last = this.travelHelper.convertPointToDirectionsWaypoint(waypoints[waypoints.length - 1].Point);
         var middles = this.travelHelper.convertILocationPointsToDirectionsWaypoint(waypoints);
+        this.map.setOptimizeRoute(true);
         this.map.setWayPoints(first, last, middles);
     }
     showMainRoute() {
+        this.map.setOptimizeRoute(false);
         this.map.setWayPoints(this.travelHelper.convertPointToDirectionsWaypoint(this.travel.startDay.Point), this.travelHelper.convertPointToDirectionsWaypoint(this.travel.endDay.Point), this.travelHelper.convertAllILocationPointsToDirectionsWaypoint(this.travel.wayPoints));
         //this.map.findRoute();
     }
 
-    duration() {
-        if (!this.travel.endDay || !this.travel.startDay) return "datos nenurodytos";
+    duration(): MyTime {
+        if (!this.travel.endDay || !this.travel.startDay) return new MyTime();
         return this.msToTime(this.travel.endDay.Date.getTime() - this.travel.startDay.Date.getTime());
     }
 
     ngOnInit() {
         this.travelService.getTravel(this._routeParams.get('id')).subscribe(travel => {
             this.travel = travel;
+            this.durationString = this.duration();
             this.showMainRoute();
         });
         this.map.initialise("the_view_map");
