@@ -9,7 +9,9 @@ namespace HoolidaysPlanningToolsAPIMVC5.Managers
     public class ImageManager : IStreamSaver
     {
         private readonly string SaveLocation;
-        private readonly string Root = HttpContext.Current.Request.PhysicalApplicationPath;
+        private string Root = "";
+        //TODO fix it
+        //private readonly string Root = HttpContext.Current.Request.PhysicalApplicationPath;
         private readonly string[] AllowedExtensions = { "PNG", "png", "JPG", "jpg" };
         private const string minFolder = @"\min";
         public ImageManager(string saveLocation)

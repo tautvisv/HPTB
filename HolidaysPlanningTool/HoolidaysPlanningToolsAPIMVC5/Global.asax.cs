@@ -1,11 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Data.Entity;
+using System.Reflection;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Repositories;
+using SimpleInjector;
+using SimpleInjector.Integration.WebApi;
+using UnitOfWork;
 
 namespace HoolidaysPlanningToolsAPIMVC5
 {
@@ -13,11 +15,35 @@ namespace HoolidaysPlanningToolsAPIMVC5
     {
         protected void Application_Start()
         {
+            CreateInjectorContainer();
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+        }
+
+        protected void CreateInjectorContainer()
+        {
+            var container = new Container();
+            container.Options.DefaultScopedLifestyle = new WebApiRequestLifestyle();
+
+            // Register your types, for instance:
+            // container.Register<DbContext>(() => new DatabaseDbContext(System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString), Lifestyle.Scoped);
+            //System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString
+            container.Register<DatabaseDbContext>(() => new DatabaseDbContext("name=DefaultConnection"), Lifestyle.Scoped);
+            container.Register<IUnitOfWork, UnitOfWork.UnitOfWork>(Lifestyle.Scoped);
+            container.Register<IUserRepository, UserRepository>(Lifestyle.Scoped);
+            container.Register<IUserService, UserService>(Lifestyle.Scoped);
+
+            // This is an extension method from the integration package.
+            container.RegisterWebApiControllers(GlobalConfiguration.Configuration);
+            
+
+            container.Verify();
+
+            GlobalConfiguration.Configuration.DependencyResolver =
+                new SimpleInjectorWebApiDependencyResolver(container);
         }
     }
 }

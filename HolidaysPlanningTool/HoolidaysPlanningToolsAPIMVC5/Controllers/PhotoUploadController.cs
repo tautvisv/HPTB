@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
-using System.Web.Http;
 using System.Web;
+using System.Web.Http;
 using FileProcessingLib;
 using HoolidaysPlanningToolsAPIMVC5.Managers;
 
-namespace HolidaysPlanningToolAPI.Controllers
+namespace HoolidaysPlanningToolsAPIMVC5.Controllers
 {
 
 
-    [RoutePrefix("api/Mock")]
+    //[RoutePrefix("api/{Type: regex(Mock | PhotoUpload)}")]
+    [RoutePrefix("api/{controllername:regex(^Mock|PhotoUpload$)}")]
     //[RoutePrefix("api/[controller]")]
     public class PhotoUploadController : ApiController
     {
@@ -16,6 +17,13 @@ namespace HolidaysPlanningToolAPI.Controllers
         public PhotoUploadController()
         {
             fileManager = new ImageManager(@"\nuotraukosjega");
+        }
+
+        [HttpGet]
+        [Route("testf")]
+        public int GetTest()
+        {
+            return 15;
         }
 
         [Route("UploadUserPhoto")]
