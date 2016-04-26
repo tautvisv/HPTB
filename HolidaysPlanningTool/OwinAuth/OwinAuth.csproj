@@ -65,9 +65,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201604241553175_added_identity_framework_maybe.cs" />
-    <Compile Include="Migrations\201604241553175_added_identity_framework_maybe.Designer.cs">
-      <DependentUpon>201604241553175_added_identity_framework_maybe.cs</DependentUpon>
+    <Compile Include="Migrations\201604241608275_initial.cs" />
+    <Compile Include="Migrations\201604241608275_initial.Designer.cs">
+      <DependentUpon>201604241608275_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OwinAuthDbContext.cs" />
@@ -78,8 +78,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201604241553175_added_identity_framework_maybe.resx">
-      <DependentUpon>201604241553175_added_identity_framework_maybe.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201604241608275_initial.resx">
+      <DependentUpon>201604241608275_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

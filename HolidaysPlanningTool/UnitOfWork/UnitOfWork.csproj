@@ -65,41 +65,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201604232045091_InitialCreate.cs" />
-    <Compile Include="Migrations\201604232045091_InitialCreate.Designer.cs">
-      <DependentUpon>201604232045091_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201604232052395_InitialCreate1.cs" />
-    <Compile Include="Migrations\201604232052395_InitialCreate1.Designer.cs">
-      <DependentUpon>201604232052395_InitialCreate1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201604232053538_InitialCreate2.cs" />
-    <Compile Include="Migrations\201604232053538_InitialCreate2.Designer.cs">
-      <DependentUpon>201604232053538_InitialCreate2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201604232054370_InitialCreate3.cs" />
-    <Compile Include="Migrations\201604232054370_InitialCreate3.Designer.cs">
-      <DependentUpon>201604232054370_InitialCreate3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201604232100413_InitialCreate4.cs" />
-    <Compile Include="Migrations\201604232100413_InitialCreate4.Designer.cs">
-      <DependentUpon>201604232100413_InitialCreate4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201604232102048_InitialCreate5.cs" />
-    <Compile Include="Migrations\201604232102048_InitialCreate5.Designer.cs">
-      <DependentUpon>201604232102048_InitialCreate5.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201604240944007_a_lot_of_models_added.cs" />
-    <Compile Include="Migrations\201604240944007_a_lot_of_models_added.Designer.cs">
-      <DependentUpon>201604240944007_a_lot_of_models_added.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201604241339070_random_stuff.cs" />
-    <Compile Include="Migrations\201604241339070_random_stuff.Designer.cs">
-      <DependentUpon>201604241339070_random_stuff.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201604241531049_added_identity_framework_maybe.cs" />
-    <Compile Include="Migrations\201604241531049_added_identity_framework_maybe.Designer.cs">
-      <DependentUpon>201604241531049_added_identity_framework_maybe.cs</DependentUpon>
+    <Compile Include="Migrations\201604241601160_initial.cs" />
+    <Compile Include="Migrations\201604241601160_initial.Designer.cs">
+      <DependentUpon>201604241601160_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="UnitOfWork.cs" />
@@ -112,39 +80,15 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201604232045091_InitialCreate.resx">
-      <DependentUpon>201604232045091_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604232052395_InitialCreate1.resx">
-      <DependentUpon>201604232052395_InitialCreate1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604232053538_InitialCreate2.resx">
-      <DependentUpon>201604232053538_InitialCreate2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604232054370_InitialCreate3.resx">
-      <DependentUpon>201604232054370_InitialCreate3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604232100413_InitialCreate4.resx">
-      <DependentUpon>201604232100413_InitialCreate4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604232102048_InitialCreate5.resx">
-      <DependentUpon>201604232102048_InitialCreate5.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604240944007_a_lot_of_models_added.resx">
-      <DependentUpon>201604240944007_a_lot_of_models_added.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604241339070_random_stuff.resx">
-      <DependentUpon>201604241339070_random_stuff.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604241531049_added_identity_framework_maybe.resx">
-      <DependentUpon>201604241531049_added_identity_framework_maybe.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj">
       <Project>{e9da77cb-9b04-4337-b8f7-b7d92f7c9df5}</Project>
       <Name>Models</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201604241601160_initial.resx">
+      <DependentUpon>201604241601160_initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -3,7 +3,7 @@ namespace OwinAuth.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class added_identity_framework_maybe : DbMigration
+    public partial class initial : DbMigration
     {
         public override void Up()
         {

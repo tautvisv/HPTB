@@ -9,9 +9,6 @@ namespace UnitOfWork
             : base(name)
         {
             this.Configuration.LazyLoadingEnabled = false;
-            //HeroRepository = new HeroesRepository(this);
-            //PlayerRepository = new PlayerStatisticsRepository(this);
-            //MatchRepository = new MatchRepository(this);
         }
         public DatabaseDbContext()
             : this(@"name=DefaultConnection")
@@ -24,9 +21,12 @@ namespace UnitOfWork
          public DbSet<Travel> Travels { get; set; }
          public DbSet<Comment> Comments { get; set; }
 
-        //public IHeroRepository HeroRepository { get; private set; }
-        //public IPlayerRepository PlayerRepository { get; private set; }
-        //public IMatchRepository MatchRepository { get; private set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.HasDefaultSchema("travels");
+        }
+
         public int Commit()
         {
             return this.SaveChanges();

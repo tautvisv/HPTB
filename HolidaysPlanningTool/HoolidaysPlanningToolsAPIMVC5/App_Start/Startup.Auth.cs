@@ -10,6 +10,8 @@ using Microsoft.Owin.Security.OAuth;
 using Owin;
 using HoolidaysPlanningToolsAPIMVC5.Providers;
 using HoolidaysPlanningToolsAPIMVC5.Models;
+using Microsoft.AspNet.Identity.Owin;
+using OwinAuth;
 
 namespace HoolidaysPlanningToolsAPIMVC5
 {
@@ -23,22 +25,26 @@ namespace HoolidaysPlanningToolsAPIMVC5
         public void ConfigureAuth(IAppBuilder app)
         {
             // Configure the db context and user manager to use a single instance per request
-            app.CreatePerOwinContext(ApplicationDbContext.Create);
+            //  app.CreatePerOwinContext(OwinAuthDbContext.Create);
+
+            //new
+            app.CreatePerOwinContext<OwinAuthDbContext>(() => new OwinAuthDbContext());
+            app.CreatePerOwinContext<UserManager<IdentityUser>>(CreateManager);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
 
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider
             app.UseCookieAuthentication(new CookieAuthenticationOptions());
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
-
+            
             // Configure the application for OAuth based flow
             PublicClientId = "self";
             OAuthOptions = new OAuthAuthorizationServerOptions
             {
                 TokenEndpointPath = new PathString("/Token"),
                 Provider = new ApplicationOAuthProvider(PublicClientId),
-                AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
+                AuthorizeEndpointPath = new PathString("/api/User/ExternalLogin"),
+                AccessTokenExpireTimeSpan = TimeSpan.FromHours(30),
                 // In production mode set AllowInsecureHttp = false
                 AllowInsecureHttp = true
             };
@@ -65,5 +71,47 @@ namespace HoolidaysPlanningToolsAPIMVC5
             //    ClientSecret = ""
             //});
         }
+        private static UserManager<IdentityUser> CreateManager(IdentityFactoryOptions<UserManager<IdentityUser>> options, IOwinContext context)
+        {
+            var userStore = new UserStore<IdentityUser>(context.Get<OwinAuthDbContext>());
+            var owinManager = new UserManager<IdentityUser>(userStore);
+            return owinManager;
+        }
     }
+
+    public class WeakPasswordValidator : PasswordValidator
+    {
+        public WeakPasswordValidator():base()
+        {
+            this.RequireDigit = false;
+            this.RequireLowercase = false;
+            this.RequireNonLetterOrDigit = false;
+            this.RequireUppercase = false;
+            this.RequiredLength = 5;
+        }
+    }
+
+    //enum PasswordTypeEnum
+    //{
+    //    Default,
+    //    VeryWeak,
+    //    VeryStrong,   
+    //}
+    //public class PasswordValidatorFactory
+    //{
+    //    public PasswordValidator CreatePasswordValidator(PasswordTypeEnum type)
+    //    {
+    //        switch (type)
+    //        {
+    //            case PasswordTypeEnum.Default:
+    //                break;
+    //            case PasswordTypeEnum.VeryWeak:
+    //                break;
+    //            case PasswordTypeEnum.VeryStrong:
+    //                break;
+    //            default:
+    //                throw new ArgumentOutOfRangeException(nameof(type), type, null);
+    //        }
+    //    }
+    //}
 }

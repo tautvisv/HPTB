@@ -4,11 +4,40 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using HoolidaysPlanningToolsAPIMVC5.Models;
+using OwinAuth;
 
 namespace HoolidaysPlanningToolsAPIMVC5
 {
     // Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.
 
+    public class ApplicationUserManager : UserManager<IdentityUser>
+    {
+        public ApplicationUserManager(IUserStore<IdentityUser> store)
+            : base(store)
+        {
+        }
+
+        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
+        {
+            var manager = new ApplicationUserManager(new UserStore<IdentityUser>(context.Get<OwinAuthDbContext>()));
+            // Configure validation logic for usernames
+            manager.UserValidator = new UserValidator<IdentityUser>(manager)
+            {
+                AllowOnlyAlphanumericUserNames = false,
+                RequireUniqueEmail = true
+            };
+            // Configure validation logic for passwords
+            manager.PasswordValidator = new WeakPasswordValidator();
+          
+            var dataProtectionProvider = options.DataProtectionProvider;
+            if (dataProtectionProvider != null)
+            {
+                manager.UserTokenProvider = new DataProtectorTokenProvider<IdentityUser>(dataProtectionProvider.Create("ASP.NET Identity"));
+            }
+            return manager;
+        }
+    }
+    /*
     public class ApplicationUserManager : UserManager<ApplicationUser>
     {
         public ApplicationUserManager(IUserStore<ApplicationUser> store)
@@ -18,7 +47,7 @@ namespace HoolidaysPlanningToolsAPIMVC5
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
-            var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
+            var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<OwinAuthDbContext>()));
             // Configure validation logic for usernames
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)
             {
@@ -41,5 +70,6 @@ namespace HoolidaysPlanningToolsAPIMVC5
             }
             return manager;
         }
-    }
+    }*/
+    
 }
