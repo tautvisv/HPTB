@@ -13,6 +13,7 @@ var travel_view_component_1 = require('./travel/travel-view.component');
 var travel_home_page_component_1 = require('./travel/travel-home-page.component');
 var account_login_component_1 = require('./account/account-login.component');
 var account_logout_component_1 = require('./account/account-logout.component');
+var is_auth_1 = require('./services/is-auth');
 //import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 var router_2 = require('angular2/router');
 var core_2 = require('angular2/core');
@@ -20,8 +21,10 @@ var MainApp = (function () {
     function MainApp(router) {
         this.router = router;
         this.title = 'Tour of Heroes';
+        this.isAuth = is_auth_1.Auth.isAuth();
     }
     MainApp.prototype.ngOnInit = function () {
+        var _this = this;
         //var sticyNavbar = $('#navbar_container');
         var slider = $("#slider_u12");
         var body = $("body");
@@ -58,6 +61,7 @@ var MainApp = (function () {
                 startingOffset = 1;
                 slider.hide();
             }
+            _this.isAuth = is_auth_1.Auth.isAuth();
         });
     };
     MainApp = __decorate([
@@ -70,6 +74,7 @@ var MainApp = (function () {
             {
                 path: '/Logout',
                 name: 'Logout',
+                data: { roles: ["all"] },
                 component: account_logout_component_1.LogoutComponent
             },
             {

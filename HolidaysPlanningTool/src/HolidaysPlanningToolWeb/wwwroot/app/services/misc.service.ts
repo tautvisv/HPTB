@@ -3,6 +3,8 @@ import {Http, HTTP_PROVIDERS, Headers } from 'angular2/http';
 import {Constants} from '../utils/Constants';
 import {Observable} from 'rxjs/Observable';
 import { Comment } from '../travel/TravelClass';
+import {AuthHttp, AuthConfig, AUTH_PROVIDERS} from './angular2-jwt';
+import {httpAuthorized} from './http-authorized';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/operator/delay';
@@ -13,13 +15,13 @@ import 'rxjs/operator/switchMap';
 @Injectable()
 export class MiscService {
     private _controllerName = "Mock/";
-    constructor(private http: Http) {
+    constructor(private http: httpAuthorized) {
         console.warn("constructor UserSettingsService");
     }
 
     getTravel(travelId: number | string): Observable<any> { //UserSettingsMock
         console.log("service gettings data from", Constants.WebAPIUrl);
-        return this.http.get(Constants.WebAPIUrl + this._controllerName + travelId)
+        return this.http.get(Constants.WebAPIUrl + this._controllerName + travelId, {})
             .map(response => response.json()).map((result: number) => {
                 console.log("response from API:", result);
                 //TODO return result

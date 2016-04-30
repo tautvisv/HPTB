@@ -16,7 +16,7 @@ var LoginComponent = (function () {
     };
     LoginComponent.prototype.login = function () {
         var _this = this;
-        this.accountService.login(this.name, this.password).subscribe(function () {
+        this.accountService.login(this.name, this.password).subscribe(function (result) {
             _this.notificationsService.success("Jūs sėkmingai prisijungėte");
             _this.router.navigate(["ToursList"]);
         }, function () {

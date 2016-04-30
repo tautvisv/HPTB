@@ -8,6 +8,7 @@ namespace HoolidaysPlanningToolsAPIMVC5.Controllers
 {
 
 
+    [Authorize]
     //[RoutePrefix("api/{Type: regex(Mock | PhotoUpload)}")]
     [RoutePrefix("api/{controllername:regex(^Mock|PhotoUpload$)}")]
     //[RoutePrefix("api/[controller]")]
@@ -54,7 +55,6 @@ namespace HoolidaysPlanningToolsAPIMVC5.Controllers
             }
             return photosList;
         }
-
         // GET: api/5
         [Route(("{id}"))]
         [HttpGet]

@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
 
     }
     login() {
-        this.accountService.login(this.name, this.password).subscribe(() => {
+        this.accountService.login(this.name, this.password).subscribe((result:any) => {
             this.notificationsService.success("Jūs sėkmingai prisijungėte");
             this.router.navigate(["ToursList"]);
         },

@@ -36,7 +36,8 @@ var js = [
     './node_modules/ng2-toastr/bundles/ng2-toastr.js',
     './node_modules/primeui/primeui-ng-all.js',
     './node_modules/ng2-bs3-modal/bundles/ng2-bs3-modal.min.js',
-    "./node_modules/ng2-uploader/bundles/ng2-uploader.js"
+    "./node_modules/ng2-uploader/bundles/ng2-uploader.js",
+    "./node_modules/angular2-jwt/angular2-jwt.js"
 ];
 
 var css = [

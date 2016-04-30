@@ -22,7 +22,7 @@ var MiscService = (function () {
     }
     MiscService.prototype.getTravel = function (travelId) {
         console.log("service gettings data from", Constants_1.Constants.WebAPIUrl);
-        return this.http.get(Constants_1.Constants.WebAPIUrl + this._controllerName + travelId)
+        return this.http.get(Constants_1.Constants.WebAPIUrl + this._controllerName + travelId, {})
             .map(function (response) { return response.json(); }).map(function (result) {
             console.log("response from API:", result);
             //TODO return result
@@ -44,6 +44,7 @@ var MiscService = (function () {
             .map(function (response) { return response.json(); }).map(function (result) {
             var re = new TravelClass_1.Comment();
             re.Text = comment.Text;
+            re.Author = comment.Author;
             return re;
         });
     };

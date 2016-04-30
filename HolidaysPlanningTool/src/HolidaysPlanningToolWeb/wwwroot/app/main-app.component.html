@@ -13,9 +13,9 @@
         <div class="navbar-collapse collapse navbar-responsive-collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="javascript:void(0)">Active</a></li>
-                <li><a [routerLink]="['CreateTour']">Pridėti kelionę</a></li>
+                <li><a [routerLink]="['CreateTour']" *ngIf="isAuth">Pridėti kelionę</a></li>
                 <li class="dropdown">
-                    <a href="http://fezvrasta.github.io/bootstrap-material-design/bootstrap-elements.html" data-target="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <a data-target="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                         Dropdown
                         <b class="caret"></b>
                         <div class="ripple-container"></div>
@@ -44,11 +44,11 @@
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a [routerLink]="['Settings']">Nustatymai</a></li>
-                        <li class="divider"></li>
-                        <li><a href="/Account/Register">Registracija</a></li>
-                        <li><a [routerLink]="['Login']">Prisijungti</a></li>
-                        <li><a [routerLink]="['Logout']" >Atsijungti</a></li>
+                        <li><a [routerLink]="['Settings']" *ngIf="isAuth">Nustatymai</a></li>
+                        <!--<li class="divider"></li>-->
+                        <li><a href="/Account/Register" *ngIf="!isAuth">Registracija</a></li>
+                        <li><a [routerLink]="['Login']" *ngIf="!isAuth">Prisijungti</a></li>
+                        <li><a [routerLink]="['Logout']" *ngIf="isAuth">Atsijungti</a></li>
                     </ul>
                 </li>
             </ul>

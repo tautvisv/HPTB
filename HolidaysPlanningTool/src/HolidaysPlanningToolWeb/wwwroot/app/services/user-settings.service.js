@@ -41,7 +41,7 @@ var UserSettingsService = (function () {
     }
     UserSettingsService.prototype.getUserSettingsData = function (userId) {
         console.log("service gettings data from", Constants_1.Constants.WebAPIUrl);
-        return this.http.get(Constants_1.Constants.WebAPIUrl + this._controllerName + userId)
+        return this.http.get(Constants_1.Constants.WebAPIUrl + this._controllerName + userId, {})
             .map(function (response) { return response.json(); }).map(function (result) {
             //TODO return result
             return new UserSettingsMock();

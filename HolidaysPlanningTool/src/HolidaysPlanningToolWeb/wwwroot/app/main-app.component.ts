@@ -6,6 +6,7 @@ import {TravelViewComponent} from './travel/travel-view.component';
 import {TravelHomePageComponent} from './travel/travel-home-page.component';
 import {LoginComponent} from './account/account-login.component';
 import {LogoutComponent} from './account/account-logout.component';
+import { Auth } from './services/is-auth';
 //import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 import {LocationStrategy, HashLocationStrategy} from 'angular2/router';
@@ -20,6 +21,7 @@ import { provide } from 'angular2/core';
     {
         path: '/Logout',
         name: 'Logout',
+        data: { roles:[ "all" ] },
         component: LogoutComponent
     },
     {
@@ -54,8 +56,9 @@ import { provide } from 'angular2/core';
 })
 export class MainApp implements OnInit {
     title = 'Tour of Heroes';
+    private isAuth: boolean;
     constructor(private router: Router) {
-        
+        this.isAuth = Auth.isAuth();
     }
     ngOnInit() {
         //var sticyNavbar = $('#navbar_container');
@@ -94,6 +97,7 @@ export class MainApp implements OnInit {
                 startingOffset = 1;
                 slider.hide();
             }
+            this.isAuth = Auth.isAuth();
         });
 
     }

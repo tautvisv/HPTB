@@ -2,6 +2,9 @@
 import {Constants} from '../utils/Constants';
 import {Http, HTTP_PROVIDERS, Headers } from 'angular2/http';
 import {UserSettings } from '../userItems/user-settings';
+import {AuthHttp, AuthConfig, AUTH_PROVIDERS} from './angular2-jwt';
+import {httpAuthorized} from './http-authorized';
+
 import 'rxjs/add/operator/map';
 import 'rxjs/operator/delay';
 import 'rxjs/operator/mergeMap';
@@ -24,13 +27,13 @@ class UserSettingsMock extends UserSettings {
 @Injectable()
 export class UserSettingsService {
     private _controllerName = "Mock/";
-    constructor(private http: Http) {
+    constructor(private http: httpAuthorized) {
         console.warn("constructor UserSettingsService");
     }
 
     getUserSettingsData(userId: number | string) { //UserSettingsMock
         console.log("service gettings data from", Constants.WebAPIUrl);
-        return this.http.get(Constants.WebAPIUrl + this._controllerName + userId)
+        return this.http.get(Constants.WebAPIUrl + this._controllerName + userId, {})
             .map(response => response.json()).map((result: number) => {
             //TODO return result
             return new UserSettingsMock();
