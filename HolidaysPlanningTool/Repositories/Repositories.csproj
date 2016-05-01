@@ -61,9 +61,13 @@
     <Compile Include="EntityService.cs" />
     <Compile Include="IEntityService.cs" />
     <Compile Include="IGenericRepository.cs" />
+    <Compile Include="IPointRepository.cs" />
     <Compile Include="IService.cs" />
+    <Compile Include="PointRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TravelsRepository.cs" />
     <Compile Include="UserRepository.cs" />
+    <Compile Include="UserSettingsRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj">

@@ -20,11 +20,10 @@ var TravelCreateComponent = (function () {
         //  private travelHome: TravelClass;
         this.travel = new TravelClass_1.FullTravel();
         var p = new TravelClass_1.TravelClass(new TravelClass_1.Point());
-        this.travel.startDay = p;
-        this.travel.endDay = p;
+        this.travel.StartDay = p;
+        this.travel.EndDay = p;
         this.zone = new core_1.NgZone({ enableLongStackTrace: false });
     }
-    ;
     TravelCreateComponent.prototype.setNewTravel = function (travel) {
         this.travel = travel;
         this.mapComponent.setWaypoints(travel);
@@ -37,11 +36,12 @@ var TravelCreateComponent = (function () {
     };
     TravelCreateComponent.prototype.saveTravel = function () {
         var _this = this;
-        this.travelService.saveTravel(this.travel).subscribe(function () {
+        this.travelService.saveTravel(this.travel).subscribe(function (response) {
+            console.log("great success saving travel", response);
             _this._notificationService.success("kelionė sėkmingai išsaugota");
             _this.router.navigate(["Tour", { id: _this.travel.Id }]);
         }, function () {
-            _this._notificationService.error("nenumatyta klaida, prane6kite administratoriui");
+            _this._notificationService.error("nenumatyta klaida, praneškite administratoriui");
         });
     };
     TravelCreateComponent.prototype.cancelTravel = function () {
@@ -49,34 +49,34 @@ var TravelCreateComponent = (function () {
         this.router.navigate(["ToursList"]);
     };
     TravelCreateComponent.prototype.ngOnInit = function () {
-        var _this = this;
         //  this.travels = [];
         // this.travelHome.Name = "Namai";
-        this.travelService.getTravel(20).subscribe(function (response) {
-            _this.setNewTravel(response);
-        }, function () {
-            _this._notificationService.error("nepavyko gauti duomenų");
-        });
+        //TODO move to travel edit component
+        //this.travelService.getTravel(20).subscribe((response) => {
+        //    this.setNewTravel(response);
+        //}, () => {
+        //    this._notificationService.error("nepavyko gauti duomenų");
+        //});
     };
     TravelCreateComponent.prototype.ngAfterViewInit = function () {
         var _this = this;
         var clicks = {
             click: function (homePoint, endPoint, waypoints, index, coords, address) {
                 if (index === -2) {
-                    _this.travel.startDay.Point = new TravelClass_1.Point(coords.lat(), coords.lng());
-                    _this.travel.startDay.Point.Address = address;
+                    _this.travel.StartDay.Point = new TravelClass_1.Point(coords.lat(), coords.lng());
+                    _this.travel.StartDay.Point.Address = address;
                 }
                 else if (index === -3) {
-                    _this.travel.endDay.Point = new TravelClass_1.Point(coords.lat(), coords.lng());
-                    _this.travel.endDay.Point.Address = address;
+                    _this.travel.EndDay.Point = new TravelClass_1.Point(coords.lat(), coords.lng());
+                    _this.travel.EndDay.Point.Address = address;
                 }
                 else {
                     var travelDay = new TravelClass_1.TravelClass(new TravelClass_1.Point(coords.lat(), coords.lng()));
                     travelDay.Point.Address = address;
                     travelDay.OrderIndex = index + 2;
-                    _this.travel.wayPoints.push(travelDay);
+                    _this.travel.WayPoints.push(travelDay);
                 }
-                _this._notificationService.warning("click" + _this.travel.wayPoints.length);
+                _this._notificationService.warning("click" + _this.travel.WayPoints.length);
                 _this.zone.run(function () {
                     console.log('Updated List: ');
                 });
@@ -85,13 +85,13 @@ var TravelCreateComponent = (function () {
                 var newPoint = new TravelClass_1.Point(coords.lat(), coords.lng());
                 newPoint.Address = address;
                 if (index === -2) {
-                    _this.travel.startDay.Point = newPoint;
+                    _this.travel.StartDay.Point = newPoint;
                 }
                 else if (index === -3) {
-                    _this.travel.endDay.Point = newPoint;
+                    _this.travel.EndDay.Point = newPoint;
                 }
                 else {
-                    _this.travel.wayPoints[index].Point = newPoint;
+                    _this.travel.WayPoints[index].Point = newPoint;
                 }
                 _this.zone.run(function () {
                     console.log('Updated List: ');
@@ -102,7 +102,7 @@ var TravelCreateComponent = (function () {
                     _this._notificationService.warning("Pašalinti pradžios ir pabaigos taškų negalima");
                     return;
                 }
-                _this.travel.wayPoints.splice(index, 1);
+                _this.travel.WayPoints.splice(index, 1);
                 _this._notificationService.warning("right");
                 _this.zone.run(function () {
                     console.log('Updated List: ');

@@ -50,7 +50,7 @@ namespace Repositories
             {
                 throw new ArgumentNullException(nameof(user));
             }
-            user.Password = Stuff.Hash(user.Password);
+           // user.Password = Stuff.Hash(user.Password);
             _repository.Add(user);
             _unitOfWork.Commit();
         }

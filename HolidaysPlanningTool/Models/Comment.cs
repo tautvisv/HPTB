@@ -9,9 +9,9 @@ namespace Models
         [Required]
         public DateTime Date { get; set; }
         [ForeignKey("AuthorId")]
-        public User Author { get; set; }
+        public virtual User Author { get; set; }
         [Required]
-        public int AuthorId { get; set; }
+        public string AuthorId { get; set; }
         [Required]
         public string Text { get; set; }
     }

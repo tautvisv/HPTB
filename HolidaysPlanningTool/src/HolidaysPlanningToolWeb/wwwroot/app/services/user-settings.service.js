@@ -12,7 +12,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var core_1 = require('angular2/core');
 var Constants_1 = require('../utils/Constants');
-var http_1 = require('angular2/http');
 var user_settings_1 = require('../userItems/user-settings');
 require('rxjs/add/operator/map');
 require('rxjs/operator/delay');
@@ -36,24 +35,20 @@ var UserSettingsMock = (function (_super) {
 var UserSettingsService = (function () {
     function UserSettingsService(http) {
         this.http = http;
-        this._controllerName = "Mock/";
+        this._controllerName = "UserSettings/";
         console.warn("constructor UserSettingsService");
     }
-    UserSettingsService.prototype.getUserSettingsData = function (userId) {
+    UserSettingsService.prototype.getUserSettingsData = function () {
         console.log("service gettings data from", Constants_1.Constants.WebAPIUrl);
-        return this.http.get(Constants_1.Constants.WebAPIUrl + this._controllerName + userId, {})
+        return this.http.get(Constants_1.Constants.WebAPIUrl + this._controllerName, {})
             .map(function (response) { return response.json(); }).map(function (result) {
             //TODO return result
-            return new UserSettingsMock();
+            return result;
         });
         //return new UserSettingsMock();
     };
     UserSettingsService.prototype.saveUserSettings = function (userSettings) {
-        var headers = new http_1.Headers();
-        headers.append('Content-Type', 'application/json');
-        return this.http.post(Constants_1.Constants.WebAPIUrl + this._controllerName + 5, JSON.stringify(new UserSettingsMock()), {
-            headers: headers
-        })
+        return this.http.post(Constants_1.Constants.WebAPIUrl + this._controllerName, JSON.stringify(userSettings), {})
             .map(function (response) { return response.json(); });
     };
     UserSettingsService = __decorate([

@@ -23,10 +23,10 @@ export class TravelMapComponent implements OnInit {
     }
     public setWaypoints(travel: FullTravel) {
         var list: google.maps.DirectionsWaypoint[] = [];
-        travel.wayPoints.forEach((day) => {
+        travel.WayPoints.forEach((day) => {
             list.push(this.travelMethods.convertPointToDirectionsWaypoint(day.Point));
         });
-        this.map.setWayPoints(this.travelMethods.convertPointToDirectionsWaypoint(travel.startDay.Point), this.travelMethods.convertPointToDirectionsWaypoint(travel.endDay.Point), list); //, travel.endDay, []);
+        this.map.setWayPoints(this.travelMethods.convertPointToDirectionsWaypoint(travel.StartDay.Point), this.travelMethods.convertPointToDirectionsWaypoint(travel.EndDay.Point), list); //, travel.endDay, []);
     }
     //private travelToWaypoint(travel: TravelClass, stopover: boolean = false): google.maps.DirectionsWaypoint {
     //    return {

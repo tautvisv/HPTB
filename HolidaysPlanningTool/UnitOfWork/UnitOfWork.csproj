@@ -69,6 +69,42 @@
     <Compile Include="Migrations\201604241601160_initial.Designer.cs">
       <DependentUpon>201604241601160_initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201604302012178_userID.cs" />
+    <Compile Include="Migrations\201604302012178_userID.Designer.cs">
+      <DependentUpon>201604302012178_userID.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605010934237_userSettingsModelChanged.cs" />
+    <Compile Include="Migrations\201605010934237_userSettingsModelChanged.Designer.cs">
+      <DependentUpon>201605010934237_userSettingsModelChanged.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605011007202_userSettingsModelChangedAgain.cs" />
+    <Compile Include="Migrations\201605011007202_userSettingsModelChangedAgain.Designer.cs">
+      <DependentUpon>201605011007202_userSettingsModelChangedAgain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605011022242_userSettingsModelChangedAgainAgain.cs" />
+    <Compile Include="Migrations\201605011022242_userSettingsModelChangedAgainAgain.Designer.cs">
+      <DependentUpon>201605011022242_userSettingsModelChangedAgainAgain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605011036488_userSettingsModelDescriptionRenamed.cs" />
+    <Compile Include="Migrations\201605011036488_userSettingsModelDescriptionRenamed.Designer.cs">
+      <DependentUpon>201605011036488_userSettingsModelDescriptionRenamed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605011542016_MyUserIdChanged.cs" />
+    <Compile Include="Migrations\201605011542016_MyUserIdChanged.Designer.cs">
+      <DependentUpon>201605011542016_MyUserIdChanged.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605011551239_TravelModelChanged.cs" />
+    <Compile Include="Migrations\201605011551239_TravelModelChanged.Designer.cs">
+      <DependentUpon>201605011551239_TravelModelChanged.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605011552525_TravelModelChanged1.cs" />
+    <Compile Include="Migrations\201605011552525_TravelModelChanged1.Designer.cs">
+      <DependentUpon>201605011552525_TravelModelChanged1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605011633291_TravelModelChanged2.cs" />
+    <Compile Include="Migrations\201605011633291_TravelModelChanged2.Designer.cs">
+      <DependentUpon>201605011633291_TravelModelChanged2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="UnitOfWork.cs" />
     <Compile Include="DatabaseDbContext.cs" />
@@ -88,6 +124,33 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201604241601160_initial.resx">
       <DependentUpon>201604241601160_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604302012178_userID.resx">
+      <DependentUpon>201604302012178_userID.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605010934237_userSettingsModelChanged.resx">
+      <DependentUpon>201605010934237_userSettingsModelChanged.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605011007202_userSettingsModelChangedAgain.resx">
+      <DependentUpon>201605011007202_userSettingsModelChangedAgain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605011022242_userSettingsModelChangedAgainAgain.resx">
+      <DependentUpon>201605011022242_userSettingsModelChangedAgainAgain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605011036488_userSettingsModelDescriptionRenamed.resx">
+      <DependentUpon>201605011036488_userSettingsModelDescriptionRenamed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605011542016_MyUserIdChanged.resx">
+      <DependentUpon>201605011542016_MyUserIdChanged.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605011551239_TravelModelChanged.resx">
+      <DependentUpon>201605011551239_TravelModelChanged.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605011552525_TravelModelChanged1.resx">
+      <DependentUpon>201605011552525_TravelModelChanged1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605011633291_TravelModelChanged2.resx">
+      <DependentUpon>201605011633291_TravelModelChanged2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

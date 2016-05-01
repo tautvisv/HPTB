@@ -1,4 +1,4 @@
-﻿import {Component } from 'angular2/core';
+﻿import {Component, OnInit, ElementRef } from 'angular2/core';
 import { UserSettingsItem } from './user-settings';
 
 
@@ -9,9 +9,9 @@ import { UserSettingsItem } from './user-settings';
     directives: [],
     inputs: ['item']
 })
-export class UserSettingsItemComponent {
+export class UserSettingsItemComponent   {
     private readonly: boolean;
-    constructor() {
+    constructor(public element: ElementRef) {
         this.readonly = true;
     }
     private isInEditMode: boolean = false;

@@ -12,7 +12,7 @@ namespace Models
         public DateTime Duration { get; set; }
         [Required]
         [ForeignKey("PointId")]
-        public Point Point { get; set; }
+        public virtual Point Point { get; set; }
         public int PointId { get; set; }
 
     }

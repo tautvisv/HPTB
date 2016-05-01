@@ -47,11 +47,11 @@ class AuthorMock extends Author {
 class FullTravelMock extends FullTravel {
     constructor() {
         super();
-        this.startDay = new TravelClassMock();
-        this.endDay = new TravelClassMock();
-        this.endDay.Date = new Date("2016-04-10")
-        this.startDay.Date = new Date("2016-04-05")
-        this.wayPoints = [new TravelClassMock(), new TravelClassMock()];
+        this.StartDay = new TravelClassMock();
+        this.EndDay = new TravelClassMock();
+        this.EndDay.Date = new Date("2016-04-10")
+        this.StartDay.Date = new Date("2016-04-05")
+        this.WayPoints = [new TravelClassMock(), new TravelClassMock()];
         this.Descrription = "Sistemos Apra6ymas;";
         this.ImageUrl = `https://dn1w8s6xszn0j.cloudfront.net/media/image/p24/itinerary_images/5113b6bd408698fb70000000/new697d0560ea5234e35fed58670d590613.jpg`;
         this.Id = 135452;
@@ -67,7 +67,7 @@ class FullTravelMock extends FullTravel {
 //http://localhost:2922/api/Mock/5
 @Injectable()
 export class TravelService {
-    private _controllerName = "Mock/";
+    private _controllerName = "Travel/";
     constructor(private http: httpAuthorized) {
         console.warn("constructor UserSettingsService");
     }
@@ -101,12 +101,8 @@ export class TravelService {
             });
     }
     saveTravel(travel: FullTravel) {
-        var headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        return this.http.post(Constants.WebAPIUrl + this._controllerName + 5,
-            JSON.stringify(new TravelClassMock()), {
-                headers: headers
-            })
+        return this.http.post(Constants.WebAPIUrl + this._controllerName,
+            JSON.stringify(travel), { })
             .map(response => response.json());
     }
 }

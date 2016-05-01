@@ -23,10 +23,14 @@ namespace Repositories
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+            BeforeCreate(entity);
             _repository.Add(entity);
             _unitOfWork.Commit();
         }
 
+        protected virtual void BeforeCreate(T entity)
+        {
+        }
 
         public virtual void Update(T entity)
         {

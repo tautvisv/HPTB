@@ -9,13 +9,14 @@ namespace HoolidaysPlanningToolsAPIMVC5.Managers
     public class ImageManager : IStreamSaver
     {
         private readonly string SaveLocation;
-        private string Root = "";
+        private readonly string Root;
         //TODO fix it
         //private readonly string Root = HttpContext.Current.Request.PhysicalApplicationPath;
         private readonly string[] AllowedExtensions = { "PNG", "png", "JPG", "jpg" };
         private const string minFolder = @"\min";
-        public ImageManager(string saveLocation)
+        public ImageManager(string rootPath, string saveLocation)
         {
+            Root = rootPath;
             if (string.IsNullOrEmpty(saveLocation))
                 throw new System.NullReferenceException($"{nameof(saveLocation)} cannot be mepty or null");
             SaveLocation = saveLocation;

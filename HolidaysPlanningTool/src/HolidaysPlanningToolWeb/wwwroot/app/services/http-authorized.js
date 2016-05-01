@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var core_1 = require('angular2/core');
 var http_1 = require('angular2/http');
-var app_config_1 = require("../config/app-config");
+var Constants_1 = require('../utils/Constants');
 require('rxjs/add/operator/map');
 require('rxjs/operator/delay');
 require('rxjs/operator/mergeMap');
@@ -17,19 +17,19 @@ var httpAuthorized = (function () {
         this.http = http;
         this.headers = new http_1.Headers();
         this.headers.append('Content-Type', 'application/json');
-        var token = localStorage.getItem(app_config_1.CONFIG.token);
+        var token = localStorage.getItem(Constants_1.Constants.TokenName);
         if (token) {
             this.setToken(token);
         }
     }
     httpAuthorized.prototype.setToken = function (token) {
         this.removeToken();
-        this.headers.append("Authorization", "Bearer " + token);
-        localStorage.setItem(app_config_1.CONFIG.token, token);
+        this.headers.append(Constants_1.Constants.TokenHeaderName, Constants_1.Constants.TokenType + token);
+        localStorage.setItem(Constants_1.Constants.TokenName, token);
     };
     httpAuthorized.prototype.removeToken = function () {
         this.headers.delete("Authorization");
-        localStorage.removeItem(app_config_1.CONFIG.token);
+        localStorage.removeItem(Constants_1.Constants.TokenName);
     };
     httpAuthorized.prototype.setGlobalHeaders = function (headers, request) {
         headers.forEach(function (header) {

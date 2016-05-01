@@ -1,6 +1,6 @@
 ﻿import {Component, OnInit } from 'angular2/core';
 import { UserSettingsItemComponent } from './user-settings-item.component';
-import { UserSettingsItem } from './user-settings';
+import { UserSettingsItem, UserSettings } from './user-settings';
 import { UserSettingsService } from '../services/user-settings.service';
 import { UserSettingsViewItem } from './user-settings';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
@@ -25,10 +25,12 @@ export class UploadService {
         return Observable.create(observer => {
             let formData: FormData = new FormData(),
                 xhr: XMLHttpRequest = new XMLHttpRequest();
-
+            
             for (let i = 0; i < files.length; i++) {
                 formData.append("file", files[i], files[i].name);
             }
+            var token = localStorage.getItem(Constants.TokenName);
+
             xhr.onreadystatechange = () => {
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200) {
@@ -46,7 +48,8 @@ export class UploadService {
                 this.progressObserver.next(this.progress);
             };
 
-            xhr.open('POST', this.serverUrl+url, true);
+            xhr.open('POST', this.serverUrl + url, true);
+            xhr.setRequestHeader(Constants.TokenHeaderName, Constants.TokenType + token);
             xhr.send(formData);
         });
     }
@@ -76,13 +79,16 @@ export class UserSettingsComponent implements OnInit {
             return;
         }
         console.log(files);
-        this.uploadService.makeFileRequest('/api/Mock/UploadUserPhoto', [], files).subscribe((photoUrl: string) => {
+        this.uploadService.makeFileRequest('/api/PhotoUpload/UploadUserPhoto', [], files).subscribe((photoUrl: string) => {
             console.log('sent', photoUrl);
-            this.userInfo.image = Constants.WebAPI + photoUrl;
+            this.userInfo.image.fullUrl = Constants.WebAPI + photoUrl;
+            this.userInfo.image.url = photoUrl;
         });
     }
     saveSettings(): void {
-        this._settingsService.saveUserSettings({ test: "yra test"}).subscribe(
+        //TODO createuserSettings
+        var userSettings: UserSettings = this.userInfo.getUserSettings();
+        this._settingsService.saveUserSettings(userSettings).subscribe(
             res => {
                 this._notificationService.success("Vartotojo informacija atnaujinta, atsakas iš serverio: " );
                 this.router.navigate(["ToursList"])
@@ -94,11 +100,15 @@ export class UserSettingsComponent implements OnInit {
         this._notificationService.info("nustatymai neišsaugoti");
         this.router.navigate(["ToursList"])
     }
+    private refreshFields() {
+        $(".component").find("input").change();
+    }
     ngOnInit() {
-        this._settingsService.getUserSettingsData(51).subscribe(
+        this._settingsService.getUserSettingsData().subscribe(
             res => {
                 this.userInfo.createFromUserSettings(res);
-                this._notificationService.success("Vartotojo informacija užkrauta, atsakas iš serverio: ");
+                //TODO fix it
+                setTimeout(this.refreshFields, 200);
             },
             (err: any) => this._notificationService.error("Gauti vartotojo duomenų nepavyko: kodas: " + err.status));
     }

@@ -26,27 +26,23 @@ class UserSettingsMock extends UserSettings {
 //http://localhost:2922/api/Mock/5
 @Injectable()
 export class UserSettingsService {
-    private _controllerName = "Mock/";
+    private _controllerName = "UserSettings/";
     constructor(private http: httpAuthorized) {
         console.warn("constructor UserSettingsService");
     }
 
-    getUserSettingsData(userId: number | string) { //UserSettingsMock
+    getUserSettingsData() { //UserSettingsMock
         console.log("service gettings data from", Constants.WebAPIUrl);
-        return this.http.get(Constants.WebAPIUrl + this._controllerName + userId, {})
-            .map(response => response.json()).map((result: number) => {
+        return this.http.get(Constants.WebAPIUrl + this._controllerName, {})
+            .map(response => response.json()).map((result: UserSettings) => {
             //TODO return result
-            return new UserSettingsMock();
+                return result;
         });
         //return new UserSettingsMock();
     }
-    saveUserSettings(userSettings: any) {
-        var headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        return this.http.post(Constants.WebAPIUrl + this._controllerName + 5,
-            JSON.stringify(new UserSettingsMock()), {
-                headers: headers
-            })
+    saveUserSettings(userSettings: UserSettings) {
+        return this.http.post(Constants.WebAPIUrl + this._controllerName,
+            JSON.stringify(userSettings), {})
             .map(response => response.json());
     }
 }

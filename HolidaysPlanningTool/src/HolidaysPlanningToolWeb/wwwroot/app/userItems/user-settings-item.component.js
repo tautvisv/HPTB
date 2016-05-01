@@ -7,8 +7,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var core_1 = require('angular2/core');
 var UserSettingsItemComponent = (function () {
-    function UserSettingsItemComponent() {
+    function UserSettingsItemComponent(element) {
         var _this = this;
+        this.element = element;
         this.isInEditMode = false;
         this.setEditMode = function () {
             _this.readonly = false;

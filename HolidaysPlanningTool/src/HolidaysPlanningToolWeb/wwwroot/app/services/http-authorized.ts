@@ -1,7 +1,7 @@
 ﻿import {Component, Injectable } from 'angular2/core';
 import {Http, Headers, Request, RequestOptions, RequestOptionsArgs, RequestMethod, Response} from 'angular2/http';
-import { CONFIG } from "../config/app-config";
 import {Observable} from 'rxjs/Observable';
+import {Constants} from '../utils/Constants';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/operator/delay';
@@ -27,19 +27,19 @@ export class httpAuthorized {
 
         this.headers = new Headers();
         this.headers.append('Content-Type', 'application/json');
-        var token = localStorage.getItem(CONFIG.token);
+        var token = localStorage.getItem(Constants.TokenName);
         if (token) {
             this.setToken(token);
         }
     }
     setToken(token: string) {
         this.removeToken();
-        this.headers.append("Authorization", "Bearer " + token);
-        localStorage.setItem(CONFIG.token, token);
+        this.headers.append(Constants.TokenHeaderName, Constants.TokenType + token);
+        localStorage.setItem(Constants.TokenName, token);
     }
     removeToken() {
         this.headers.delete("Authorization");
-        localStorage.removeItem(CONFIG.token);
+        localStorage.removeItem(Constants.TokenName);
     }
     setGlobalHeaders(headers: Array<Object>, request: Request | RequestOptionsArgs) {
         headers.forEach((header: Object) => {

@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using Models;
 
@@ -15,16 +16,22 @@ namespace UnitOfWork
         {
         }
          public DbSet<User> Users { get; set; }
-         public DbSet<Point> Points { get; set; }
-         public DbSet<TravelPointPlan> TravelPointPlans { get; set; }
-         public DbSet<TravelDayPlan> TravelDayPlans { get; set; }
-         public DbSet<Travel> Travels { get; set; }
-         public DbSet<Comment> Comments { get; set; }
+        public DbSet<Point> Points { get; set; }
+        public DbSet<TravelPointPlan> TravelPointPlans { get; set; }
+        public DbSet<TravelDayPlan> TravelDayPlans { get; set; }
+        public DbSet<Travel> Travels { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("travels");
+            modelBuilder.Entity<User>().HasKey(x => x.UserId);
+            //Property(x => x.UserId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+            //modelBuilder.Entity<IdentityUser>()
+            //    .ToTable("AspNetUsers");
+            //modelBuilder.Entity<ApplicationUser>()
+            //    .ToTable("AspNetUsers");
         }
 
         public int Commit()

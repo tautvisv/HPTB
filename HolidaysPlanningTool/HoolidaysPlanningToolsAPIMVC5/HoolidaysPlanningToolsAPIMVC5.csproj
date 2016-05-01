@@ -236,7 +236,9 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PhotoUploadController.cs" />
+    <Compile Include="Controllers\TravelController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\UserSettingsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -316,6 +318,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Constants\Constants.csproj">
+      <Project>{4B0BBAD5-E4BE-43EF-990F-655E44AB5FD2}</Project>
+      <Name>Constants</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EmptyProject\EmptyProject.csproj">
       <Project>{d2e57280-6b61-4245-92fb-9339b74bd0af}</Project>
       <Name>EmptyProject</Name>
@@ -335,6 +341,10 @@
     <ProjectReference Include="..\Repositories\Repositories.csproj">
       <Project>{5c9f4d50-994e-4c59-a305-25493dcf225b}</Project>
       <Name>Repositories</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Services\Services.csproj">
+      <Project>{E638B0B3-733A-4397-B2C3-CEF6F20127A8}</Project>
+      <Name>Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnitOfWork\UnitOfWork.csproj">
       <Project>{02868d18-57af-4c50-916a-5089b7b1ce4c}</Project>

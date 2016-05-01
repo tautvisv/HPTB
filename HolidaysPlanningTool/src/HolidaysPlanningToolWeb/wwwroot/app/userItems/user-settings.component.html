@@ -2,7 +2,7 @@
     <div class="component-header">
         <div class="component-header-title">Vartotojo nustatymai</div>
         <div class="component-header-body">
-            Naudodami slaptažodį apsaugote paskyrą. Taip pat galite pridėti papildomą apsaugos sluoksnį naudodami dviejų veiksmų patvirtinimą. Naudojant šią funkciją telefonu siunčiamas vienkartinis kodas, kurį turite įvesti prisijungdami. Todėl net jei kažkas pavogtų slaptažodį, jo nepakaktų prisijungti prie paskyros.
+            Šiuoje vietoje galite pasikeisti savo asmeninius nustatymus.
         </div>
     </div>
     <div class="component-body">
@@ -10,7 +10,6 @@
             <user-settings-item [item]="userInfo.name"></user-settings-item>
             <user-settings-item [item]="userInfo.address"></user-settings-item>
             <user-settings-item [item]="userInfo.email"></user-settings-item>
-            <user-settings-item [item]="userInfo.description"></user-settings-item>
             <div class="edit-field">
                 <div>
                     <div class="form-group label-floating">
@@ -31,7 +30,7 @@
                     <input type="text" readonly="" class="form-control" placeholder="Browse...">
                     <input type="file" id="inputFile" (change)="onChange($event)" multiple="">
                 </div>
-                <img class="user-image big" src="{{userInfo.image}}"/>
+                <img class="user-image big" src="{{userInfo.image.fullUrl}}"/>
 
                 <span class="material-input"></span>
             </div>

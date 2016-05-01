@@ -9,14 +9,14 @@
 
         <ul class="travel-items">
             <li class="first">
-                <travel-day-item-component [travel]="travel.startDay"></travel-day-item-component>
+                <travel-day-item-component [travel]="travel.StartDay"></travel-day-item-component>
             </li>
-            <li *ngFor="#travela of travel.wayPoints; #i = index">
+            <li *ngFor="#travela of travel.WayPoints; #i = index">
                 <travel-day-item-component [travel]="travela" [title]="i+1">loading</travel-day-item-component>
                 <a class="btn btn-info" (click)="openTravelDayModal(travela)">Detalus dienos planas</a>
             </li>
             <li class="last">
-                <travel-day-item-component [travel]="travel.endDay"></travel-day-item-component>
+                <travel-day-item-component [travel]="travel.EndDay"></travel-day-item-component>
             </li>
         </ul>
 

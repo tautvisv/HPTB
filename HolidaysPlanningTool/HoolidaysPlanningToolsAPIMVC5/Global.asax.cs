@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using Repositories;
+using Services;
 using SimpleInjector;
 using SimpleInjector.Integration.WebApi;
 using UnitOfWork;
@@ -35,6 +36,12 @@ namespace HoolidaysPlanningToolsAPIMVC5
             container.Register<IUnitOfWork, UnitOfWork.UnitOfWork>(Lifestyle.Scoped);
             container.Register<IUserRepository, UserRepository>(Lifestyle.Scoped);
             container.Register<IUserService, UserService>(Lifestyle.Scoped);
+            container.Register<IUserSettingsRepository, UserSettingsRepository>(Lifestyle.Scoped);
+            container.Register<IUserSettingsService, UserSettingsService>(Lifestyle.Scoped); 
+            container.Register<ITravelService, TravelsService>(Lifestyle.Scoped); 
+            container.Register<ITravelRepository, TravelsRepository>(Lifestyle.Scoped); 
+            container.Register<ITravelDayRepository, TravelDayRepositoryRepository>(Lifestyle.Scoped); 
+            container.Register<IPointRepository, PointRepository>(Lifestyle.Scoped); 
 
             // This is an extension method from the integration package.
             container.RegisterWebApiControllers(GlobalConfiguration.Configuration);

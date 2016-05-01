@@ -77,9 +77,9 @@ export class TravelClass implements ILocationPoint  {
 export class FullTravel {
     public Id: number;
     public Name: string;
-    public startDay: TravelClass;
-    public endDay: TravelClass;
-    public wayPoints: TravelClass[];
+    public StartDay: TravelClass;
+    public EndDay: TravelClass;
+    public WayPoints: TravelClass[];
     public ImageUrl: string;
     public Descrription: string;
     public Author: Author;
@@ -87,6 +87,7 @@ export class FullTravel {
     public Views: number;
     public CommentsCount: number;
     public Comments: Comment[];
+    constructor() { this.WayPoints = []; this.Comments = []; }
 }
 
 export class Comment {

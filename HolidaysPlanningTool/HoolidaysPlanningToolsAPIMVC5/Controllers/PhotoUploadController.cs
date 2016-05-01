@@ -3,6 +3,7 @@ using System.Web;
 using System.Web.Http;
 using FileProcessingLib;
 using HoolidaysPlanningToolsAPIMVC5.Managers;
+using Microsoft.AspNet.Identity;
 
 namespace HoolidaysPlanningToolsAPIMVC5.Controllers
 {
@@ -10,14 +11,15 @@ namespace HoolidaysPlanningToolsAPIMVC5.Controllers
 
     [Authorize]
     //[RoutePrefix("api/{Type: regex(Mock | PhotoUpload)}")]
-    [RoutePrefix("api/{controllername:regex(^Mock|PhotoUpload$)}")]
+    // [RoutePrefix("api/{controllername:regex(^Mock|PhotoUpload$)}")]
+    [RoutePrefix(Constants.Constants.WebApiPrefix + "PhotoUpload")]
     //[RoutePrefix("api/[controller]")]
     public class PhotoUploadController : ApiController
     {
         private readonly IStreamSaver fileManager;
         public PhotoUploadController()
         {
-            fileManager = new ImageManager(@"\nuotraukosjega");
+            fileManager = new ImageManager(HttpContext.Current.Server.MapPath("~"), @"\nuotraukosjega");
         }
 
         [HttpGet]
@@ -36,8 +38,9 @@ namespace HoolidaysPlanningToolsAPIMVC5.Controllers
 
             using (var fileStream = file.InputStream)
             {
-                var filePath = fileManager.Save(fileStream, file.FileName);
-                fileManager.SaveAsMinified(filePath, file.FileName);
+                var filenName = file.FileName.Replace(' ', '_');
+                var filePath = fileManager.Save(fileStream, filenName);
+                fileManager.SaveAsMinified(filePath, filenName);
                 return filePath;
             }
 
@@ -60,7 +63,8 @@ namespace HoolidaysPlanningToolsAPIMVC5.Controllers
         [HttpGet]
         public object GetController([FromUri] string id)
         {
-            return Ok(69);
+            var identity = User.Identity.GetUserId();
+            return Ok(identity);
         }
 
 

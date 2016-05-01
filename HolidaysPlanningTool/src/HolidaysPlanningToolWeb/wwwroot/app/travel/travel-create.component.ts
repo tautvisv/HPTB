@@ -25,13 +25,13 @@ export class TravelCreateComponent implements OnInit {
    // private travels: TravelClass[];
   //  private travelHome: TravelClass;
 
-    private travel: FullTravel = new FullTravel();;
+    private travel: FullTravel = new FullTravel();
     zone: NgZone;
 
     constructor(private _notificationService: ToastsManager, private router: Router, public travelService: TravelService) {
         var p = new TravelClass(new Point());
-            this.travel.startDay = p;
-        this.travel.endDay = p;
+            this.travel.StartDay = p;
+        this.travel.EndDay = p;
         this.zone = new NgZone({ enableLongStackTrace: false });
     }
     public setNewTravel(travel: FullTravel) {
@@ -45,11 +45,12 @@ export class TravelCreateComponent implements OnInit {
         console.log("pasikeit4 compoennt create", changes);
     }
     saveTravel(): void {
-        this.travelService.saveTravel(this.travel).subscribe(() => {
+        this.travelService.saveTravel(this.travel).subscribe((response) => {
+            console.log("great success saving travel", response);
             this._notificationService.success("kelionė sėkmingai išsaugota");
             this.router.navigate(["Tour", { id: this.travel.Id }]);
         }, () => {
-            this._notificationService.error("nenumatyta klaida, prane6kite administratoriui");
+            this._notificationService.error("nenumatyta klaida, praneškite administratoriui");
         });
     }
     cancelTravel(): void {
@@ -60,28 +61,29 @@ export class TravelCreateComponent implements OnInit {
 
       //  this.travels = [];
        // this.travelHome.Name = "Namai";
-        this.travelService.getTravel(20).subscribe((response) => {
-            this.setNewTravel(response);
-        }, () => {
-            this._notificationService.error("nepavyko gauti duomenų");
-        });
+       //TODO move to travel edit component
+        //this.travelService.getTravel(20).subscribe((response) => {
+        //    this.setNewTravel(response);
+        //}, () => {
+        //    this._notificationService.error("nepavyko gauti duomenų");
+        //});
     }
     ngAfterViewInit() {
         var clicks = {
             click: (homePoint: google.maps.DirectionsWaypoint, endPoint: google.maps.DirectionsWaypoint, waypoints: google.maps.DirectionsWaypoint[], index: number, coords: google.maps.LatLng, address: string) => {
                 if (index === -2) {
-                    this.travel.startDay.Point = new Point(coords.lat(), coords.lng());
-                    this.travel.startDay.Point.Address = address;
+                    this.travel.StartDay.Point = new Point(coords.lat(), coords.lng());
+                    this.travel.StartDay.Point.Address = address;
                 } else if (index === -3) {
-                    this.travel.endDay.Point = new Point(coords.lat(), coords.lng());
-                    this.travel.endDay.Point.Address = address;
+                    this.travel.EndDay.Point = new Point(coords.lat(), coords.lng());
+                    this.travel.EndDay.Point.Address = address;
                 } else {
                     var travelDay = new TravelClass(new Point(coords.lat(), coords.lng()));
                     travelDay.Point.Address = address;
                     travelDay.OrderIndex = index + 2;
-                    this.travel.wayPoints.push(travelDay);
+                    this.travel.WayPoints.push(travelDay);
                 }
-                this._notificationService.warning("click" + this.travel.wayPoints.length);
+                this._notificationService.warning("click" + this.travel.WayPoints.length);
                 this.zone.run(() => {
                     console.log('Updated List: ');
                 });
@@ -90,11 +92,11 @@ export class TravelCreateComponent implements OnInit {
                 var newPoint = new Point(coords.lat(), coords.lng());
                 newPoint.Address = address;
                 if (index === -2) {
-                    this.travel.startDay.Point = newPoint;
+                    this.travel.StartDay.Point = newPoint;
                 } else if (index === -3) {
-                    this.travel.endDay.Point = newPoint;
+                    this.travel.EndDay.Point = newPoint;
                 }else{
-                    this.travel.wayPoints[index].Point = newPoint;
+                    this.travel.WayPoints[index].Point = newPoint;
                 }
                 this.zone.run(() => {
                     console.log('Updated List: ');
@@ -105,7 +107,7 @@ export class TravelCreateComponent implements OnInit {
                     this._notificationService.warning("Pašalinti pradžios ir pabaigos taškų negalima");
                     return;
                 }
-                this.travel.wayPoints.splice(index, 1);
+                this.travel.WayPoints.splice(index, 1);
                 this._notificationService.warning("right");
                 this.zone.run(() => {
                     console.log('Updated List: ');

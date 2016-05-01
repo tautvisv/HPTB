@@ -104,13 +104,13 @@ export class TravelViewComponent implements OnInit {
     }
     showMainRoute() {
         this.map.setOptimizeRoute(false);
-        this.map.setWayPoints(this.travelHelper.convertPointToDirectionsWaypoint(this.travel.startDay.Point), this.travelHelper.convertPointToDirectionsWaypoint(this.travel.endDay.Point), this.travelHelper.convertAllILocationPointsToDirectionsWaypoint(this.travel.wayPoints));
+        this.map.setWayPoints(this.travelHelper.convertPointToDirectionsWaypoint(this.travel.StartDay.Point), this.travelHelper.convertPointToDirectionsWaypoint(this.travel.EndDay.Point), this.travelHelper.convertAllILocationPointsToDirectionsWaypoint(this.travel.WayPoints));
         //this.map.findRoute();
     }
 
     duration(): MyTime {
-        if (!this.travel.endDay || !this.travel.startDay) return new MyTime();
-        return this.msToTime(this.travel.endDay.Date.getTime() - this.travel.startDay.Date.getTime());
+        if (!this.travel.EndDay || !this.travel.StartDay) return new MyTime();
+        return this.msToTime(this.travel.EndDay.Date.getTime() - this.travel.StartDay.Date.getTime());
     }
 
     ngOnInit() {

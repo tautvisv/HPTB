@@ -46,7 +46,7 @@ namespace HoolidaysPlanningToolsAPIMVC5.Controllers
         public string ConfirmPassword { get; set; }
     }
     [Authorize]
-    [RoutePrefix("api/User")]
+    [RoutePrefix(Constants.Constants.WebApiPrefix + "User")]
     public class UserController : ApiController
     {
         private ApplicationUserManager _userManager;

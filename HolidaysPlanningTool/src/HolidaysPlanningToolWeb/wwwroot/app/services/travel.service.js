@@ -12,7 +12,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var core_1 = require('angular2/core');
 var Constants_1 = require('../utils/Constants');
-var http_1 = require('angular2/http');
 var TravelClass_1 = require('../travel/TravelClass');
 require('rxjs/add/operator/map');
 require('rxjs/operator/delay');
@@ -59,11 +58,11 @@ var FullTravelMock = (function (_super) {
     __extends(FullTravelMock, _super);
     function FullTravelMock() {
         _super.call(this);
-        this.startDay = new TravelClassMock();
-        this.endDay = new TravelClassMock();
-        this.endDay.Date = new Date("2016-04-10");
-        this.startDay.Date = new Date("2016-04-05");
-        this.wayPoints = [new TravelClassMock(), new TravelClassMock()];
+        this.StartDay = new TravelClassMock();
+        this.EndDay = new TravelClassMock();
+        this.EndDay.Date = new Date("2016-04-10");
+        this.StartDay.Date = new Date("2016-04-05");
+        this.WayPoints = [new TravelClassMock(), new TravelClassMock()];
         this.Descrription = "Sistemos Apra6ymas;";
         this.ImageUrl = "https://dn1w8s6xszn0j.cloudfront.net/media/image/p24/itinerary_images/5113b6bd408698fb70000000/new697d0560ea5234e35fed58670d590613.jpg";
         this.Id = 135452;
@@ -80,7 +79,7 @@ var FullTravelMock = (function (_super) {
 var TravelService = (function () {
     function TravelService(http) {
         this.http = http;
-        this._controllerName = "Mock/";
+        this._controllerName = "Travel/";
         console.warn("constructor UserSettingsService");
     }
     TravelService.prototype.getTravel = function (travelId) {
@@ -111,11 +110,7 @@ var TravelService = (function () {
         });
     };
     TravelService.prototype.saveTravel = function (travel) {
-        var headers = new http_1.Headers();
-        headers.append('Content-Type', 'application/json');
-        return this.http.post(Constants_1.Constants.WebAPIUrl + this._controllerName + 5, JSON.stringify(new TravelClassMock()), {
-            headers: headers
-        })
+        return this.http.post(Constants_1.Constants.WebAPIUrl + this._controllerName, JSON.stringify(travel), {})
             .map(function (response) { return response.json(); });
     };
     TravelService = __decorate([

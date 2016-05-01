@@ -1,17 +1,25 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
 
 namespace Models
 {
     public class User : Author
     {
+        [NotMapped]
+        public new int Id { get; set; }
+        [JsonIgnore]
+        [Index(IsUnique = true)]
+        [Column(Order = 2)]
+        [Key]
         [Required]
-        public string Password { get; set; }
+        public string UserId { get; set; }
         public string Address { get; set; }
         [MaxLength(128)]
         [Index(IsUnique = true)]
         public string Email { get; set; }
-        public string About { get; set; }
+        public string Description { get; set; }
+        public string Phone { get; set; }
         public string ExtraInfo { get; set; }
     }
     public class Author : Entity

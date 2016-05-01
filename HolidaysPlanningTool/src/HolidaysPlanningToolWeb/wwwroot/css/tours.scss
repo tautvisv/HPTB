@@ -53,6 +53,9 @@ $large-modal-width: 1100px;
     display: inline-block;
     vertical-align: top;
 }
+input.form-control {
+    border-bottom: 1px solid #D2D2D2;
+}
 .component .form-control {
     max-width: 1000px;
 }

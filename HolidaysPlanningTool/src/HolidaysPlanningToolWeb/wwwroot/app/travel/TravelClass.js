@@ -74,6 +74,8 @@ var TravelClass = (function () {
 exports.TravelClass = TravelClass;
 var FullTravel = (function () {
     function FullTravel() {
+        this.WayPoints = [];
+        this.Comments = [];
     }
     return FullTravel;
 }());

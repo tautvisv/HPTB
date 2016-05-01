@@ -8,5 +8,6 @@ namespace Models
         public float Latitude { get; set; }
         [Required]
         public float Longitude { get; set; }
+        public string Address { get; set; }
     }
 }

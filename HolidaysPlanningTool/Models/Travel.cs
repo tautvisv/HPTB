@@ -9,22 +9,23 @@ namespace Models
         [Required]
         public string Name { get; set; }
         [ForeignKey("StartDayId")]
-        public TravelDayPlan StartDay { get; set; }
-        public int StartDayId { get; set; }
+        public virtual TravelDayPlan StartDay { get; set; }
+        public int? StartDayId { get; set; }
         [ForeignKey("EndDayId")]
-        public TravelDayPlan EndDay { get; set; }
-        public int EndDayId { get; set; }
-        public IList<TravelDayPlan> WayPoints { get; set; }
+        public virtual TravelDayPlan EndDay { get; set; }
+        public int? EndDayId { get; set; }
+        public virtual IList<TravelDayPlan> WayPoints { get; set; }
         public string ImageUrl { get; set; }
-        public string Descrription { get; set; }
+        public string Description { get; set; }
         [ForeignKey("AuthorId")]
-        public User Author { get; set; }
+        public virtual User Author { get; set; }
         [Required]
-        public int AuthorId { get; set; }
+        public string  AuthorId { get; set; }
         //TODO add likes, view oject
         // public int Likes { get; set; }
         // public int Views { get; set; }
+        [NotMapped]
         public int CommentsCount { get; set; }
-        public IList<Comment> Comments { get; set; }
+        public virtual IList<Comment> Comments { get; set; }
     }
 }
