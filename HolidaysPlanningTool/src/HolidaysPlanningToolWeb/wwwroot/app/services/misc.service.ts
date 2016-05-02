@@ -35,17 +35,10 @@ export class MiscService {
             console.warn("komentaras privalo tur4ti tekstą, užklausa neišsiųsta");
             return Observable.of({ }).map(o => JSON.stringify(o));
         }*/
-        var headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        return this.http.post(Constants.WebAPIUrl + this._controllerName + 5,
-            JSON.stringify(comment), {
-                headers: headers
-            })
+        return this.http.post(Constants.WebAPIUrl + "Comments/",
+            JSON.stringify(comment), {})
             .map(response => response.json()).map((result: Comment) => {
-                var re = new Comment();
-                re.Text = comment.Text;
-                re.Author = comment.Author;
-                return re;
+                return result;
             });
     }
     like(travelId: number, status: number) {

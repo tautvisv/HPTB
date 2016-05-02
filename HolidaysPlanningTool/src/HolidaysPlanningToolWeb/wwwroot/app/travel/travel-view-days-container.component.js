@@ -17,6 +17,19 @@ var TravelViewDaysContainerComponent = (function () {
     TravelViewDaysContainerComponent.prototype.scrollDetails = function (right) {
         var scroll = right ? 300 : -300;
         this.itemsContainer.scrollLeft += scroll;
+        this.scrollTo(this.itemsContainer, this.itemsContainer.scrollLeft + scroll, 300);
+    };
+    TravelViewDaysContainerComponent.prototype.scrollTo = function (element, to, duration) {
+        if (duration <= 0)
+            return;
+        var difference = to - element.scrollLeft;
+        var perTick = difference / duration * 10;
+        setTimeout(function () {
+            element.scrollLeft = element.scrollLeft + perTick;
+            if (element.scrollLeft === to)
+                return;
+            this.scrollTo(element, to, duration - 10);
+        }, 10);
     };
     TravelViewDaysContainerComponent.prototype.ngOnInit = function () {
         this.itemsContainer = document.getElementById("travel_days_details");

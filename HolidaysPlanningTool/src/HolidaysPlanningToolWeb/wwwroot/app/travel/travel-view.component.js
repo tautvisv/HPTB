@@ -87,25 +87,33 @@ var TravelViewComponent = (function () {
         this.travel.Comments.push(comment);
     };
     TravelViewComponent.prototype.showRoute = function (waypoints) {
-        var first = this.travelHelper.convertPointToDirectionsWaypoint(waypoints[0].Point);
-        var last = this.travelHelper.convertPointToDirectionsWaypoint(waypoints[waypoints.length - 1].Point);
+        if (waypoints.length)
+            var first = this.travelHelper.convertPointToDirectionsWaypoint(waypoints[0].Point);
+        if (waypoints.length > 1)
+            var last = this.travelHelper.convertPointToDirectionsWaypoint(waypoints[waypoints.length - 1].Point);
         var middles = this.travelHelper.convertILocationPointsToDirectionsWaypoint(waypoints);
         this.map.setOptimizeRoute(true);
         this.map.setWayPoints(first, last, middles);
     };
     TravelViewComponent.prototype.showMainRoute = function () {
         this.map.setOptimizeRoute(false);
-        this.map.setWayPoints(this.travelHelper.convertPointToDirectionsWaypoint(this.travel.startDay.Point), this.travelHelper.convertPointToDirectionsWaypoint(this.travel.endDay.Point), this.travelHelper.convertAllILocationPointsToDirectionsWaypoint(this.travel.wayPoints));
+        var startPoint = this.travel.StartDay ? this.travel.StartDay.Point : null;
+        var endPoint = this.travel.EndDay ? this.travel.EndDay.Point : null;
+        this.map.setWayPoints(this.travelHelper.convertPointToDirectionsWaypoint(startPoint), this.travelHelper.convertPointToDirectionsWaypoint(endPoint), this.travelHelper.convertAllILocationPointsToDirectionsWaypoint(this.travel.WayPoints));
         //this.map.findRoute();
     };
     TravelViewComponent.prototype.duration = function () {
-        if (!this.travel.endDay || !this.travel.startDay)
-            return new MyTime();
-        return this.msToTime(this.travel.endDay.Date.getTime() - this.travel.startDay.Date.getTime());
+        var result = new MyTime();
+        if (!this.travel.EndDay || !this.travel.StartDay) {
+            result.default = "-";
+            return result;
+        }
+        ;
+        return this.msToTime(this.travel.EndDay.Date.getTime() - this.travel.StartDay.Date.getTime());
     };
     TravelViewComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.travelService.getTravel(this._routeParams.get('id')).subscribe(function (travel) {
+        this.travelService.getTravel(parseInt(this._routeParams.get('id'))).subscribe(function (travel) {
             _this.travel = travel;
             _this.durationString = _this.duration();
             _this.showMainRoute();

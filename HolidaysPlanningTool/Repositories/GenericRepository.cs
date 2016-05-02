@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using Models;
 
 namespace Repositories
@@ -16,6 +17,11 @@ namespace Repositories
         {
             _entities = context;
             _dbset = context.Set<T>();
+        }
+
+        public virtual T GetById(int id)
+        {
+            return _dbset.Find(id);
         }
 
         public virtual IEnumerable<T> GetAll()

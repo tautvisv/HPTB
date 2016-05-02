@@ -42,6 +42,8 @@ namespace HoolidaysPlanningToolsAPIMVC5
             container.Register<ITravelRepository, TravelsRepository>(Lifestyle.Scoped); 
             container.Register<ITravelDayRepository, TravelDayRepositoryRepository>(Lifestyle.Scoped); 
             container.Register<IPointRepository, PointRepository>(Lifestyle.Scoped); 
+            container.Register<ICommentsRepository, CommentsRepository>(Lifestyle.Scoped); 
+            container.Register<ICommentsService, CommentsService>(Lifestyle.Scoped); 
 
             // This is an extension method from the integration package.
             container.RegisterWebApiControllers(GlobalConfiguration.Configuration);

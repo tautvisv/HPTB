@@ -1,5 +1,6 @@
 ﻿using System.Security.Principal;
 using System.Web.Http;
+using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using Models;
 using Services;
@@ -8,18 +9,18 @@ namespace HoolidaysPlanningToolsAPIMVC5.Controllers
 {
     [Authorize]
     [RoutePrefix(Constants.Constants.WebApiPrefix + "Travel")]
-    public class TravelController : ApiController
+    public class TravelController : AbstractApiController
     {
-        protected readonly ITravelService travelService;
+        protected readonly ITravelService TravelService;
         public TravelController(ITravelService travelService)
         {
-            this.travelService = travelService;
+            this.TravelService = travelService;
         }
 
         public IHttpActionResult PostTravel([FromBody]Travel travel)
         {
             //var userId = ide.GetUserId();
-            travelService.Create(travel, User.Identity);
+            TravelService.Create(travel, User.Identity);
             return Ok(travel);   
         }
 
@@ -31,9 +32,10 @@ namespace HoolidaysPlanningToolsAPIMVC5.Controllers
         }
         [HttpGet]
         [Route("{id}")]
-        public int GetTest2(int id)
+        public IHttpActionResult GetTravelById(int id)
         {
-            return id;
+            var travel = TravelService.GetById(id);
+            return Results(travel);
         }
     }
 }

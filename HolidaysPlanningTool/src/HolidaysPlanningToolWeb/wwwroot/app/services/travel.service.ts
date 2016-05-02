@@ -1,9 +1,8 @@
 ﻿import {Component, Injectable } from 'angular2/core';
 import {Constants} from '../utils/Constants';
 import {Http, HTTP_PROVIDERS, Headers } from 'angular2/http';
-import { FullTravel, TravelClass, TravelDayPlan, Point, Comment, Author } from '../travel/TravelClass';
+import { FullTravel, TravelClass, TravelDayPlan, Point, Comment, Author, TravelMethodsHelper } from '../travel/TravelClass';
 import {Observable} from 'rxjs/Observable';
-import {AuthHttp, AuthConfig, AUTH_PROVIDERS} from './angular2-jwt';
 import {httpAuthorized} from './http-authorized';
 
 import 'rxjs/add/operator/map';
@@ -72,13 +71,14 @@ export class TravelService {
         console.warn("constructor UserSettingsService");
     }
 
-    getTravel(travelId: number | string): Observable<FullTravel> { //UserSettingsMock
+    getTravel(travelId: number): Observable<FullTravel> { //UserSettingsMock
         console.log("service gettings data from", Constants.WebAPIUrl);
         return this.http.get(Constants.WebAPIUrl + this._controllerName + travelId, {})
-            .map(response => response.json()).map((result: number) => {
+            .map(response => response.json()).map((result: FullTravel) => {
                 console.log("response from API:", result);
-                //TODO return result
-                return new FullTravelMock();
+                TravelMethodsHelper.processTravelFromServer(result);
+                console.log("response from API after change:", result);
+                return result;
             });
     }
     getTravels(filter: string): Observable<FullTravel[]>  { //UserSettingsMock
@@ -101,6 +101,16 @@ export class TravelService {
             });
     }
     saveTravel(travel: FullTravel) {
+    //TODO move somewwhere else
+        if (!travel.WayPoints) {
+            travel.WayPoints = [];
+        }
+        if (travel.StartDay) {
+            travel.WayPoints.unshift(travel.StartDay);
+        }
+        if (travel.EndDay) {
+            travel.WayPoints.push(travel.EndDay);
+        }
         return this.http.post(Constants.WebAPIUrl + this._controllerName,
             JSON.stringify(travel), { })
             .map(response => response.json());

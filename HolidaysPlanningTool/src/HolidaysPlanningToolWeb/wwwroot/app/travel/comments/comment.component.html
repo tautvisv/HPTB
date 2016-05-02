@@ -1,5 +1,5 @@
 ﻿<div class="comment">
-    <comment-authror [author]="comment.Author"></comment-authror>
+    <comment-authror [author]="comment.Author" *ngIf="comment.Author"></comment-authror>
     <span class="comment-date">{{comment.Date.toLocaleString()}}</span>
     <div class="comment-text">{{comment.Text}}</div>
 </div>

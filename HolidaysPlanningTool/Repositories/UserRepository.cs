@@ -9,12 +9,17 @@ namespace Repositories
 {
     public interface IUserRepository : IGenericRepository<User>
     {
-        
+        User GetById(string userId);
     }
     public class UserRepository:GenericRepository<User>, IUserRepository
     {
         public UserRepository(DatabaseDbContext context) : base(context)
         {
+        }
+
+        public User GetById(string userId)
+        {
+            return _dbset.Find(userId);
         }
     }
     //tODO do somethning

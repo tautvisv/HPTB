@@ -87,8 +87,9 @@ var TravelService = (function () {
         return this.http.get(Constants_1.Constants.WebAPIUrl + this._controllerName + travelId, {})
             .map(function (response) { return response.json(); }).map(function (result) {
             console.log("response from API:", result);
-            //TODO return result
-            return new FullTravelMock();
+            TravelClass_1.TravelMethodsHelper.processTravelFromServer(result);
+            console.log("response from API after change:", result);
+            return result;
         });
     };
     TravelService.prototype.getTravels = function (filter) {
@@ -110,6 +111,16 @@ var TravelService = (function () {
         });
     };
     TravelService.prototype.saveTravel = function (travel) {
+        //TODO move somewwhere else
+        if (!travel.WayPoints) {
+            travel.WayPoints = [];
+        }
+        if (travel.StartDay) {
+            travel.WayPoints.unshift(travel.StartDay);
+        }
+        if (travel.EndDay) {
+            travel.WayPoints.push(travel.EndDay);
+        }
         return this.http.post(Constants_1.Constants.WebAPIUrl + this._controllerName, JSON.stringify(travel), {})
             .map(function (response) { return response.json(); });
     };

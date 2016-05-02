@@ -57,8 +57,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommentsRepository.cs" />
     <Compile Include="GenericRepository.cs" />
     <Compile Include="EntityService.cs" />
+    <Compile Include="ICommentsRepository.cs" />
     <Compile Include="IEntityService.cs" />
     <Compile Include="IGenericRepository.cs" />
     <Compile Include="IPointRepository.cs" />

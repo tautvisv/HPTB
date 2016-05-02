@@ -1,5 +1,6 @@
 ﻿import {Component, OnInit, Input } from 'angular2/core';
 import { Author } from '../TravelClass';
+import { Constants } from '../../utils/Constants';
 
 @Component({
     // Declare the tag name in index.html to where the component attaches
@@ -10,8 +11,10 @@ import { Author } from '../TravelClass';
 })
 export class CommentAuthorComponent implements OnInit {
     @Input() author: Author;
+    private webApi: string;
 
     constructor() {
+        this.webApi = Constants.WebAPI;
     }
     testText: string = "not Loaded";
     ngOnInit() {

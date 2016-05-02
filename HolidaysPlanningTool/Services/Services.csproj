@@ -44,6 +44,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommentsService.cs" />
+    <Compile Include="ICommentsService.cs" />
+    <Compile Include="ICreateByIdentity.cs" />
+    <Compile Include="ITravelService.cs" />
     <Compile Include="TravelsService.cs" />
     <Compile Include="UserSettingsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

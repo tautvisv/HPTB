@@ -17,6 +17,7 @@ var CommentCreateComponent = (function () {
     };
     CommentCreateComponent.prototype.saveComment = function () {
         var _this = this;
+        this.comment.TravelId = this.travelId;
         this.service.saveComment(this.comment).subscribe(function (comment) {
             _this.addComment.next(comment);
             _this.comment.Text = "";
@@ -25,6 +26,9 @@ var CommentCreateComponent = (function () {
     __decorate([
         core_1.Output()
     ], CommentCreateComponent.prototype, "addComment", void 0);
+    __decorate([
+        core_1.Input()
+    ], CommentCreateComponent.prototype, "travelId", void 0);
     CommentCreateComponent = __decorate([
         core_1.Component({
             selector: 'comment-create',

@@ -4,7 +4,7 @@
     <div class="" style="overflow-x:hidden" id="travel_days_details">
         <div class="travel-view-days-container">
             <div *ngFor="#day of days" class="travel-day-item-container">
-                <travel-days-item (show-route)="showRoute" [travel-day]='day' style="display:inline-block"></travel-days-item>
+                <travel-days-item (show-route)="showRoute" [travel-day]='day'></travel-days-item>
                 <a class="btn btn-info" style="display:block" (click)="findRoute(day)">Rodyti dienos maršrutą</a>
             </div>
             <div style="clear:both"></div>

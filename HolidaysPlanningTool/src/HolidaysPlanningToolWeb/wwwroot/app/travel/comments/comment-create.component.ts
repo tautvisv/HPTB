@@ -9,6 +9,7 @@ import { Comment } from '../TravelClass';
 })
 export class CommentCreateComponent implements OnInit {
     @Output() addComment = new EventEmitter<Comment>();
+    @Input() travelId: number;
 
     private comment: Comment;
     constructor(private service: MiscService) {
@@ -20,7 +21,8 @@ export class CommentCreateComponent implements OnInit {
     }
 
     saveComment() {
-        this.service.saveComment(this.comment).subscribe((comment) => {
+        this.comment.TravelId = this.travelId;
+        this.service.saveComment(this.comment).subscribe((comment: Comment) => {
             this.addComment.next(comment);
             this.comment.Text = "";
         },

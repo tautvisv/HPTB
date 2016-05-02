@@ -11,10 +11,6 @@ using UnitOfWork;
 
 namespace Services
 {
-    public interface ITravelService:IEntityService<Travel>
-    {
-        void Create(Travel travel, IIdentity identity);
-    }
     public class TravelsService:EntityService<Travel>, ITravelService
     {
         protected readonly IPointRepository PointRepository;
@@ -37,12 +33,30 @@ namespace Services
             }
             var userId = identity.GetUserId();
             travel.AuthorId = userId;
-            _repository.Add(travel);
-            AddTravelDayPlan(travel.StartDay, travel);
-            AddTravelDayPlan(travel.EndDay, travel);
+            var newTravel = _repository.Add(travel);
+            //InsertAllTravelDays(newTravel, travel.WayPoints);
+            //  AddTravelDayPlan(travel.StartDay, newTravel);
+            // AddTravelDayPlan(travel.EndDay, newTravel);
             _unitOfWork.Commit();
         }
 
+        public Travel GetById(int id)
+        {
+            var travel = _repository.GetById(id);
+            return travel;
+        }
+
+        protected void InsertAllTravelDays(Travel travel, IList<TravelDayPlan> waypoints)
+        {
+            var currentIndex = 0;
+            foreach (var travelDayPlan in waypoints)
+            {
+                travelDayPlan.TravelId = travel.Id;
+                travelDayPlan.OrderIndex = currentIndex;
+                TravelDayRepository.Add(travelDayPlan);
+                currentIndex++;
+            }
+        }
         protected void AddTravelDayPlan(TravelDayPlan travelPlan, Travel travel)
         {
             if (travelPlan == null) return;

@@ -8,7 +8,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var core_1 = require('angular2/core');
 var http_1 = require('angular2/http');
 var Constants_1 = require('../utils/Constants');
-var TravelClass_1 = require('../travel/TravelClass');
 require('rxjs/add/operator/map');
 require('rxjs/operator/delay');
 require('rxjs/operator/mergeMap');
@@ -36,16 +35,9 @@ var MiscService = (function () {
                 console.warn("komentaras privalo tur4ti tekstą, užklausa neišsiųsta");
                 return Observable.of({ }).map(o => JSON.stringify(o));
             }*/
-        var headers = new http_1.Headers();
-        headers.append('Content-Type', 'application/json');
-        return this.http.post(Constants_1.Constants.WebAPIUrl + this._controllerName + 5, JSON.stringify(comment), {
-            headers: headers
-        })
+        return this.http.post(Constants_1.Constants.WebAPIUrl + "Comments/", JSON.stringify(comment), {})
             .map(function (response) { return response.json(); }).map(function (result) {
-            var re = new TravelClass_1.Comment();
-            re.Text = comment.Text;
-            re.Author = comment.Author;
-            return re;
+            return result;
         });
     };
     MiscService.prototype.like = function (travelId, status) {

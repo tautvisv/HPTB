@@ -4,19 +4,22 @@
         <div class="travel-view-component-name">{{travel.Name}}</div>
     </div>
     <div class="component-body">
-        <div class="travel-view" style="position: relative">
+        <div class="travel-view" style="position: relative; margin-bottom: 10px;">
             <div class="col-md-4 item-description-container">
-                
+
             </div>
-            <div class="col-md-4 item-description " >{{travel.Descrription}}</div>
+            <div class="col-md-4 item-description ">{{travel.Description}}</div>
             <img src="{{travel.ImageUrl}}" alt="" class="author-icon">
+            <div style="clear: both"></div>
         </div>
-        <div class="travel-duration" *ngIf="durationString">
+
+        <div class="travel-duration" *ngIf="durationString && !durationString.default">
             Numatoma kelionės trukmė: <span class="point-item-hours">{{durationString.days}} </span> {{translateDays(durationString.days)}}
             <span class="point-item-hours">{{durationString.hours}}</span> {{translateHours(durationString.hours)}}
             <span class="point-item-hours">{{durationString.minutes}} </span> {{translateMinutes(durationString.minutes)}}
         </div>
-        <travel-days-container [days]="travel.wayPoints" (show-route)="showRoute($event)"></travel-days-container>
+
+        <travel-days-container [days]="travel.WayPoints" (show-route)="showRoute($event)"></travel-days-container>
 
         <a class="btn btn-info" (click)="showMainRoute(travel)">Rodyti pagrindinį kelionės maršrutą</a>
         <div id="the_view_map" style="min-height:400px;"></div>
@@ -27,6 +30,6 @@
     <div class="component-header"><div class="component-header-title">Komentarai</div></div>
     <div class="component-body">
         <comments-list [comments]="travel.Comments"></comments-list>
-        <comment-create (addComment)="addComment($event)"></comment-create>
+        <comment-create (addComment)="addComment($event)" [travelId]="travel.Id"></comment-create>
     </div>
 </div>

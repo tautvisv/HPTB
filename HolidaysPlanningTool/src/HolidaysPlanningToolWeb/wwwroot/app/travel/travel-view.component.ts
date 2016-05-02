@@ -13,6 +13,7 @@ class MyTime {
     public hours: number;
     public minutes: number;
     public seconds: number;
+    public default: string;
 }
 
 @Component({
@@ -80,7 +81,7 @@ export class TravelViewComponent implements OnInit {
         }
         return "minutės"
     }
-    translateSeconds(seconds: number): string  {
+    translateSeconds(seconds: number): string {
         var modItem = seconds % 10;
         if (modItem === 0 || seconds > 9 && seconds < 20) {
             return "sekundžių";
@@ -96,7 +97,9 @@ export class TravelViewComponent implements OnInit {
         this.travel.Comments.push(comment);
     }
     showRoute(waypoints: ILocationPoint[]) {
-        var first = this.travelHelper.convertPointToDirectionsWaypoint(waypoints[0].Point);
+        if (waypoints.length)
+            var first = this.travelHelper.convertPointToDirectionsWaypoint(waypoints[0].Point);
+        if (waypoints.length>1)
         var last = this.travelHelper.convertPointToDirectionsWaypoint(waypoints[waypoints.length - 1].Point);
         var middles = this.travelHelper.convertILocationPointsToDirectionsWaypoint(waypoints);
         this.map.setOptimizeRoute(true);
@@ -104,17 +107,20 @@ export class TravelViewComponent implements OnInit {
     }
     showMainRoute() {
         this.map.setOptimizeRoute(false);
-        this.map.setWayPoints(this.travelHelper.convertPointToDirectionsWaypoint(this.travel.StartDay.Point), this.travelHelper.convertPointToDirectionsWaypoint(this.travel.EndDay.Point), this.travelHelper.convertAllILocationPointsToDirectionsWaypoint(this.travel.WayPoints));
+        var startPoint = this.travel.StartDay?this.travel.StartDay.Point:null;
+        var endPoint = this.travel.EndDay?this.travel.EndDay.Point:null;
+        this.map.setWayPoints(this.travelHelper.convertPointToDirectionsWaypoint(startPoint), this.travelHelper.convertPointToDirectionsWaypoint(endPoint), this.travelHelper.convertAllILocationPointsToDirectionsWaypoint(this.travel.WayPoints));
         //this.map.findRoute();
     }
 
     duration(): MyTime {
-        if (!this.travel.EndDay || !this.travel.StartDay) return new MyTime();
+        var result = new MyTime();
+        if (!this.travel.EndDay || !this.travel.StartDay) { result.default = "-"; return result };
         return this.msToTime(this.travel.EndDay.Date.getTime() - this.travel.StartDay.Date.getTime());
     }
 
     ngOnInit() {
-        this.travelService.getTravel(this._routeParams.get('id')).subscribe(travel => {
+        this.travelService.getTravel(parseInt(this._routeParams.get('id'))).subscribe(travel => {
             this.travel = travel;
             this.durationString = this.duration();
             this.showMainRoute();

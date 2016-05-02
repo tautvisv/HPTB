@@ -148,3 +148,6 @@ textarea {
         width: 1700px !important;
     }
 }
+.form-group input.form-control, .form-group textarea.form-control {
+    background-size: 0 2px,100% 2px;
+}

@@ -6,7 +6,21 @@
                 Kelionės kūrimas
             </div>
         </div>
-
+        <div class="travel-item">
+            <div class="tavel-item-name">
+                <div class="form-group label-floating col-sm-6 is-empty">
+                    <label class="control-label" for="name">Pavadinimas</label>
+                    <input class="form-control ng-pristine ng-valid ng-touched" id="name"  [(ngModel)]="travel.Name" type="text">
+                </div>
+            </div>
+            <div class="tavel-item-name">
+                <div class="form-group label-floating col-sm-6 is-empty">
+                    <label class="control-label" for="name">Aprašymas</label>
+                    <textarea class="form-control ng-pristine ng-valid ng-touched" id="name" type="text" [(ngModel)]="travel.Description"></textarea>
+                </div>
+            </div>
+        </div>
+        <div style="clear: both"></div>
         <ul class="travel-items">
             <li class="first">
                 <travel-day-item-component [travel]="travel.StartDay"></travel-day-item-component>
