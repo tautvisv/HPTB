@@ -10,14 +10,20 @@ var TravelMethodsHelper = (function () {
     function TravelMethodsHelper() {
     }
     TravelMethodsHelper.prototype.convertPointToGooglePoint = function (point) {
+        if (!point)
+            return null;
         return new google.maps.LatLng(point.Latitude, point.Longitude);
     };
     TravelMethodsHelper.prototype.convertPointToDirectionsWaypoint = function (point, stopover) {
         if (stopover === void 0) { stopover = true; }
+        if (!point)
+            return null;
         return { location: new google.maps.LatLng(point.Latitude, point.Longitude), stopover: stopover };
     };
     TravelMethodsHelper.prototype.convertILocationPointsToDirectionsWaypoint = function (points) {
         var newList = [];
+        if (!points)
+            return newList;
         //points.forEach(function (pointableObject: ILocationPoint) {
         //});
         for (var i = 1; i < points.length - 1; i++) {
@@ -27,12 +33,34 @@ var TravelMethodsHelper = (function () {
     };
     TravelMethodsHelper.prototype.convertAllILocationPointsToDirectionsWaypoint = function (points) {
         var newList = [];
+        if (!points)
+            return newList;
         //points.forEach(function (pointableObject: ILocationPoint) {
         //});
         for (var i = 0; i < points.length; i++) {
             newList.push(this.convertPointToDirectionsWaypoint(points[i].Point));
         }
         return newList;
+    };
+    TravelMethodsHelper.processTravelFromServer = function (travel) {
+        if (!travel)
+            return;
+        this.travelDayStringateToDate(travel.StartDay);
+        this.travelDayStringateToDate(travel.EndDay);
+        if (travel.WayPoints) {
+            for (var i = 0; i < travel.WayPoints.length; i++) {
+                this.travelDayStringateToDate(travel.WayPoints[i]);
+            }
+        }
+    };
+    TravelMethodsHelper.travelDayStringateToDate = function (travelDay) {
+        if (travelDay)
+            travelDay.Date = this.stringDateToDate(travelDay.Date);
+    };
+    TravelMethodsHelper.stringDateToDate = function (stringDate) {
+        if (!stringDate)
+            return null;
+        return new Date(stringDate);
     };
     TravelMethodsHelper = __decorate([
         core_1.Injectable()
@@ -83,18 +111,17 @@ exports.FullTravel = FullTravel;
 var Comment = (function () {
     function Comment(comment) {
         if (comment === void 0) { comment = null; }
-        if (comment != null) {
-            this.Text = comment.Text;
-            this.Date = comment.Date;
-            this.Author = comment.Author;
-        }
-        else {
-            this.Text = "Testinis komentaras kurio tekstas yra labai ilgas";
-            this.Date = new Date();
-            this.Author = new Author();
-            this.Author.Name = "TestinisAutorius";
-            this.Author.ImageUrl = "https://dn1w8s6xszn0j.cloudfront.net/resources_version/desktop/img/default/user/t1/default_3.jpg";
-        }
+        //if (comment != null) {
+        //    this.Text = comment.Text;
+        //    this.Date = comment.Date;
+        //    this.Author = comment.Author;
+        //} else {
+        //    this.Text = "Testinis komentaras kurio tekstas yra labai ilgas";
+        //    this.Date = new Date();
+        //    this.Author = new Author();
+        //    this.Author.Name = "TestinisAutorius";
+        //    this.Author.ImageUrl = "https://dn1w8s6xszn0j.cloudfront.net/resources_version/desktop/img/default/user/t1/default_3.jpg";
+        //}
     }
     return Comment;
 }());

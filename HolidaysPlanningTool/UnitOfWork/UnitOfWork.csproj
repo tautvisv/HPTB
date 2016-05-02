@@ -105,6 +105,10 @@
     <Compile Include="Migrations\201605011633291_TravelModelChanged2.Designer.cs">
       <DependentUpon>201605011633291_TravelModelChanged2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605022212175_CommentModelChanged.cs" />
+    <Compile Include="Migrations\201605022212175_CommentModelChanged.Designer.cs">
+      <DependentUpon>201605022212175_CommentModelChanged.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="UnitOfWork.cs" />
     <Compile Include="DatabaseDbContext.cs" />
@@ -151,6 +155,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605011633291_TravelModelChanged2.resx">
       <DependentUpon>201605011633291_TravelModelChanged2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605022212175_CommentModelChanged.resx">
+      <DependentUpon>201605022212175_CommentModelChanged.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -6,13 +6,16 @@ export class TravelMethodsHelper {
         
     }
     public convertPointToGooglePoint(point: Point): google.maps.LatLng {
+        if (!point) return null;
         return new google.maps.LatLng(point.Latitude, point.Longitude);
     }
     public convertPointToDirectionsWaypoint(point: Point, stopover: boolean = true): google.maps.DirectionsWaypoint {
+        if (!point) return null;
         return { location: new google.maps.LatLng(point.Latitude, point.Longitude), stopover: stopover };
     }
     public convertILocationPointsToDirectionsWaypoint(points: ILocationPoint[]): google.maps.DirectionsWaypoint[]{
         var newList: google.maps.DirectionsWaypoint[] = [];
+        if (!points) return newList;
         //points.forEach(function (pointableObject: ILocationPoint) {
         //});
         for (let i = 1; i < points.length - 1; i++) {
@@ -22,12 +25,30 @@ export class TravelMethodsHelper {
     }
     public convertAllILocationPointsToDirectionsWaypoint(points: ILocationPoint[]): google.maps.DirectionsWaypoint[] {
         var newList: google.maps.DirectionsWaypoint[] = [];
+        if (!points) return newList;
         //points.forEach(function (pointableObject: ILocationPoint) {
         //});
         for (let i = 0; i < points.length; i++) {
             newList.push(this.convertPointToDirectionsWaypoint(points[i].Point));
         }
         return newList;
+    }
+    public static processTravelFromServer(travel: FullTravel) {
+        if (!travel) return;
+        this.travelDayStringateToDate(travel.StartDay);
+        this.travelDayStringateToDate(travel.EndDay);
+        if (travel.WayPoints) {
+            for (let i = 0; i < travel.WayPoints.length; i++) {
+                this.travelDayStringateToDate(travel.WayPoints[i]);
+            }
+        }
+    }
+    private static travelDayStringateToDate(travelDay: TravelClass) {
+        if (travelDay) travelDay.Date = this.stringDateToDate(travelDay.Date);
+    }
+    private static stringDateToDate(stringDate: any): Date {
+        if (!stringDate) return null;
+        return new Date(stringDate);
     }
 }
 export interface ILocationPoint {
@@ -92,21 +113,22 @@ export class FullTravel {
 
 export class Comment {
     constructor(comment: Comment = null) {
-        if (comment != null) {
-            this.Text = comment.Text;
-            this.Date = comment.Date;
-            this.Author = comment.Author;
-        } else {
-            this.Text = "Testinis komentaras kurio tekstas yra labai ilgas";
-            this.Date = new Date();
-            this.Author = new Author();
-            this.Author.Name = "TestinisAutorius";
-            this.Author.ImageUrl = "https://dn1w8s6xszn0j.cloudfront.net/resources_version/desktop/img/default/user/t1/default_3.jpg";
-        }
+        //if (comment != null) {
+        //    this.Text = comment.Text;
+        //    this.Date = comment.Date;
+        //    this.Author = comment.Author;
+        //} else {
+        //    this.Text = "Testinis komentaras kurio tekstas yra labai ilgas";
+        //    this.Date = new Date();
+        //    this.Author = new Author();
+        //    this.Author.Name = "TestinisAutorius";
+        //    this.Author.ImageUrl = "https://dn1w8s6xszn0j.cloudfront.net/resources_version/desktop/img/default/user/t1/default_3.jpg";
+        //}
     }
     public Date: Date;
     public Author: Author;
     public Text: string;
+    public TravelId: number;
 }
 export class Author {
     public Name: string;

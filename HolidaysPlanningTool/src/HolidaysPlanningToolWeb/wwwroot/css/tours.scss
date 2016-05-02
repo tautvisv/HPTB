@@ -52,6 +52,8 @@ $large-modal-width: 1100px;
 .component-body p {
     display: inline-block;
     vertical-align: top;
+    width: 100%;
+    word-wrap: break-word;
 }
 input.form-control {
     border-bottom: 1px solid #D2D2D2;
@@ -303,7 +305,7 @@ input.form-control {
     padding-left: 15px;
 }
 .comment .comment-text {
-
+    word-wrap: break-word;
 }
 .like {
     position: absolute;
@@ -319,6 +321,7 @@ input.form-control {
     display: inline-block;
     list-style: none;
     padding-top: 10px;
+    width: 100%;
 }
 
 .travel-days-items {
@@ -380,13 +383,14 @@ input.form-control {
 .travel-day-item {
 }
 .travel-day-item-container {
-    width:300px; 
+    width:340px; 
     display: inline-block;
     margin-left: 10px;
     margin-right: 10px;
     padding: 5px;
     background: #DCDCE5;
     box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    float: left;
 }
 .travel-view-days-container {
     width: 3000px; 
