@@ -6,6 +6,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var core_1 = require('angular2/core');
+var Constants_1 = require('../utils/Constants');
 var TravelMethodsHelper = (function () {
     function TravelMethodsHelper() {
     }
@@ -105,6 +106,8 @@ var FullTravel = (function () {
         this.WayPoints = [];
         this.Comments = [];
     }
+    FullTravel.prototype.FullImageUrl = function () { return this.ImageUrl ? Constants_1.Constants.WebAPI + this.ImageUrl : ""; };
+    ;
     return FullTravel;
 }());
 exports.FullTravel = FullTravel;

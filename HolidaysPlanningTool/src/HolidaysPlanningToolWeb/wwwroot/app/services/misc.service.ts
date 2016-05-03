@@ -14,20 +14,20 @@ import 'rxjs/operator/switchMap';
 //http://localhost:2922/api/Mock/5
 @Injectable()
 export class MiscService {
-    private _controllerName = "Mock/";
+    private _controllerName = "PhotoUpload/testf";
     constructor(private http: httpAuthorized) {
         console.warn("constructor UserSettingsService");
     }
 
-    getTravel(travelId: number | string): Observable<any> { //UserSettingsMock
-        console.log("service gettings data from", Constants.WebAPIUrl);
-        return this.http.get(Constants.WebAPIUrl + this._controllerName + travelId, {})
-            .map(response => response.json()).map((result: number) => {
-                console.log("response from API:", result);
-                //TODO return result
-                return {};
-            });
-    }
+    //getTravel(travelId: number | string): Observable<any> { //UserSettingsMock
+    //    console.log("service gettings data from", Constants.WebAPIUrl);
+    //    return this.http.get(Constants.WebAPIUrl + this._controllerName + travelId, {})
+    //        .map(response => response.json()).map((result: number) => {
+    //            console.log("response from API:", result);
+    //            //TODO return result
+    //            return {};
+    //        });
+    //}
     saveComment(comment: Comment) {
     //Padaryti užklausos atšaukimą
     /*
@@ -44,7 +44,7 @@ export class MiscService {
     like(travelId: number, status: number) {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        return this.http.post(Constants.WebAPIUrl + this._controllerName + 5,
+        return this.http.post(Constants.WebAPIUrl + this._controllerName,
             JSON.stringify({ travelId: travelId, status: status }), {
                 headers: headers
             })
@@ -55,7 +55,7 @@ export class MiscService {
     addView(object: any) {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        return this.http.post(Constants.WebAPIUrl + this._controllerName + 5,
+        return this.http.post(Constants.WebAPIUrl + this._controllerName,
             JSON.stringify({}), {
                 headers: headers
             })

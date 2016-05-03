@@ -10,6 +10,7 @@ var travel_map_component_1 = require('./travel-map.component');
 var travel_day_item_component_1 = require('./travel-day-item.component');
 var travel_day_item_details_component_1 = require('./travel-day-item-details.component');
 var TravelClass_1 = require("./TravelClass");
+var file_upload_service_1 = require('../services/file-upload.service');
 //import {Accordion} from 'primeng/primeng';
 var TravelCreateComponent = (function () {
     function TravelCreateComponent(_notificationService, router, travelService) {
@@ -18,10 +19,12 @@ var TravelCreateComponent = (function () {
         this.travelService = travelService;
         // private travels: TravelClass[];
         //  private travelHome: TravelClass;
+        this.fileUploader = new file_upload_service_1.UploadService();
         this.travel = new TravelClass_1.FullTravel();
         var p = new TravelClass_1.TravelClass(new TravelClass_1.Point());
         this.travel.StartDay = p;
-        this.travel.EndDay = p;
+        var p2 = new TravelClass_1.TravelClass(new TravelClass_1.Point());
+        this.travel.EndDay = p2;
         this.zone = new core_1.NgZone({ enableLongStackTrace: false });
     }
     TravelCreateComponent.prototype.setNewTravel = function (travel) {
@@ -34,12 +37,26 @@ var TravelCreateComponent = (function () {
     TravelCreateComponent.prototype.onChanges = function (changes) {
         console.log("pasikeit4 compoennt create", changes);
     };
+    TravelCreateComponent.prototype.onFileUpload = function (event) {
+        var _this = this;
+        console.log('fileUplloaded');
+        var files = event.srcElement.files;
+        if (!files.length) {
+            return;
+        }
+        console.log(files);
+        this.fileUploader.makeFileRequest('/api/PhotoUpload/UploadTravelPhoto', [], files).subscribe(function (photoUrl) {
+            console.log('sent', photoUrl);
+            _this.travel.ImageUrls = photoUrl;
+            _this.travel.ImageUrl = photoUrl[0];
+        });
+    };
     TravelCreateComponent.prototype.saveTravel = function () {
         var _this = this;
         this.travelService.saveTravel(this.travel).subscribe(function (response) {
             console.log("great success saving travel", response);
             _this._notificationService.success("kelionė sėkmingai išsaugota");
-            _this.router.navigate(["Tour", { id: _this.travel.Id }]);
+            _this.router.navigate(["Tour", { id: response.Id }]);
         }, function () {
             _this._notificationService.error("nenumatyta klaida, praneškite administratoriui");
         });

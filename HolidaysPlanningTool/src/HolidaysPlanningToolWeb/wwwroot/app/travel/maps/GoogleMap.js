@@ -135,10 +135,15 @@ var GoogleMaps = (function () {
                         var waypoint = { location: coordinates, stopover: true };
                         if (!_this.startPoint) {
                             _this.startPoint = waypoint;
-                            _this.endPoint = waypoint;
                             _this.homeMarker.setMap(_this.map);
                             _this.homeMarker.setPosition(waypoint.location);
                             index = -2;
+                        }
+                        else if (!_this.endPoint) {
+                            _this.endPoint = waypoint;
+                            _this.endMarker.setMap(_this.map);
+                            _this.endMarker.setPosition(waypoint.location);
+                            index = -3;
                         }
                         else {
                             _this.wayPoints.push(waypoint);

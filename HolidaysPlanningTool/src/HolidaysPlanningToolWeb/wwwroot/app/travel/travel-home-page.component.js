@@ -20,7 +20,7 @@ var TravelHomePageComponent = (function () {
     }
     TravelHomePageComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.travelService.getRecentTravels("test").subscribe(function (travels) {
+        this.travelService.getRecentTravels(5).subscribe(function (travels) {
             _this.TravelInformation.NewTravels = travels;
         }, function () {
             _this.notificationManager.error("Nepavyko užkrauti naujausių kelionių");

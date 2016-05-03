@@ -16,6 +16,7 @@ namespace Models
         public virtual TravelDayPlan EndDay { get; set; }
         public int? EndDayId { get; set; }
         public virtual IList<TravelDayPlan> WayPoints { get; set; }
+        public IList<string> ImageUrls { get; set; }
         public string ImageUrl { get; set; }
         public string Description { get; set; }
         [ForeignKey("AuthorId")]

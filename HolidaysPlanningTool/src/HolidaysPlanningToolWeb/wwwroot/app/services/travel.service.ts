@@ -83,7 +83,7 @@ export class TravelService {
     }
     getTravels(filter: string): Observable<FullTravel[]>  { //UserSettingsMock
         console.log("service gettings data from", Constants.WebAPIUrl);
-        return this.http.get(Constants.WebAPIUrl + this._controllerName + filter, {})
+        return this.http.get(Constants.WebAPIUrl + this._controllerName + 8, {})
             .map(response => response.json()).map((result: number) => {
                 console.log("response from API:", result);
                 //TODO return result
@@ -91,14 +91,25 @@ export class TravelService {
             });
     }
 
-    getRecentTravels(filter: string): Observable<FullTravel[]> { //UserSettingsMock
-        console.log("service gettings data from", Constants.WebAPIUrl);
-        return this.http.get(Constants.WebAPIUrl + this._controllerName + filter, {})
-            .map(response => response.json()).map((result: number) => {
+    getRecentTravels(count: number): Observable<FullTravel[]> { 
+        var url = Constants.WebAPIUrl + this._controllerName + "Recent/" + (count ? count : "");
+        console.log("service gettings data from", url);
+        var that = this;
+        return this.http.get(url, {})
+            .map(response => response.json()).map((result: FullTravel[]) => {
+                result.forEach(function (travel) {
+                    travel.Author.ImageUrl = that.getPhotoUrl(travel.Author.ImageUrl);
+                    travel.ImageUrl = that.getPhotoUrl(travel.ImageUrl);
+                });
                 console.log("response from API:", result);
-                //TODO return result
-                return [new FullTravelMock(), new FullTravelMock(), new FullTravelMock(), new FullTravelMock()];
+                return result;
             });
+    }
+    private getPhotoUrl(photoUrl: string) {
+        if (!photoUrl) {
+            return "/images/no_img.png";
+        }
+        return Constants.WebAPI + photoUrl;
     }
     saveTravel(travel: FullTravel) {
     //TODO move somewwhere else

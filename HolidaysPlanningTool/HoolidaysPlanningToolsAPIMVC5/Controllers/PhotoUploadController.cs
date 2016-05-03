@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web;
 using System.Web.Http;
 using FileProcessingLib;
@@ -38,25 +39,26 @@ namespace HoolidaysPlanningToolsAPIMVC5.Controllers
 
             using (var fileStream = file.InputStream)
             {
-                var filenName = file.FileName.Replace(' ', '_');
+                var filenName = "user_" + DateTime.UtcNow.Ticks + "_" + file.FileName.Replace(' ', '_');
                 var filePath = fileManager.Save(fileStream, filenName);
                 fileManager.SaveAsMinified(filePath, filenName);
                 return filePath;
             }
 
         }
-        [Route("UploadFiles")]
+        [Route("UploadTravelPhoto")]
         [HttpPost]
-        public IList<string> PostUploadFiles()
+        public IHttpActionResult PostUploadFiles()
         {
             var photosList = new List<string>();
             for(var i = 0; i < HttpContext.Current.Request.Files.Count; i++)
             {
-                HttpPostedFile file = HttpContext.Current.Request.Files[i];
-                var filePath = fileManager.Save(file.InputStream, file.FileName);
+                var file = HttpContext.Current.Request.Files[i];
+                var filenName = "user_" + DateTime.UtcNow.Ticks + "_" + file.FileName.Replace(' ', '_');
+                var filePath = fileManager.Save(file.InputStream, filenName);
                 photosList.Add(filePath);
             }
-            return photosList;
+            return Ok(photosList);
         }
         // GET: api/5
         [Route(("{id}"))]

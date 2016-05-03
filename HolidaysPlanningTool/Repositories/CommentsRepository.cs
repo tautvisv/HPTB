@@ -1,4 +1,5 @@
-﻿using Models;
+﻿using System.Linq;
+using Models;
 using UnitOfWork;
 
 namespace Repositories
@@ -7,6 +8,12 @@ namespace Repositories
     {
         public CommentsRepository(DatabaseDbContext context) : base(context)
         {
+        }
+
+        public int GetCount(int parentId)
+        {
+            var count = _dbset.Count(x => x.TravelId == parentId);
+            return count;
         }
     }
 }

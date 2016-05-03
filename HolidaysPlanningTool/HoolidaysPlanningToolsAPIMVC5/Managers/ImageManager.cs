@@ -1,5 +1,7 @@
-﻿using FileProcessingLib;
+﻿using System;
+using FileProcessingLib;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Helpers;
 
@@ -24,15 +26,19 @@ namespace HoolidaysPlanningToolsAPIMVC5.Managers
             {
                 DirectoryInfo di = Directory.CreateDirectory(Root + SaveLocation);
             }
-            if (!Directory.Exists(Root + SaveLocation + minFolder))
-            {
-                DirectoryInfo di = Directory.CreateDirectory(Root + SaveLocation + minFolder);
-            }
+            //if (!Directory.Exists(Root + SaveLocation + minFolder))
+            //{
+            //    DirectoryInfo di = Directory.CreateDirectory(Root + SaveLocation + minFolder);
+            //}
         }
         public string SaveAsMinified(string rootPath, string fileName)
         {
-            var SaveLocationMin = SaveLocation  + minFolder;
-            var imageLocationMin = SaveLocationMin + $@"\{fileName}";
+            if (fileName == null) throw new ArgumentNullException(nameof(fileName));
+            //(,)[^,]*$
+            //TODO move from here
+            fileName = Regex.Replace(fileName, @"(.*)([.])(.+)$", m => m.Groups[1].Value + ".min." + m.Groups[3].Value);
+            var saveLocationMin = SaveLocation;
+            var imageLocationMin = saveLocationMin + $@"\{fileName}";
             var newImage = new WebImage(Root + rootPath);
             newImage.Resize(64, 64);
             newImage.Save(Root + imageLocationMin);

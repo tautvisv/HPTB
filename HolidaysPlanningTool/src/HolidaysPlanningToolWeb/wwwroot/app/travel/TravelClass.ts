@@ -1,4 +1,5 @@
 ﻿import {Injectable } from 'angular2/core';
+import {Constants} from '../utils/Constants';
 
 @Injectable()
 export class TravelMethodsHelper {
@@ -102,6 +103,8 @@ export class FullTravel {
     public EndDay: TravelClass;
     public WayPoints: TravelClass[];
     public ImageUrl: string;
+    public ImageUrls: string[];
+    public FullImageUrl(): string { return this.ImageUrl? Constants.WebAPI + this.ImageUrl: ""; };
     public Descrription: string;
     public Author: Author;
     public Likes: number;

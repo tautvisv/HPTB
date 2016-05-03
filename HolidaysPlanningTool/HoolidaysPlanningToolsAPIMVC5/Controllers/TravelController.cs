@@ -37,5 +37,13 @@ namespace HoolidaysPlanningToolsAPIMVC5.Controllers
             var travel = TravelService.GetById(id);
             return Results(travel);
         }
+        [HttpGet]
+        [Route("Recent/{count}")]
+        [Route("Recent")]
+        public IHttpActionResult GetRecentTravels(int count = 4)
+        {
+            var travels = TravelService.GetRecentTravels(count);
+            return Results(travels);
+        }
     }
 }

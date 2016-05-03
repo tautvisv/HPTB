@@ -153,10 +153,15 @@ export class GoogleMaps {
 
                         if (!this.startPoint) {
                             this.startPoint = waypoint;
-                            this.endPoint = waypoint;
                             this.homeMarker.setMap(this.map);
                             this.homeMarker.setPosition(waypoint.location);
                             index = -2;
+                            //this.homeMarker.setMap(this.map);
+                        } else if (!this.endPoint) {
+                            this.endPoint = waypoint;
+                            this.endMarker.setMap(this.map);
+                            this.endMarker.setPosition(waypoint.location);
+                            index = -3;
                             //this.homeMarker.setMap(this.map);
                         } else {
                             this.wayPoints.push(waypoint);

@@ -16,18 +16,18 @@ require('rxjs/operator/switchMap');
 var MiscService = (function () {
     function MiscService(http) {
         this.http = http;
-        this._controllerName = "Mock/";
+        this._controllerName = "PhotoUpload/testf";
         console.warn("constructor UserSettingsService");
     }
-    MiscService.prototype.getTravel = function (travelId) {
-        console.log("service gettings data from", Constants_1.Constants.WebAPIUrl);
-        return this.http.get(Constants_1.Constants.WebAPIUrl + this._controllerName + travelId, {})
-            .map(function (response) { return response.json(); }).map(function (result) {
-            console.log("response from API:", result);
-            //TODO return result
-            return {};
-        });
-    };
+    //getTravel(travelId: number | string): Observable<any> { //UserSettingsMock
+    //    console.log("service gettings data from", Constants.WebAPIUrl);
+    //    return this.http.get(Constants.WebAPIUrl + this._controllerName + travelId, {})
+    //        .map(response => response.json()).map((result: number) => {
+    //            console.log("response from API:", result);
+    //            //TODO return result
+    //            return {};
+    //        });
+    //}
     MiscService.prototype.saveComment = function (comment) {
         //Padaryti užklausos atšaukimą
         /*
@@ -43,7 +43,7 @@ var MiscService = (function () {
     MiscService.prototype.like = function (travelId, status) {
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
-        return this.http.post(Constants_1.Constants.WebAPIUrl + this._controllerName + 5, JSON.stringify({ travelId: travelId, status: status }), {
+        return this.http.post(Constants_1.Constants.WebAPIUrl + this._controllerName, JSON.stringify({ travelId: travelId, status: status }), {
             headers: headers
         })
             .map(function (response) { return response.json(); }).map(function (result) {
@@ -53,7 +53,7 @@ var MiscService = (function () {
     MiscService.prototype.addView = function (object) {
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
-        return this.http.post(Constants_1.Constants.WebAPIUrl + this._controllerName + 5, JSON.stringify({}), {
+        return this.http.post(Constants_1.Constants.WebAPIUrl + this._controllerName, JSON.stringify({}), {
             headers: headers
         })
             .map(function (response) { return response.json(); });

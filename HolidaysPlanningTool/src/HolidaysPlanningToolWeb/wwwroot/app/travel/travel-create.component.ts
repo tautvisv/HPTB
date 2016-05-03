@@ -6,6 +6,8 @@ import { TravelDayDetailsComponent } from './travel-day-item-details.component';
 import { Router, Location} from "angular2/router";
 import { FullTravel, Point, TravelClass, TravelDayPlan, UserLocation } from "./TravelClass";
 import { TravelService } from '../services/travel.service';
+import { UploadService } from '../services/file-upload.service';
+import {Constants} from '../utils/Constants';
 
 //import {Accordion} from 'primeng/primeng';
 
@@ -23,15 +25,16 @@ export class TravelCreateComponent implements OnInit {
     travelDayModal: TravelDayDetailsComponent;
 
    // private travels: TravelClass[];
-  //  private travelHome: TravelClass;
-
+    //  private travelHome: TravelClass;
+    private fileUploader: UploadService = new UploadService();
     private travel: FullTravel = new FullTravel();
     zone: NgZone;
 
     constructor(private _notificationService: ToastsManager, private router: Router, public travelService: TravelService) {
         var p = new TravelClass(new Point());
-            this.travel.StartDay = p;
-        this.travel.EndDay = p;
+        this.travel.StartDay = p;
+        var p2 = new TravelClass(new Point());
+        this.travel.EndDay = p2;
         this.zone = new NgZone({ enableLongStackTrace: false });
     }
     public setNewTravel(travel: FullTravel) {
@@ -44,11 +47,26 @@ export class TravelCreateComponent implements OnInit {
     onChanges(changes) {
         console.log("pasikeit4 compoennt create", changes);
     }
+
+    onFileUpload(event) {
+        console.log('fileUplloaded');
+        var files = event.srcElement.files;
+        if (!files.length) {
+            return;
+        }
+        console.log(files);
+        this.fileUploader.makeFileRequest('/api/PhotoUpload/UploadTravelPhoto', [], files).subscribe((photoUrl: string[]) => {
+            console.log('sent', photoUrl);
+            this.travel.ImageUrls = photoUrl;
+            this.travel.ImageUrl = photoUrl[0];
+        });
+    }
+
     saveTravel(): void {
-        this.travelService.saveTravel(this.travel).subscribe((response) => {
+        this.travelService.saveTravel(this.travel).subscribe((response: FullTravel) => {
             console.log("great success saving travel", response);
             this._notificationService.success("kelionė sėkmingai išsaugota");
-            this.router.navigate(["Tour", { id: this.travel.Id }]);
+            this.router.navigate(["Tour", { id: response.Id }]);
         }, () => {
             this._notificationService.error("nenumatyta klaida, praneškite administratoriui");
         });

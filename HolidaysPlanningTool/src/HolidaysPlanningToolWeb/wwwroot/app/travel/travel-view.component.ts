@@ -5,8 +5,10 @@ import { Router, RouteParams } from 'angular2/router';
 import { CommentsComponent } from './comments/comments.component';
 import { CommentCreateComponent } from './comments/comment-create.component';
 import { LikeDirectiveComponent } from './like-directive.component';
+import { Constants } from '../utils/Constants';
 import { GoogleMaps } from './maps/GoogleMap';
 import { TravelViewDaysContainerComponent } from './travel-view-days-container.component';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 class MyTime {
     public days: number;
@@ -29,6 +31,7 @@ export class TravelViewComponent implements OnInit {
     private durationString: MyTime;
     constructor(private _router: Router,
         private _routeParams: RouteParams,
+        private _notificationService: ToastsManager
         private map: GoogleMaps,
         private travelHelper: TravelMethodsHelper,
         private travelService: TravelService) {
@@ -122,8 +125,20 @@ export class TravelViewComponent implements OnInit {
     ngOnInit() {
         this.travelService.getTravel(parseInt(this._routeParams.get('id'))).subscribe(travel => {
             this.travel = travel;
+            //TODO do something here
+            if (this.travel.ImageUrl)
+                this.travel.ImageUrl = Constants.WebAPI + this.travel.ImageUrl;
+            else { this.travel.ImageUrl = "/images/no_img.png"; }
             this.durationString = this.duration();
             this.showMainRoute();
+        }, (error) => {
+            if (error && error.status === 404) {
+                this._router.navigate(["ToursList"]);
+                this._notificationService.error("Tokia kelionė neegzistuoja");
+                return;
+            }
+            this._notificationService.error("Nežinoma klaida");
+            
         });
         this.map.initialise("the_view_map");
         this.map.setMapDisableClicks(true);

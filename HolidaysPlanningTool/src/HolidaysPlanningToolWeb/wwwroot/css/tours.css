@@ -33,9 +33,6 @@
   width: 100%;
   word-wrap: break-word; }
 
-input.form-control {
-  border-bottom: 1px solid #D2D2D2; }
-
 .component .form-control {
   max-width: 1000px; }
 
@@ -155,6 +152,10 @@ input.form-control {
   max-width: 200px;
   max-height: 100px;
   display: inline-block; }
+
+.travel-image-src {
+  width: 300px;
+  height: 180px; }
 
 .travel-item {
   min-width: 220px;

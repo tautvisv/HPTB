@@ -94,21 +94,32 @@ var TravelService = (function () {
     };
     TravelService.prototype.getTravels = function (filter) {
         console.log("service gettings data from", Constants_1.Constants.WebAPIUrl);
-        return this.http.get(Constants_1.Constants.WebAPIUrl + this._controllerName + filter, {})
+        return this.http.get(Constants_1.Constants.WebAPIUrl + this._controllerName + 8, {})
             .map(function (response) { return response.json(); }).map(function (result) {
             console.log("response from API:", result);
             //TODO return result
             return [new FullTravelMock(), new FullTravelMock(), new FullTravelMock(), new FullTravelMock(), new FullTravelMock()];
         });
     };
-    TravelService.prototype.getRecentTravels = function (filter) {
-        console.log("service gettings data from", Constants_1.Constants.WebAPIUrl);
-        return this.http.get(Constants_1.Constants.WebAPIUrl + this._controllerName + filter, {})
+    TravelService.prototype.getRecentTravels = function (count) {
+        var url = Constants_1.Constants.WebAPIUrl + this._controllerName + "Recent/" + (count ? count : "");
+        console.log("service gettings data from", url);
+        var that = this;
+        return this.http.get(url, {})
             .map(function (response) { return response.json(); }).map(function (result) {
+            result.forEach(function (travel) {
+                travel.Author.ImageUrl = that.getPhotoUrl(travel.Author.ImageUrl);
+                travel.ImageUrl = that.getPhotoUrl(travel.ImageUrl);
+            });
             console.log("response from API:", result);
-            //TODO return result
-            return [new FullTravelMock(), new FullTravelMock(), new FullTravelMock(), new FullTravelMock()];
+            return result;
         });
+    };
+    TravelService.prototype.getPhotoUrl = function (photoUrl) {
+        if (!photoUrl) {
+            return "/images/no_img.png";
+        }
+        return Constants_1.Constants.WebAPI + photoUrl;
     };
     TravelService.prototype.saveTravel = function (travel) {
         //TODO move somewwhere else

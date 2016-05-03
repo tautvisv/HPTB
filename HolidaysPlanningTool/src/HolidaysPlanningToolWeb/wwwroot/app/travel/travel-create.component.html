@@ -6,20 +6,27 @@
                 Kelionės kūrimas
             </div>
         </div>
-        <div class="travel-item">
             <div class="tavel-item-name">
-                <div class="form-group label-floating col-sm-6 is-empty">
+                <div class="form-group label-floating col-sm-12 is-empty" style="font-weight: bold">
                     <label class="control-label" for="name">Pavadinimas</label>
-                    <input class="form-control ng-pristine ng-valid ng-touched" id="name"  [(ngModel)]="travel.Name" type="text">
+                    <input class="form-control" id="name"  [(ngModel)]="travel.Name" required="" type="text">
                 </div>
             </div>
             <div class="tavel-item-name">
                 <div class="form-group label-floating col-sm-6 is-empty">
                     <label class="control-label" for="name">Aprašymas</label>
-                    <textarea class="form-control ng-pristine ng-valid ng-touched" id="name" type="text" [(ngModel)]="travel.Description"></textarea>
+                    <textarea class="form-control" id="name" type="text" [(ngModel)]="travel.Description" required=""></textarea>
+                </div>
+                <div class="form-group is-empty is-fileinput col-md-6">
+                    <label class="col-md-4 control-label" for="inputFile">Nuotrauka</label>
+                    <div class="col-md-8">
+                        <input class="form-control" placeholder="Nuotrauka..." readonly="" type="text" >
+                        <input id="inputFile" multiple="" type="file" (change)="onFileUpload($event)">
+                    </div>
+                    <img src="{{travel.FullImageUrl()}}" style="max-width: 100%;"/>
+                    <span class="material-input"></span>
                 </div>
             </div>
-        </div>
         <div style="clear: both"></div>
         <ul class="travel-items">
             <li class="first">

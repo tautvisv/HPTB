@@ -25,7 +25,7 @@ export class TravelHomePageComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.travelService.getRecentTravels("test").subscribe((travels) => {
+        this.travelService.getRecentTravels(5).subscribe((travels) => {
                 this.TravelInformation.NewTravels = travels;
             },
             () => {

@@ -1,12 +1,13 @@
 ﻿<div class="travel-item well well-sm">
     <div class="blocklist-trip-name-wrapper">
         <a [routerLink]="['Tour', {id: travel.Id} ]">
-            <img nopin="nopin" src="{{travel.ImageUrl}}">
+            <img nopin="nopin" style="width: 300px; height: 170px;" src="{{travel.ImageUrl}}">
         </a>
     </div>
     <travel-item-author *ngIf="travel.Author" [author]="travel.Author" [title]="travel.Name"></travel-item-author>
     <div class="travel-item-misc">
-        <span class="item pull-left"><i class="fa fa-calendar"></i>{{travel.wayPoints.length}} Days</span>
+        <!--{{travel.WayPoints.length}}-->
+        <span class="item pull-left"><i class="fa fa-calendar"></i>TODO Days</span>
         <span class="item pull-right"><i class="fa fa-thumbs-o-up"></i>{{travel.Likes}}</span>
         <span class="item pull-right"><i class="fa fa-comments"></i>{{travel.CommentsCount}}</span>
         <span class="item pull-right" title="Views"><i class="fa fa-eye"></i>{{travel.Views}}</span>

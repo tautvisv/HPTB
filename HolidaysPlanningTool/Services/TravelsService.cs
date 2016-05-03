@@ -13,12 +13,12 @@ namespace Services
 {
     public class TravelsService:EntityService<Travel>, ITravelService
     {
-        protected readonly IPointRepository PointRepository;
         protected readonly ITravelDayRepository TravelDayRepository;
-        public TravelsService(IUnitOfWork unitOfWork, ITravelRepository repository, IPointRepository pointRepository, ITravelDayRepository travelDayRepository) : base(unitOfWork, repository)
+        protected readonly ITravelRepository TravelRepository;
+        public TravelsService(IUnitOfWork unitOfWork, ITravelRepository repository, ITravelDayRepository travelDayRepository) : base(unitOfWork, repository)
         {
-            PointRepository = pointRepository;
             TravelDayRepository = travelDayRepository;
+            TravelRepository = repository;
         }
 
         public void Create(Travel travel, IIdentity identity)
@@ -33,6 +33,8 @@ namespace Services
             }
             var userId = identity.GetUserId();
             travel.AuthorId = userId;
+            if(travel.ImageUrls != null)
+                travel.ImageUrl = string.Join("# #", travel.ImageUrls);
             var newTravel = _repository.Add(travel);
             //InsertAllTravelDays(newTravel, travel.WayPoints);
             //  AddTravelDayPlan(travel.StartDay, newTravel);
@@ -46,24 +48,10 @@ namespace Services
             return travel;
         }
 
-        protected void InsertAllTravelDays(Travel travel, IList<TravelDayPlan> waypoints)
+        public IList<Travel> GetRecentTravels(int count)
         {
-            var currentIndex = 0;
-            foreach (var travelDayPlan in waypoints)
-            {
-                travelDayPlan.TravelId = travel.Id;
-                travelDayPlan.OrderIndex = currentIndex;
-                TravelDayRepository.Add(travelDayPlan);
-                currentIndex++;
-            }
-        }
-        protected void AddTravelDayPlan(TravelDayPlan travelPlan, Travel travel)
-        {
-            if (travelPlan == null) return;
-            travelPlan.TravelId = travel.Id;
-            PointRepository.Add(travelPlan.Point);
-            travelPlan.PointId = travelPlan.Point.Id;
-            TravelDayRepository.Add(travelPlan);
+            var travels = TravelRepository.GetNewestTravels(count);
+            return travels;
         }
 
     }

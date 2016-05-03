@@ -10,6 +10,7 @@ var TravelClass_1 = require("./TravelClass");
 var comments_component_1 = require('./comments/comments.component');
 var comment_create_component_1 = require('./comments/comment-create.component');
 var like_directive_component_1 = require('./like-directive.component');
+var Constants_1 = require('../utils/Constants');
 var GoogleMap_1 = require('./maps/GoogleMap');
 var travel_view_days_container_component_1 = require('./travel-view-days-container.component');
 var MyTime = (function () {
@@ -115,8 +116,18 @@ var TravelViewComponent = (function () {
         var _this = this;
         this.travelService.getTravel(parseInt(this._routeParams.get('id'))).subscribe(function (travel) {
             _this.travel = travel;
+            //TODO do something here
+            if (_this.travel.ImageUrl)
+                _this.travel.ImageUrl = Constants_1.Constants.WebAPI + _this.travel.ImageUrl;
+            else {
+                _this.travel.ImageUrl = "/images/no_img.png";
+            }
             _this.durationString = _this.duration();
             _this.showMainRoute();
+        }, function (error) {
+            if (error && error.status === 404) {
+                _this._router.navigate(["ToursList"]);
+            }
         });
         this.map.initialise("the_view_map");
         this.map.setMapDisableClicks(true);

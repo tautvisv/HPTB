@@ -109,6 +109,14 @@
     <Compile Include="Migrations\201605022212175_CommentModelChanged.Designer.cs">
       <DependentUpon>201605022212175_CommentModelChanged.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605032111411_TravelWithUrlArray.cs" />
+    <Compile Include="Migrations\201605032111411_TravelWithUrlArray.Designer.cs">
+      <DependentUpon>201605032111411_TravelWithUrlArray.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605032116266_TravelWithoutUrlArray.cs" />
+    <Compile Include="Migrations\201605032116266_TravelWithoutUrlArray.Designer.cs">
+      <DependentUpon>201605032116266_TravelWithoutUrlArray.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="UnitOfWork.cs" />
     <Compile Include="DatabaseDbContext.cs" />
@@ -158,6 +166,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605022212175_CommentModelChanged.resx">
       <DependentUpon>201605022212175_CommentModelChanged.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605032111411_TravelWithUrlArray.resx">
+      <DependentUpon>201605032111411_TravelWithUrlArray.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605032116266_TravelWithoutUrlArray.resx">
+      <DependentUpon>201605032116266_TravelWithoutUrlArray.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
