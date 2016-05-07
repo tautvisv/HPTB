@@ -1,14 +1,10 @@
 ﻿<div class="like">
-    <a title="Įvertinti teigiamai">
-        <i class="fa fa-thumbs-o-up" *ngIf="!isLiked()" (click)="like()"></i>
-    </a>
-    <a title="Atšaukti teigiamą įvertinimą">
-        <i class="fa fa-thumbs-up" *ngIf="isLiked()" (click)="removeLike()"></i>
-    </a>
-    <a title="Įvertinti neigiamai">
-        <i class="fa fa-thumbs-o-down" *ngIf="!isDisliked()" (click)="dislike()"></i>
-    </a>
-    <a title="Atšaukti neigiamą įvertinimą">
-        <i class="fa fa-thumbs-down" *ngIf="isDisliked()" (click)="removeLike()"></i>
-    </a>
+    <a title="Įvertinti teigiamai" *ngIf="!isLiked()">
+       {{travelLikesData.LikesCount}} <i class="fa fa-thumbs-o-up" (click)="like()"></i></a>
+    <a title="Atšaukti teigiamą įvertinimą" *ngIf="isLiked()">
+        {{travelLikesData.LikesCount}}<i class="fa fa-thumbs-up" (click)="removeLike()"></i></a>
+    <a title="Įvertinti neigiamai" *ngIf="!isDisliked()">
+        {{travelLikesData.DislikesCount}}<i class="fa fa-thumbs-o-down"  (click)="dislike()"></i></a>
+    <a title="Atšaukti neigiamą įvertinimą"  *ngIf="isDisliked()">
+        {{travelLikesData.DislikesCount}}<i class="fa fa-thumbs-down" (click)="removeLike()"></i></a>
 </div>

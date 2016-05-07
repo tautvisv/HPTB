@@ -14,7 +14,7 @@ import 'rxjs/operator/switchMap';
 //http://localhost:2922/api/Mock/5
 @Injectable()
 export class MiscService {
-    private _controllerName = "PhotoUpload/testf";
+    //private _controllerName = "PhotoUpload/testf";
     constructor(private http: httpAuthorized) {
         console.warn("constructor UserSettingsService");
     }
@@ -42,23 +42,24 @@ export class MiscService {
             });
     }
     like(travelId: number, status: number) {
-        var headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        return this.http.post(Constants.WebAPIUrl + this._controllerName,
-            JSON.stringify({ travelId: travelId, status: status }), {
-                headers: headers
-            })
+        return this.http.post(Constants.WebAPIUrl + "Likes/",
+            JSON.stringify({ TravelId: travelId, Status: status }), { })
             .map(response => response.json()).map((result: number) => {
+                console.log("status");
                 return status;
             });
     }
-    addView(object: any) {
-        var headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        return this.http.post(Constants.WebAPIUrl + this._controllerName,
-            JSON.stringify({}), {
-                headers: headers
-            })
-            .map(response => response.json());
+    addView(travelId: number) {
+        if (!this.http.isAuth()) return;
+        return this.http.post(Constants.WebAPIUrl + "Views" ,
+            JSON.stringify({ TravelId: travelId }), {})
+            .map(response => response.json()).subscribe((s)=> { console.log("View added"); }, (e) => { console.error("view was not added"); });
+    }
+    getTravelInformation(travelId: number) {
+        return this.http.get(Constants.WebAPIUrl + "Likes/TravelInformation/" + travelId, {})
+            .map(response => response.json()).map((result: any) => {
+                console.log("travel Staustus: " + result);
+                return result;
+            });
     }
 }

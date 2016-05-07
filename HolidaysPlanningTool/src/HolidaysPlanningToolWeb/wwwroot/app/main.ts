@@ -23,7 +23,7 @@ import {AuthHttp, AuthConfig, AUTH_PROVIDERS} from './services/angular2-jwt';
 import {MainApp} from './main-app.component';
 
 let notificationOptions = {
-    autoDismiss: true,
+    autoDismiss: false,
     positionClass: 'toast-top-right',
 
 };

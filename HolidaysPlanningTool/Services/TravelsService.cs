@@ -47,6 +47,7 @@ namespace Services
             var travel = _repository.GetById(id);
             return travel;
         }
+        
 
         public IList<Travel> GetRecentTravels(int count)
         {
@@ -54,6 +55,29 @@ namespace Services
             return travels;
         }
 
+        public IList<Travel> GetUsersTravels(IIdentity user, int skip, int count)
+        {
+            var travels = TravelRepository.GetUsersTravels(user.GetUserId(), skip, count);
+            return travels;
+        }
+
+        public IList<Travel> GetRecentViewedTravels(IIdentity user, int skip, int take)
+        {
+            var travels = TravelRepository.GetTravelsByViews(user.GetUserId(), skip, take);
+            return travels;
+        }
+
+        public IList<Travel> GetLikedTravels(IIdentity user, int skip, int take)
+        {
+            var travels = TravelRepository.GetTravelsByLikes(user.GetUserId(), skip, take);
+            return travels;
+        }
+
+        public IList<Travel> SearchTravels(string phrase, int skip, int take)
+        {
+            var travels = TravelRepository.Search(phrase, skip, take);
+            return travels;
+        }
     }
 
 }

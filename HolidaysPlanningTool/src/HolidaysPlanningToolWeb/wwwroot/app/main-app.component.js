@@ -52,7 +52,7 @@ var MainApp = (function () {
         }
         setNavLayout();
         this.router.subscribe(function (val) {
-            if (val === "ToursList") {
+            if (val.indexOf("ToursList") > -1) {
                 startingOffset = slider.height();
                 slider.show();
                 stickyNav();
@@ -85,6 +85,11 @@ var MainApp = (function () {
             {
                 path: '/ToursList',
                 name: 'ToursList',
+                component: travel_home_page_component_1.TravelHomePageComponent
+            },
+            {
+                path: '/ToursList/:type/:count',
+                name: 'ToursListFilter',
                 component: travel_home_page_component_1.TravelHomePageComponent
             },
             {

@@ -2,29 +2,48 @@
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { MiscService } from '../services/misc.service';
 
+class TravelStatus {
+    public UserLikeStatus: number;
+    public LikesCount: number;
+    public DislikesCount: number;
+}
 @Component({
     selector: 'like-directive',
     templateUrl: './app/travel/like-directive.component.html',
     directives: []
 })
 export class LikeDirectiveComponent implements OnInit {
-    @Input() status: number;
     @Input() travelId: number;
-
+    private travelLikesData: TravelStatus;
     constructor(private notificationManager: ToastsManager, private service: MiscService) {
+        this.travelLikesData = new TravelStatus();
     }
 
     private isLiked() {
-        return this.status > 0;
+        return this.travelLikesData.UserLikeStatus > 0;
     }
 
     private isDisliked() {
-        return this.status < 0;
+        return this.travelLikesData.UserLikeStatus < 0;
     }
 
     like() {
         this.service.like(this.travelId, 1).subscribe((status) => {
-            this.status = status;
+            if (this.travelLikesData.UserLikeStatus === -1) {
+                this.travelLikesData.DislikesCount--;
+            }
+            //switch (this.travelLikesData.UserLikeStatus) {
+            //    case -1:
+            //        break;
+            //    case 0:
+            //        break;
+            //    case 1:
+            //        break;
+            //    default:
+            //        this.notificationManager.error("Nežinomas statusas: " + this.travelLikesData.UserLikeStatus);
+            //}
+            this.travelLikesData.LikesCount++;
+            this.travelLikesData.UserLikeStatus = status;
             this.notificationManager.info("jums patinka ši kelionė");
         },
             () => {
@@ -32,7 +51,11 @@ export class LikeDirectiveComponent implements OnInit {
     }
     dislike() {
         this.service.like(this.travelId, -1).subscribe((status) => {
-            this.status = status;
+            if (this.travelLikesData.UserLikeStatus === 1) {
+                this.travelLikesData.LikesCount--;
+            }
+            this.travelLikesData.UserLikeStatus = status;
+            this.travelLikesData.DislikesCount++;
             this.notificationManager.info("jums nepatinka ši kelionė");
         },
             () => {
@@ -40,7 +63,14 @@ export class LikeDirectiveComponent implements OnInit {
     }
     removeLike() {
         this.service.like(this.travelId, 0).subscribe((status) => {
-            this.status = status;
+            if (this.travelLikesData.UserLikeStatus === 1) {
+                this.travelLikesData.LikesCount--;
+            } else if (this.travelLikesData.UserLikeStatus === -1) {
+                this.travelLikesData.DislikesCount--;
+            } else {
+                this.notificationManager.info("status: " + this.travelLikesData.UserLikeStatus);
+            }
+            this.travelLikesData.UserLikeStatus = status;
             this.notificationManager.info("Panaikintas statusas");
         },
             () => {
@@ -48,6 +78,8 @@ export class LikeDirectiveComponent implements OnInit {
     }
 
     ngOnInit() {
-
+        this.service.getTravelInformation(this.travelId).subscribe((travelStatus: TravelStatus) => {
+            this.travelLikesData = travelStatus;
+        });
     }
 }

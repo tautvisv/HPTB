@@ -63,12 +63,15 @@
   <ItemGroup>
     <Compile Include="Comment.cs" />
     <Compile Include="Entity.cs" />
+    <Compile Include="Like.cs" />
     <Compile Include="Point.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Travel.cs" />
     <Compile Include="TravelDayPlan.cs" />
+    <Compile Include="TravelLikeModel.cs" />
     <Compile Include="TravelPointPlan.cs" />
     <Compile Include="User.cs" />
+    <Compile Include="Views.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

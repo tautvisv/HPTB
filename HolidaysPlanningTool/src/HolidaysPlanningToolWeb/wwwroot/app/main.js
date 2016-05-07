@@ -16,7 +16,7 @@ var account_service_1 = require('./services/account.service');
 var http_authorized_1 = require('./services/http-authorized');
 var main_app_component_1 = require('./main-app.component');
 var notificationOptions = {
-    autoDismiss: true,
+    autoDismiss: false,
     positionClass: 'toast-top-right',
 };
 browser_1.bootstrap(main_app_component_1.MainApp, [ng2_toastr_1.ToastsManager, travel_service_1.TravelService, misc_service_1.MiscService, account_service_1.AccountService, http_authorized_1.httpAuthorized,

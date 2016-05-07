@@ -63,6 +63,7 @@ class FullTravelMock extends FullTravel {
     }
 }
 
+
 //http://localhost:2922/api/Mock/5
 @Injectable()
 export class TravelService {
@@ -94,22 +95,55 @@ export class TravelService {
     getRecentTravels(count: number): Observable<FullTravel[]> { 
         var url = Constants.WebAPIUrl + this._controllerName + "Recent/" + (count ? count : "");
         console.log("service gettings data from", url);
-        var that = this;
         return this.http.get(url, {})
             .map(response => response.json()).map((result: FullTravel[]) => {
-                result.forEach(function (travel) {
-                    travel.Author.ImageUrl = that.getPhotoUrl(travel.Author.ImageUrl);
-                    travel.ImageUrl = that.getPhotoUrl(travel.ImageUrl);
-                });
-                console.log("response from API:", result);
+                TravelMethodsHelper.processTravels(result);
                 return result;
             });
     }
-    private getPhotoUrl(photoUrl: string) {
-        if (!photoUrl) {
-            return "/images/no_img.png";
-        }
-        return Constants.WebAPI + photoUrl;
+    getViewedTravels(count: number): Observable<FullTravel[]> {
+        var url = Constants.WebAPIUrl + this._controllerName + "Viewed/" + (count ? count : "");
+        console.log("service gettings data from", url);
+        return this.http.get(url, {})
+            .map(response => response.json()).map((result: FullTravel[]) => {
+                TravelMethodsHelper.processTravels(result);
+                return result;
+            });
+    }
+    getLikedTravels(count: number): Observable<FullTravel[]> {
+        var url = Constants.WebAPIUrl + this._controllerName + "Liked/" + (count ? count : "");
+        console.log("service gettings data from", url);
+        return this.http.get(url, {})
+            .map(response => response.json()).map((result: FullTravel[]) => {
+                TravelMethodsHelper.processTravels(result);
+                return result;
+            });
+    }
+    getUserTravels(count: number): Observable<FullTravel[]> {
+        var url = Constants.WebAPIUrl + this._controllerName + "User/" + (count ? count : "");
+        console.log("service gettings data from", url);
+        return this.http.get(url, {})
+            .map(response => response.json()).map((result: FullTravel[]) => {
+                TravelMethodsHelper.processTravels(result);
+                return result;
+            });
+    }
+    search(searchPhrase: string): Observable<FullTravel[]> {
+        var url = Constants.WebAPIUrl + this._controllerName + "Search/" + (searchPhrase || "");
+        console.log("service gettings data from", url);
+        return this.http.get(url, {})
+            .map(response => response.json()).map((result: FullTravel[]) => {
+                TravelMethodsHelper.processTravels(result);
+                return result;
+            });
+    }
+    private processTravels(result: FullTravel[]) {
+        result.forEach(function (travel) {
+            travel.Author.ImageUrl = this.getPhotoUrl(travel.Author.ImageUrl);
+            travel.ImageUrl = this.getPhotoUrl(travel.ImageUrl);
+        });
+        console.log("response from API:", result);
+        
     }
     saveTravel(travel: FullTravel) {
     //TODO move somewwhere else

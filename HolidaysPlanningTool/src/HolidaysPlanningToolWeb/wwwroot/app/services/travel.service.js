@@ -104,22 +104,54 @@ var TravelService = (function () {
     TravelService.prototype.getRecentTravels = function (count) {
         var url = Constants_1.Constants.WebAPIUrl + this._controllerName + "Recent/" + (count ? count : "");
         console.log("service gettings data from", url);
-        var that = this;
         return this.http.get(url, {})
             .map(function (response) { return response.json(); }).map(function (result) {
-            result.forEach(function (travel) {
-                travel.Author.ImageUrl = that.getPhotoUrl(travel.Author.ImageUrl);
-                travel.ImageUrl = that.getPhotoUrl(travel.ImageUrl);
-            });
-            console.log("response from API:", result);
+            TravelClass_1.TravelMethodsHelper.processTravels(result);
             return result;
         });
     };
-    TravelService.prototype.getPhotoUrl = function (photoUrl) {
-        if (!photoUrl) {
-            return "/images/no_img.png";
-        }
-        return Constants_1.Constants.WebAPI + photoUrl;
+    TravelService.prototype.getViewedTravels = function (count) {
+        var url = Constants_1.Constants.WebAPIUrl + this._controllerName + "Viewed/" + (count ? count : "");
+        console.log("service gettings data from", url);
+        return this.http.get(url, {})
+            .map(function (response) { return response.json(); }).map(function (result) {
+            TravelClass_1.TravelMethodsHelper.processTravels(result);
+            return result;
+        });
+    };
+    TravelService.prototype.getLikedTravels = function (count) {
+        var url = Constants_1.Constants.WebAPIUrl + this._controllerName + "Liked/" + (count ? count : "");
+        console.log("service gettings data from", url);
+        return this.http.get(url, {})
+            .map(function (response) { return response.json(); }).map(function (result) {
+            TravelClass_1.TravelMethodsHelper.processTravels(result);
+            return result;
+        });
+    };
+    TravelService.prototype.getUserTravels = function (count) {
+        var url = Constants_1.Constants.WebAPIUrl + this._controllerName + "User/" + (count ? count : "");
+        console.log("service gettings data from", url);
+        return this.http.get(url, {})
+            .map(function (response) { return response.json(); }).map(function (result) {
+            TravelClass_1.TravelMethodsHelper.processTravels(result);
+            return result;
+        });
+    };
+    TravelService.prototype.search = function (searchPhrase) {
+        var url = Constants_1.Constants.WebAPIUrl + this._controllerName + "Search/" + (searchPhrase || "");
+        console.log("service gettings data from", url);
+        return this.http.get(url, {})
+            .map(function (response) { return response.json(); }).map(function (result) {
+            TravelClass_1.TravelMethodsHelper.processTravels(result);
+            return result;
+        });
+    };
+    TravelService.prototype.processTravels = function (result) {
+        result.forEach(function (travel) {
+            travel.Author.ImageUrl = this.getPhotoUrl(travel.Author.ImageUrl);
+            travel.ImageUrl = this.getPhotoUrl(travel.ImageUrl);
+        });
+        console.log("response from API:", result);
     };
     TravelService.prototype.saveTravel = function (travel) {
         //TODO move somewwhere else

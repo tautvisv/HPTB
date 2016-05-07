@@ -35,6 +35,11 @@ import { provide } from 'angular2/core';
         component: TravelHomePageComponent
     },
     {
+        path: '/ToursList/:type/:count',
+        name: 'ToursListFilter',
+        component: TravelHomePageComponent
+    },
+    {
         path: '/CreateTour',
         name: 'CreateTour',
         component: TravelCreateComponent
@@ -88,8 +93,8 @@ export class MainApp implements OnInit {
             });
         }
         setNavLayout();
-        this.router.subscribe((val) => {
-            if (val === "ToursList") {
+        this.router.subscribe((val: string) => {
+            if (val.indexOf("ToursList") > -1 ) {
                 startingOffset = slider.height();
                 slider.show();
                 stickyNav();

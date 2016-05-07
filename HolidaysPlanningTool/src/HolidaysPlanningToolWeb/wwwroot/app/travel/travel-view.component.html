@@ -1,5 +1,5 @@
 ﻿<div class="component">
-    <like-directive [status]="1" [travelId]="travel.Id"></like-directive>
+    <like-directive  [travelId]="travel.Id" *ngIf="travel.Id"></like-directive>
     <div class="component-header">
         <div class="travel-view-component-name">{{travel.Name}}</div>
     </div>

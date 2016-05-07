@@ -21,6 +21,8 @@ namespace UnitOfWork
         public DbSet<TravelDayPlan> TravelDayPlans { get; set; }
         public DbSet<Travel> Travels { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<View> Views { get; set; }
+        public DbSet<Like> Likes { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

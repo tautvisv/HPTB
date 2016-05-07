@@ -117,6 +117,10 @@
     <Compile Include="Migrations\201605032116266_TravelWithoutUrlArray.Designer.cs">
       <DependentUpon>201605032116266_TravelWithoutUrlArray.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605051945575_ViewsAndLikes.cs" />
+    <Compile Include="Migrations\201605051945575_ViewsAndLikes.Designer.cs">
+      <DependentUpon>201605051945575_ViewsAndLikes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="UnitOfWork.cs" />
     <Compile Include="DatabaseDbContext.cs" />
@@ -172,6 +176,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605032116266_TravelWithoutUrlArray.resx">
       <DependentUpon>201605032116266_TravelWithoutUrlArray.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605051945575_ViewsAndLikes.resx">
+      <DependentUpon>201605051945575_ViewsAndLikes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

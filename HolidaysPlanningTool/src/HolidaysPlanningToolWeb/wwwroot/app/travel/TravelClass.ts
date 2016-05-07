@@ -44,6 +44,21 @@ export class TravelMethodsHelper {
             }
         }
     }
+    public static processTravels(result: FullTravel[]) {
+        console.log("response from API:", result);
+        result.forEach(function (travel) {
+            travel.Author.ImageUrl = TravelMethodsHelper.getPhotoUrl(travel.Author.ImageUrl);
+            travel.ImageUrl = TravelMethodsHelper.getPhotoUrl(travel.ImageUrl);
+        });
+
+    }
+
+    public static getPhotoUrl(photoUrl: string) {
+        if (!photoUrl) {
+            return "/images/no_img.png";
+        }
+        return Constants.WebAPI + photoUrl;
+    }
     private static travelDayStringateToDate(travelDay: TravelClass) {
         if (travelDay) travelDay.Date = this.stringDateToDate(travelDay.Date);
     }

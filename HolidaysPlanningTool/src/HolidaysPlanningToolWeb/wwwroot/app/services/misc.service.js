@@ -6,7 +6,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var core_1 = require('angular2/core');
-var http_1 = require('angular2/http');
 var Constants_1 = require('../utils/Constants');
 require('rxjs/add/operator/map');
 require('rxjs/operator/delay');
@@ -14,9 +13,9 @@ require('rxjs/operator/mergeMap');
 require('rxjs/operator/switchMap');
 //http://localhost:2922/api/Mock/5
 var MiscService = (function () {
+    //private _controllerName = "PhotoUpload/testf";
     function MiscService(http) {
         this.http = http;
-        this._controllerName = "PhotoUpload/testf";
         console.warn("constructor UserSettingsService");
     }
     //getTravel(travelId: number | string): Observable<any> { //UserSettingsMock
@@ -41,22 +40,24 @@ var MiscService = (function () {
         });
     };
     MiscService.prototype.like = function (travelId, status) {
-        var headers = new http_1.Headers();
-        headers.append('Content-Type', 'application/json');
-        return this.http.post(Constants_1.Constants.WebAPIUrl + this._controllerName, JSON.stringify({ travelId: travelId, status: status }), {
-            headers: headers
-        })
+        return this.http.post(Constants_1.Constants.WebAPIUrl + "Likes/", JSON.stringify({ TravelId: travelId, Status: status }), {})
             .map(function (response) { return response.json(); }).map(function (result) {
+            console.log("status");
             return status;
         });
     };
-    MiscService.prototype.addView = function (object) {
-        var headers = new http_1.Headers();
-        headers.append('Content-Type', 'application/json');
-        return this.http.post(Constants_1.Constants.WebAPIUrl + this._controllerName, JSON.stringify({}), {
-            headers: headers
-        })
-            .map(function (response) { return response.json(); });
+    MiscService.prototype.addView = function (travelId) {
+        if (!this.http.isAuth())
+            return;
+        return this.http.post(Constants_1.Constants.WebAPIUrl + "Views", JSON.stringify({ TravelId: travelId }), {})
+            .map(function (response) { return response.json(); }).subscribe(function (s) { console.log("View added"); }, function (e) { console.error("view was not added"); });
+    };
+    MiscService.prototype.getTravelInformation = function (travelId) {
+        return this.http.get(Constants_1.Constants.WebAPIUrl + "Likes/TravelInformation/" + travelId, {})
+            .map(function (response) { return response.json(); }).map(function (result) {
+            console.log("travel Staustus: " + result);
+            return result;
+        });
     };
     MiscService = __decorate([
         core_1.Injectable()

@@ -13,23 +13,63 @@ var TravelsInformation = (function () {
     return TravelsInformation;
 }());
 var TravelHomePageComponent = (function () {
-    function TravelHomePageComponent(notificationManager, travelService) {
+    function TravelHomePageComponent(notificationManager, travelService, router) {
         this.notificationManager = notificationManager;
         this.travelService = travelService;
+        this.router = router;
         this.TravelInformation = new TravelsInformation();
     }
     TravelHomePageComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.travelService.getRecentTravels(5).subscribe(function (travels) {
-            _this.TravelInformation.NewTravels = travels;
-        }, function () {
-            _this.notificationManager.error("Nepavyko užkrauti naujausių kelionių");
-        });
-        this.travelService.getTravels("test").subscribe(function (travels) {
-            _this.TravelInformation.TravelList = travels;
-        }, function () {
-            _this.notificationManager.error("Nepavyko užkrauti kelionių sąrašo");
-        });
+        //this.router.get
+        var type = this.router.get("type");
+        if (type)
+            type = type.toLocaleLowerCase();
+        console.log("type yra: ", type, " toks");
+        var count = parseInt(this.router.get("count"));
+        switch (type) {
+            case "viewed":
+                this.travelService.getViewedTravels(count).subscribe(function (travels) {
+                    _this.TravelInformation.ViewedTravels = travels;
+                }, function () {
+                    _this.notificationManager.error("Nepavyko užkrauti naujausių kelionių");
+                });
+                break;
+            case "liked":
+                this.travelService.getLikedTravels(count).subscribe(function (travels) {
+                    _this.TravelInformation.LikedTravels = travels;
+                }, function () {
+                    _this.notificationManager.error("Nepavyko užkrauti naujausių kelionių");
+                });
+                break;
+            case "search":
+                var searchPhrase = this.router.get("count");
+                this.travelService.search(searchPhrase).subscribe(function (travels) {
+                    _this.TravelInformation.SearchedTravels = travels;
+                }, function () {
+                    _this.notificationManager.error("Nepavyko užkrauti naujausių kelionių");
+                });
+                break;
+            case "top":
+                break;
+            default:
+                this.travelService.getRecentTravels(5).subscribe(function (travels) {
+                    _this.TravelInformation.NewTravels = travels;
+                }, function () {
+                    _this.notificationManager.error("Nepavyko užkrauti naujausių kelionių");
+                });
+                this.travelService.getUserTravels(5).subscribe(function (travels) {
+                    _this.TravelInformation.UserTravels = travels;
+                }, function () {
+                    _this.notificationManager.error("Nepavyko užkrauti naujausių kelionių");
+                });
+        }
+        //this.travelService.getTravels("test").subscribe((travels) => {
+        //    this.TravelInformation.TravelList = travels;
+        //},
+        //    () => {
+        //        this.notificationManager.error("Nepavyko užkrauti kelionių sąrašo");
+        //    });
     };
     TravelHomePageComponent = __decorate([
         core_1.Component({

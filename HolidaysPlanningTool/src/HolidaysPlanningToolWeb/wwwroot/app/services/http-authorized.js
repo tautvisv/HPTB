@@ -31,6 +31,9 @@ var httpAuthorized = (function () {
         this.headers.delete("Authorization");
         localStorage.removeItem(Constants_1.Constants.TokenName);
     };
+    httpAuthorized.prototype.isAuth = function () {
+        return !!localStorage.getItem(Constants_1.Constants.TokenName);
+    };
     httpAuthorized.prototype.setGlobalHeaders = function (headers, request) {
         headers.forEach(function (header) {
             var key = Object.keys(header)[0];

@@ -41,6 +41,9 @@ export class httpAuthorized {
         this.headers.delete("Authorization");
         localStorage.removeItem(Constants.TokenName);
     }
+    isAuth(): boolean {
+        return !!localStorage.getItem(Constants.TokenName);
+    }
     setGlobalHeaders(headers: Array<Object>, request: Request | RequestOptionsArgs) {
         headers.forEach((header: Object) => {
             let key: string = Object.keys(header)[0];

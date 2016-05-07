@@ -9,6 +9,7 @@ import { Constants } from '../utils/Constants';
 import { GoogleMaps } from './maps/GoogleMap';
 import { TravelViewDaysContainerComponent } from './travel-view-days-container.component';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { MiscService } from '../services/misc.service';
 
 class MyTime {
     public days: number;
@@ -31,8 +32,9 @@ export class TravelViewComponent implements OnInit {
     private durationString: MyTime;
     constructor(private _router: Router,
         private _routeParams: RouteParams,
-        private _notificationService: ToastsManager
+        private _notificationService: ToastsManager,
         private map: GoogleMaps,
+        private miscService: MiscService,
         private travelHelper: TravelMethodsHelper,
         private travelService: TravelService) {
         this.travel = new FullTravel();
@@ -130,6 +132,7 @@ export class TravelViewComponent implements OnInit {
                 this.travel.ImageUrl = Constants.WebAPI + this.travel.ImageUrl;
             else { this.travel.ImageUrl = "/images/no_img.png"; }
             this.durationString = this.duration();
+            this.miscService.addView(this.travel.Id);
             this.showMainRoute();
         }, (error) => {
             if (error && error.status === 404) {

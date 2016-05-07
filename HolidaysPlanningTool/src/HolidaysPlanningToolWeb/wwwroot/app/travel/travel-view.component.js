@@ -19,10 +19,12 @@ var MyTime = (function () {
     return MyTime;
 }());
 var TravelViewComponent = (function () {
-    function TravelViewComponent(_router, _routeParams, map, travelHelper, travelService) {
+    function TravelViewComponent(_router, _routeParams, _notificationService, map, miscService, travelHelper, travelService) {
         this._router = _router;
         this._routeParams = _routeParams;
+        this._notificationService = _notificationService;
         this.map = map;
+        this.miscService = miscService;
         this.travelHelper = travelHelper;
         this.travelService = travelService;
         this.travel = new TravelClass_1.FullTravel();
@@ -123,11 +125,15 @@ var TravelViewComponent = (function () {
                 _this.travel.ImageUrl = "/images/no_img.png";
             }
             _this.durationString = _this.duration();
+            _this.miscService.addView(_this.travel.Id);
             _this.showMainRoute();
         }, function (error) {
             if (error && error.status === 404) {
                 _this._router.navigate(["ToursList"]);
+                _this._notificationService.error("Tokia kelionė neegzistuoja");
+                return;
             }
+            _this._notificationService.error("Nežinoma klaida");
         });
         this.map.initialise("the_view_map");
         this.map.setMapDisableClicks(true);

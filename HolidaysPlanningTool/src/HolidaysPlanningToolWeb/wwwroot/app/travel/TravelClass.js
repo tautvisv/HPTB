@@ -54,6 +54,19 @@ var TravelMethodsHelper = (function () {
             }
         }
     };
+    TravelMethodsHelper.processTravels = function (result) {
+        console.log("response from API:", result);
+        result.forEach(function (travel) {
+            travel.Author.ImageUrl = TravelMethodsHelper.getPhotoUrl(travel.Author.ImageUrl);
+            travel.ImageUrl = TravelMethodsHelper.getPhotoUrl(travel.ImageUrl);
+        });
+    };
+    TravelMethodsHelper.getPhotoUrl = function (photoUrl) {
+        if (!photoUrl) {
+            return "/images/no_img.png";
+        }
+        return Constants_1.Constants.WebAPI + photoUrl;
+    };
     TravelMethodsHelper.travelDayStringateToDate = function (travelDay) {
         if (travelDay)
             travelDay.Date = this.stringDateToDate(travelDay.Date);

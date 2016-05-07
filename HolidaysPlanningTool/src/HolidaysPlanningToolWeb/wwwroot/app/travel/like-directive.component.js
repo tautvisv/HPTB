@@ -6,21 +6,41 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var core_1 = require('angular2/core');
+var TravelStatus = (function () {
+    function TravelStatus() {
+    }
+    return TravelStatus;
+}());
 var LikeDirectiveComponent = (function () {
     function LikeDirectiveComponent(notificationManager, service) {
         this.notificationManager = notificationManager;
         this.service = service;
+        this.travelLikesData = new TravelStatus();
     }
     LikeDirectiveComponent.prototype.isLiked = function () {
-        return this.status > 0;
+        return this.travelLikesData.UserLikeStatus > 0;
     };
     LikeDirectiveComponent.prototype.isDisliked = function () {
-        return this.status < 0;
+        return this.travelLikesData.UserLikeStatus < 0;
     };
     LikeDirectiveComponent.prototype.like = function () {
         var _this = this;
         this.service.like(this.travelId, 1).subscribe(function (status) {
-            _this.status = status;
+            if (_this.travelLikesData.UserLikeStatus === -1) {
+                _this.travelLikesData.DislikesCount--;
+            }
+            //switch (this.travelLikesData.UserLikeStatus) {
+            //    case -1:
+            //        break;
+            //    case 0:
+            //        break;
+            //    case 1:
+            //        break;
+            //    default:
+            //        this.notificationManager.error("Nežinomas statusas: " + this.travelLikesData.UserLikeStatus);
+            //}
+            _this.travelLikesData.LikesCount++;
+            _this.travelLikesData.UserLikeStatus = status;
             _this.notificationManager.info("jums patinka ši kelionė");
         }, function () {
         });
@@ -28,7 +48,11 @@ var LikeDirectiveComponent = (function () {
     LikeDirectiveComponent.prototype.dislike = function () {
         var _this = this;
         this.service.like(this.travelId, -1).subscribe(function (status) {
-            _this.status = status;
+            if (_this.travelLikesData.UserLikeStatus === 1) {
+                _this.travelLikesData.LikesCount--;
+            }
+            _this.travelLikesData.UserLikeStatus = status;
+            _this.travelLikesData.DislikesCount++;
             _this.notificationManager.info("jums nepatinka ši kelionė");
         }, function () {
         });
@@ -36,16 +60,26 @@ var LikeDirectiveComponent = (function () {
     LikeDirectiveComponent.prototype.removeLike = function () {
         var _this = this;
         this.service.like(this.travelId, 0).subscribe(function (status) {
-            _this.status = status;
+            if (_this.travelLikesData.UserLikeStatus === 1) {
+                _this.travelLikesData.LikesCount--;
+            }
+            else if (_this.travelLikesData.UserLikeStatus === -1) {
+                _this.travelLikesData.DislikesCount--;
+            }
+            else {
+                _this.notificationManager.info("status: " + _this.travelLikesData.UserLikeStatus);
+            }
+            _this.travelLikesData.UserLikeStatus = status;
             _this.notificationManager.info("Panaikintas statusas");
         }, function () {
         });
     };
     LikeDirectiveComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.service.getTravelInformation(this.travelId).subscribe(function (travelStatus) {
+            _this.travelLikesData = travelStatus;
+        });
     };
-    __decorate([
-        core_1.Input()
-    ], LikeDirectiveComponent.prototype, "status", void 0);
     __decorate([
         core_1.Input()
     ], LikeDirectiveComponent.prototype, "travelId", void 0);
