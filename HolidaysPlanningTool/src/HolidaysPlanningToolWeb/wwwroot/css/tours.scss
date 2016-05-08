@@ -431,3 +431,32 @@ $large-modal-width: 1100px;
     margin-right: 20px;
     padding-top: 5px;
 }
+
+.paggination {
+    list-style: none;
+}
+.paggination li {
+    display: inline-block;
+    color: white;
+    padding: 5px;
+    font-weight: bolder;
+    margin: 0 2px;
+    border-radius: 3px;
+    cursor: pointer;
+    background-color: $tours-light-blue;
+    min-width: 25px;
+    text-align: center;
+}
+.paggination .inactive{
+    background-color: $tours-grey-color;
+    cursor: default;
+}
+.paggination .selected{
+    background-color: $progress-mid-color;
+    cursor: default;
+}
+.paggination :not(.inactive):hover { 
+    background-color: $progress-start-color;
+    font-weight: bold;
+    color: white;
+}

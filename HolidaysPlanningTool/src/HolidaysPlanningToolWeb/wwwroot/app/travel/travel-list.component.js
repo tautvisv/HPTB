@@ -6,10 +6,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var core_1 = require('angular2/core');
+var pagging_component_1 = require("../utils/pagging.component");
 var travel_item_component_1 = require('./travel-item.component');
 var TravelListComponent = (function () {
     function TravelListComponent() {
+        this.pagerEvent = new core_1.EventEmitter();
     }
+    TravelListComponent.prototype.changePage = function (event) {
+        console.log("pageIschangeing", event);
+        this.pagerEvent.emit(event);
+    };
     TravelListComponent.prototype.ngOnInit = function () {
     };
     __decorate([
@@ -18,13 +24,16 @@ var TravelListComponent = (function () {
     __decorate([
         core_1.Input()
     ], TravelListComponent.prototype, "title", void 0);
+    __decorate([
+        core_1.Output()
+    ], TravelListComponent.prototype, "pagerEvent", void 0);
     TravelListComponent = __decorate([
         core_1.Component({
             // Declare the tag name in index.html to where the component attaches
             selector: 'travel-list',
             // Location of the template for this component
             templateUrl: './app/travel/travel-list.component.html',
-            directives: [travel_item_component_1.TravelItemComponent]
+            directives: [travel_item_component_1.TravelItemComponent, pagging_component_1.PaggingComponent]
         })
     ], TravelListComponent);
     return TravelListComponent;

@@ -1,4 +1,5 @@
 ﻿using System.Security.Principal;
+using System.Threading;
 using System.Web.Http;
 using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
@@ -44,41 +45,55 @@ namespace HoolidaysPlanningToolsAPIMVC5.Controllers
         [HttpGet]
         [Route("Viewed/Page/{page}/Count/{count}")]
         [Route("Viewed")]
-        public IHttpActionResult GetViewedTravels(int page=0, int count = 10)
+        public IHttpActionResult GetViewedTravels(int page=1, int count = 10)
         {
-            var skipElementCount = page*count;
+            if (page < 1 || count > 100)
+            {
+                return BadRequest($"{nameof(page)} must be positive number. {nameof(count)} must be less than 100.");
+            }
             var user = User.Identity;
-            var travels = TravelService.GetRecentViewedTravels(user, skipElementCount, count);
+            var travels = TravelService.GetRecentViewedTravels(user, page, count);
             return Results(travels);
         }
         [Authorize]
         [HttpGet]
         [Route("Liked/Page/{page}/Count/{count}")]
         [Route("Liked")]
-        public IHttpActionResult GetLikedTravels(int page=0, int count = 10)
+        public IHttpActionResult GetLikedTravels(int page=1, int count = 10)
         {
-            var skipElementCount = page*count;
+
+            if (page < 1 || count > 100)
+            {
+                return BadRequest($"{nameof(page)} must be positive number. {nameof(count)} must be less than 100.");
+            }
             var user = User.Identity;
-            var travels = TravelService.GetLikedTravels(user, skipElementCount, count);
+            var travels = TravelService.GetLikedTravels(user, page, count);
             return Results(travels);
         }
         [HttpGet]
-        [Route("Search/{phrase}/Page/{page}/Count/{count}")]
-        [Route("Search/Page/{page}/Count/{count}")]
+        [Route("Page/{page}/Count/{count}/Search/{phrase}")]
+        [Route("Page/{page}/Count/{count}/Search")]
         public IHttpActionResult GetSearchedTravels(int page, int count, string phrase = "")
         {
-            var skipElementCount = page*count;
-            var travels = TravelService.SearchTravels(phrase, skipElementCount, count);
+            if (page < 1 || count > 100)
+            {
+                return BadRequest($"{nameof(page)} must be positive number. {nameof(count)} must be less than 100.");
+            }
+            if (phrase == "null") phrase = ""; 
+            var travels = TravelService.SearchTravels(phrase, page, count);
             return Results(travels);
         }
         [HttpGet]
         [Route("User/Page/{page}/Count/{count}")]
         [Route("User")]
-        public IHttpActionResult GetUserCreatedTravels(int page = 0, int count = 5)
+        public IHttpActionResult GetUserCreatedTravels(int page = 1, int count = 5)
         {
-            var skipElementCount = page*count;
+            if (page < 1 || count > 100)
+            {
+                return BadRequest($"{nameof(page)} must be positive number. {nameof(count)} must be less than 100.");
+            }
             var user = User.Identity;
-            var travels = TravelService.GetUsersTravels(user, skipElementCount, count);
+            var travels = TravelService.GetUsersTravels(user, page, count);
             return Results(travels);
         }
 

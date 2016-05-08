@@ -148,4 +148,10 @@ var Author = (function () {
     return Author;
 }());
 exports.Author = Author;
+var Pager = (function () {
+    function Pager() {
+    }
+    return Pager;
+}());
+exports.Pager = Pager;
 //# sourceMappingURL=TravelClass.js.map

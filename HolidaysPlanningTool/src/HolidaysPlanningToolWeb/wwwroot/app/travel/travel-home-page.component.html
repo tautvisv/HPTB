@@ -1,9 +1,10 @@
 ﻿<div class="travel-container">
-    <travel-list *ngIf="TravelInformation.LikedTravels" [travels]="TravelInformation.LikedTravels" [title]="'Patinkačios kelionės'"></travel-list>
+    <travel-list *ngIf="TravelInformation.NewTravels" [travels]="TravelInformation.NewTravels" [title]="'Naujausios kelionės'"></travel-list>
+    <travel-list *ngIf="TravelInformation.UserTravels" [travels]="TravelInformation.UserTravels" [title]="'Jūsų sukurtos kelionės'" (pagerEvent)="getUserTravelsByPage($event)"></travel-list>
+
+    <!--<travel-list *ngIf="TravelInformation.LikedTravels" [travels]="TravelInformation.LikedTravels" [title]="'Patinkačios kelionės'"></travel-list>
     <travel-list *ngIf="TravelInformation.ViewedTravels" [travels]="TravelInformation.ViewedTravels" [title]="'Neseniai peržiūrėtos kelionės'"></travel-list>
     <travel-list *ngIf="TravelInformation.SearchedTravels" [travels]="TravelInformation.SearchedTravels" [title]="'Kelionės pagal paiešką'"></travel-list>
-    <travel-list *ngIf="TravelInformation.NewTravels" [travels]="TravelInformation.NewTravels" [title]="'Naujausios kelionės'"></travel-list>
     <travel-list *ngIf="TravelInformation.TravelList"  [travels]="TravelInformation.TravelList" [title]="'Kelionių sąrašas'"></travel-list>
-    <travel-list *ngIf="TravelInformation.RecommendedTravels" [travels]="TravelInformation.RecommendedTravels" [title]="'Rekomenduojamos kelionės'"></travel-list>
-    <travel-list *ngIf="TravelInformation.UserTravels" [travels]="TravelInformation.UserTravels"  [title]="'Jūsų sukurtos kelionės'"></travel-list>
+    <travel-list *ngIf="TravelInformation.RecommendedTravels" [travels]="TravelInformation.RecommendedTravels" [title]="'Rekomenduojamos kelionės'"></travel-list>-->
 </div>

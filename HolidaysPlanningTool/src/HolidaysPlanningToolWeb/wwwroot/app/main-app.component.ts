@@ -3,7 +3,7 @@ import {Component, OnInit } from 'angular2/core';
 import {UserSettingsComponent} from './userItems/user-settings.component';
 import {TravelCreateComponent} from './travel/travel-create.component';
 import {TravelViewComponent} from './travel/travel-view.component';
-import {TravelHomePageComponent} from './travel/travel-home-page.component';
+import {TravelHomePageComponent, TravelsSearchedComponent, TravelsViewedComponent, TravelsLikedComponent} from './travel/travel-home-page.component';
 import {LoginComponent} from './account/account-login.component';
 import {LogoutComponent} from './account/account-logout.component';
 import { Auth } from './services/is-auth';
@@ -35,9 +35,24 @@ import { provide } from 'angular2/core';
         component: TravelHomePageComponent
     },
     {
-        path: '/ToursList/:type/:count',
+        path: '/ToursList/:type/Page/:page/Count/:count',
         name: 'ToursListFilter',
         component: TravelHomePageComponent
+    },
+    {
+        path: '/Travels/Like/Page/:page/Count/:count',
+        name: 'ToursListLiked',
+        component: TravelsLikedComponent
+    },
+    {
+        path: '/Travels/Viewed/Page/:page/Count/:count',
+        name: 'ToursListViewed',
+        component: TravelsViewedComponent
+    },
+    {
+        path: '/Travels/Page/:page/Count/:count/Search/:phrase',
+        name: 'ToursListSearch',
+        component: TravelsSearchedComponent
     },
     {
         path: '/CreateTour',
@@ -106,4 +121,5 @@ export class MainApp implements OnInit {
         });
 
     }
+
 }

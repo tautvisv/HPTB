@@ -8,5 +8,7 @@
             <span class="inner-line"></span>
         </span>
     </div>
-    <travel-item *ngFor="#travel of travels" [travel]="travel"></travel-item>
+    <travel-item *ngFor="#travel of travels.Results" [travel]="travel"></travel-item>
+    <div style="clear: both;"></div>
+    <pagging #myPage [currentPage]="travels.CurrentPage" (callback)="changePage($event)" [totalPages]="travels.PageCount" [itemsPerPage]="travels.PageSize"></pagging>
 </div>

@@ -110,39 +110,39 @@ var TravelService = (function () {
             return result;
         });
     };
-    TravelService.prototype.getViewedTravels = function (count) {
-        var url = Constants_1.Constants.WebAPIUrl + this._controllerName + "Viewed/" + (count ? count : "");
+    TravelService.prototype.getViewedTravels = function (page, count) {
+        var url = Constants_1.Constants.WebAPIUrl + this._controllerName + "Viewed/" + ("Page/" + page + "/Count/" + count);
         console.log("service gettings data from", url);
         return this.http.get(url, {})
             .map(function (response) { return response.json(); }).map(function (result) {
-            TravelClass_1.TravelMethodsHelper.processTravels(result);
+            TravelClass_1.TravelMethodsHelper.processTravels(result.Results);
             return result;
         });
     };
-    TravelService.prototype.getLikedTravels = function (count) {
-        var url = Constants_1.Constants.WebAPIUrl + this._controllerName + "Liked/" + (count ? count : "");
+    TravelService.prototype.getLikedTravels = function (page, count) {
+        var url = Constants_1.Constants.WebAPIUrl + this._controllerName + "Liked/" + ("Page/" + page + "/Count/" + count);
         console.log("service gettings data from", url);
         return this.http.get(url, {})
             .map(function (response) { return response.json(); }).map(function (result) {
-            TravelClass_1.TravelMethodsHelper.processTravels(result);
+            TravelClass_1.TravelMethodsHelper.processTravels(result.Results);
             return result;
         });
     };
-    TravelService.prototype.getUserTravels = function (count) {
-        var url = Constants_1.Constants.WebAPIUrl + this._controllerName + "User/" + (count ? count : "");
+    TravelService.prototype.getUserTravels = function (page, count) {
+        var url = Constants_1.Constants.WebAPIUrl + this._controllerName + "User/" + ("Page/" + page + "/Count/" + count);
         console.log("service gettings data from", url);
         return this.http.get(url, {})
             .map(function (response) { return response.json(); }).map(function (result) {
-            TravelClass_1.TravelMethodsHelper.processTravels(result);
+            TravelClass_1.TravelMethodsHelper.processTravels(result.Results);
             return result;
         });
     };
-    TravelService.prototype.search = function (searchPhrase) {
-        var url = Constants_1.Constants.WebAPIUrl + this._controllerName + "Search/" + (searchPhrase || "");
+    TravelService.prototype.search = function (searchPhrase, page, count) {
+        var url = Constants_1.Constants.WebAPIUrl + this._controllerName + "Page/" + page + "/Count/" + count + "/Search/" + (searchPhrase || "");
         console.log("service gettings data from", url);
         return this.http.get(url, {})
             .map(function (response) { return response.json(); }).map(function (result) {
-            TravelClass_1.TravelMethodsHelper.processTravels(result);
+            TravelClass_1.TravelMethodsHelper.processTravels(result.Results);
             return result;
         });
     };

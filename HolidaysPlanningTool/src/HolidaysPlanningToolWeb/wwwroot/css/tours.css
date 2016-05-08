@@ -363,3 +363,31 @@
   margin-right: 20px;
   padding-top: 5px; }
 
+.paggination {
+  list-style: none; }
+
+.paggination li {
+  display: inline-block;
+  color: white;
+  padding: 5px;
+  font-weight: bolder;
+  margin: 0 2px;
+  border-radius: 3px;
+  cursor: pointer;
+  background-color: #00a0dc;
+  min-width: 25px;
+  text-align: center; }
+
+.paggination .inactive {
+  background-color: #cdcdcd;
+  cursor: default; }
+
+.paggination .selected {
+  background-color: #f0ad4e;
+  cursor: default; }
+
+.paggination :not(.inactive):hover {
+  background-color: #5cb85c;
+  font-weight: bold;
+  color: white; }
+

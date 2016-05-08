@@ -88,9 +88,24 @@ var MainApp = (function () {
                 component: travel_home_page_component_1.TravelHomePageComponent
             },
             {
-                path: '/ToursList/:type/:count',
+                path: '/ToursList/:type/Page/:page/Count/:count',
                 name: 'ToursListFilter',
                 component: travel_home_page_component_1.TravelHomePageComponent
+            },
+            {
+                path: '/Travels/Like/Page/:page/Count/:count',
+                name: 'ToursListLiked',
+                component: travel_home_page_component_1.TravelsLikedComponent
+            },
+            {
+                path: '/Travels/Viewed/Page/:page/Count/:count',
+                name: 'ToursListViewed',
+                component: travel_home_page_component_1.TravelsViewedComponent
+            },
+            {
+                path: '/Travels/Page/:page/Count/:count/Search/:phrase',
+                name: 'ToursListSearch',
+                component: travel_home_page_component_1.TravelsSearchedComponent
             },
             {
                 path: '/CreateTour',

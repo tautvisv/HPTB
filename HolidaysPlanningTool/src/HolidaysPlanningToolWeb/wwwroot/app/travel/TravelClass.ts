@@ -152,3 +152,12 @@ export class Author {
     public Name: string;
     public ImageUrl: string;
 }
+export class Pager<T> {
+
+    public Results: T[];
+    public CurrentPage: number;
+    public PageCount: number;
+    public PageSize: number;
+    public Count: number;
+    
+}

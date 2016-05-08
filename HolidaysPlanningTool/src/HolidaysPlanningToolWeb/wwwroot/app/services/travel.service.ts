@@ -1,7 +1,7 @@
 ﻿import {Component, Injectable } from 'angular2/core';
 import {Constants} from '../utils/Constants';
 import {Http, HTTP_PROVIDERS, Headers } from 'angular2/http';
-import { FullTravel, TravelClass, TravelDayPlan, Point, Comment, Author, TravelMethodsHelper } from '../travel/TravelClass';
+import { Pager, FullTravel, TravelClass, TravelDayPlan, Point, Comment, Author, TravelMethodsHelper } from '../travel/TravelClass';
 import {Observable} from 'rxjs/Observable';
 import {httpAuthorized} from './http-authorized';
 
@@ -101,39 +101,39 @@ export class TravelService {
                 return result;
             });
     }
-    getViewedTravels(count: number): Observable<FullTravel[]> {
-        var url = Constants.WebAPIUrl + this._controllerName + "Viewed/" + (count ? count : "");
+    getViewedTravels(page: number, count: number): Observable<Pager<FullTravel>> {
+        var url = Constants.WebAPIUrl + this._controllerName + "Viewed/" + `Page/${page}/Count/${count}`;
         console.log("service gettings data from", url);
         return this.http.get(url, {})
-            .map(response => response.json()).map((result: FullTravel[]) => {
-                TravelMethodsHelper.processTravels(result);
+            .map(response => response.json()).map((result: Pager<FullTravel>) => {
+                TravelMethodsHelper.processTravels(result.Results);
                 return result;
             });
     }
-    getLikedTravels(count: number): Observable<FullTravel[]> {
-        var url = Constants.WebAPIUrl + this._controllerName + "Liked/" + (count ? count : "");
+    getLikedTravels(page: number, count: number): Observable<Pager<FullTravel>> {
+        var url = Constants.WebAPIUrl + this._controllerName + "Liked/" + `Page/${page}/Count/${count}`;
         console.log("service gettings data from", url);
         return this.http.get(url, {})
-            .map(response => response.json()).map((result: FullTravel[]) => {
-                TravelMethodsHelper.processTravels(result);
+            .map(response => response.json()).map((result: Pager<FullTravel>) => {
+                TravelMethodsHelper.processTravels(result.Results);
                 return result;
             });
     }
-    getUserTravels(count: number): Observable<FullTravel[]> {
-        var url = Constants.WebAPIUrl + this._controllerName + "User/" + (count ? count : "");
+    getUserTravels(page: number, count: number): Observable<Pager<FullTravel>> {
+        var url = Constants.WebAPIUrl + this._controllerName + "User/" + `Page/${page}/Count/${count}`;
         console.log("service gettings data from", url);
         return this.http.get(url, {})
-            .map(response => response.json()).map((result: FullTravel[]) => {
-                TravelMethodsHelper.processTravels(result);
+            .map(response => response.json()).map((result: Pager<FullTravel>) => {
+                TravelMethodsHelper.processTravels(result.Results);
                 return result;
             });
     }
-    search(searchPhrase: string): Observable<FullTravel[]> {
-        var url = Constants.WebAPIUrl + this._controllerName + "Search/" + (searchPhrase || "");
+    search(searchPhrase: string, page: number, count: number): Observable<Pager<FullTravel>> {
+        var url = Constants.WebAPIUrl + this._controllerName + "Page/" + page + "/Count/" + count + "/Search/" + (searchPhrase || "");
         console.log("service gettings data from", url);
         return this.http.get(url, {})
-            .map(response => response.json()).map((result: FullTravel[]) => {
-                TravelMethodsHelper.processTravels(result);
+            .map(response => response.json()).map((result: Pager<FullTravel>) => {
+                TravelMethodsHelper.processTravels(result.Results);
                 return result;
             });
     }

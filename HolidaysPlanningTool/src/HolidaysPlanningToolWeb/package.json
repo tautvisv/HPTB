@@ -10,6 +10,7 @@
     "jquery": "2.1.4",
     "ng2-bs3-modal": "^0.5.1",
     "ng2-file-upload": "^1.0.0-beta.1",
+    "ng2-table": "^1.0.0-beta.0",
     "primeng": "^0.9.1",
     "primeui": "^4.1.6",
     "reflect-metadata": "0.1.2",

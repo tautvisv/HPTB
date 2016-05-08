@@ -1,7 +1,7 @@
 ﻿/// <reference path="node_modules/bootstrap-material-design/dist/js/material.min.js" />
-/// <reference path="node_modules/bootstrap-material-design/dist/js/material.min.js" />
 /// <binding BeforeBuild='default' />
 /// <reference path="node_modules/ng2-toastr/bundles/ng2-toastr.min.js" />
+/// <reference path="node_modules/ng2-pagination/dist/ng2-pagination-bundle.js" />
 
 
 "use strict";
@@ -37,7 +37,8 @@ var js = [
     './node_modules/primeui/primeui-ng-all.js',
     './node_modules/ng2-bs3-modal/bundles/ng2-bs3-modal.min.js',
     "./node_modules/ng2-uploader/bundles/ng2-uploader.js",
-    "./node_modules/angular2-jwt/angular2-jwt.js"
+    "./node_modules/angular2-jwt/angular2-jwt.js",
+    "./node_modules/ng2-pagination/dist/ng2-pagination-bundle.js"
 ];
 
 var css = [
