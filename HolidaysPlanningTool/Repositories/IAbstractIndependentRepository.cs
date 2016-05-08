@@ -12,5 +12,7 @@ namespace Repositories
         void Update(TEntity entity);
         TEntity Insert(TEntity entity);
         TEntity Exist(string userId, int travelId);
+        void Update(TEntity entity, int dif);
+        TEntity Insert(TEntity entity, int dif);
     }
 }

@@ -29,7 +29,7 @@ namespace HoolidaysPlanningToolsAPIMVC5.Controllers
             }
             else
             {
-                Repository.Insert(view);
+                Repository.Insert(view,1);
             }
 
             return Results(new { exist });

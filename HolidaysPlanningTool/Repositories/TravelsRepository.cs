@@ -22,6 +22,19 @@ namespace Repositories
         {
         }
 
+        public override void Edit(Travel entity)
+        {
+            _entities.Entry(entity).State = System.Data.Entity.EntityState.Modified;
+            _entities.Entry(entity).Property(x => x.LikesCount).IsModified = false;
+            _entities.Entry(entity).Property(x => x.ViewsCount).IsModified = false;
+        }
+        public override Travel Add(Travel entity)
+        {
+            entity.LikesCount = 0;
+            entity.ViewsCount = 0;
+            return _dbset.Add(entity);
+        }
+
         public override Travel GetById(int id)
         {
             var travel = _dbset

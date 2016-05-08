@@ -24,14 +24,15 @@ namespace HoolidaysPlanningToolsAPIMVC5.Controllers
             var exist = Repository.Exist(userId, like.TravelId);
             if (exist != null)
             {
+                var dif = like.Status - exist.Status;
                 exist.TravelId = like.TravelId;
                 exist.Status = like.Status;
-                Repository.Update(exist);
+                Repository.Update(exist, dif);
             }
             else
             {
                 like.UserId = userId;
-                Repository.Insert(like);
+                Repository.Insert(like, (int)like.Status);
             }
             return Results(like.Status);
 

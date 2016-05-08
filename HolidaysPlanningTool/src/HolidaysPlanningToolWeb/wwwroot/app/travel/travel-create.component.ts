@@ -44,17 +44,12 @@ export class TravelCreateComponent implements OnInit {
     openTravelDayModal(travelDay: TravelClass) {
         this.travelDayModal.openModal(travelDay, travelDay.Point);
     }
-    onChanges(changes) {
-        console.log("pasikeit4 compoennt create", changes);
-    }
 
     onFileUpload(event) {
-        console.log('fileUplloaded');
         var files = event.srcElement.files;
         if (!files.length) {
             return;
         }
-        console.log(files);
         this.fileUploader.makeFileRequest('/api/PhotoUpload/UploadTravelPhoto', [], files).subscribe((photoUrl: string[]) => {
             console.log('sent', photoUrl);
             this.travel.ImageUrls = photoUrl;
@@ -64,7 +59,6 @@ export class TravelCreateComponent implements OnInit {
 
     saveTravel(): void {
         this.travelService.saveTravel(this.travel).subscribe((response: FullTravel) => {
-            console.log("great success saving travel", response);
             this._notificationService.success("kelionė sėkmingai išsaugota");
             this.router.navigate(["Tour", { id: response.Id }]);
         }, () => {

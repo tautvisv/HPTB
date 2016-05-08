@@ -7,10 +7,10 @@
     <travel-item-author *ngIf="travel.Author" [author]="travel.Author" [title]="travel.Name"></travel-item-author>
     <div class="travel-item-misc">
         <!--{{travel.WayPoints.length}}-->
-        <span class="item pull-left"><i class="fa fa-calendar"></i>TODO Days</span>
-        <span class="item pull-right"><i class="fa fa-thumbs-o-up"></i>{{travel.Likes}}</span>
-        <span class="item pull-right"><i class="fa fa-comments"></i>{{travel.CommentsCount}}</span>
-        <span class="item pull-right" title="Views"><i class="fa fa-eye"></i>{{travel.Views}}</span>
+        <span class="item pull-left"><i class="fa fa-calendar"></i>{{travel.Duration}} Dienos</span>
+        <span class="item pull-right" title="Teigiamų įvertinimų skaičius"><i class="fa fa-thumbs-o-up"></i>{{travel.LikesCount}}</span>
+        <span class="item pull-right" title="Komentarų skaičius"><i class="fa fa-comments"></i>{{travel.CommentsCount}}</span>
+        <span class="item pull-right" title="Peržiūrų skaičius"><i class="fa fa-eye"></i>{{travel.ViewsCount}}</span>
         <div style="clear: both"></div>
     </div>
 </div>

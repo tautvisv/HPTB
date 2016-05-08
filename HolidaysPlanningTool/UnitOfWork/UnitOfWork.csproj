@@ -121,6 +121,10 @@
     <Compile Include="Migrations\201605051945575_ViewsAndLikes.Designer.cs">
       <DependentUpon>201605051945575_ViewsAndLikes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605081135064_ViewsAndLikesCount.cs" />
+    <Compile Include="Migrations\201605081135064_ViewsAndLikesCount.Designer.cs">
+      <DependentUpon>201605081135064_ViewsAndLikesCount.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="UnitOfWork.cs" />
     <Compile Include="DatabaseDbContext.cs" />
@@ -179,6 +183,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605051945575_ViewsAndLikes.resx">
       <DependentUpon>201605051945575_ViewsAndLikes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605081135064_ViewsAndLikesCount.resx">
+      <DependentUpon>201605081135064_ViewsAndLikesCount.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

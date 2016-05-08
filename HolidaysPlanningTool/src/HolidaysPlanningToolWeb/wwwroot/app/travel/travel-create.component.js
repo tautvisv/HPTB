@@ -34,17 +34,12 @@ var TravelCreateComponent = (function () {
     TravelCreateComponent.prototype.openTravelDayModal = function (travelDay) {
         this.travelDayModal.openModal(travelDay, travelDay.Point);
     };
-    TravelCreateComponent.prototype.onChanges = function (changes) {
-        console.log("pasikeit4 compoennt create", changes);
-    };
     TravelCreateComponent.prototype.onFileUpload = function (event) {
         var _this = this;
-        console.log('fileUplloaded');
         var files = event.srcElement.files;
         if (!files.length) {
             return;
         }
-        console.log(files);
         this.fileUploader.makeFileRequest('/api/PhotoUpload/UploadTravelPhoto', [], files).subscribe(function (photoUrl) {
             console.log('sent', photoUrl);
             _this.travel.ImageUrls = photoUrl;
@@ -54,7 +49,6 @@ var TravelCreateComponent = (function () {
     TravelCreateComponent.prototype.saveTravel = function () {
         var _this = this;
         this.travelService.saveTravel(this.travel).subscribe(function (response) {
-            console.log("great success saving travel", response);
             _this._notificationService.success("kelionė sėkmingai išsaugota");
             _this.router.navigate(["Tour", { id: response.Id }]);
         }, function () {

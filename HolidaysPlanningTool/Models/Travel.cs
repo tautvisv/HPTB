@@ -29,5 +29,7 @@ namespace Models
         [NotMapped]
         public int CommentsCount { get; set; }
         public virtual IList<Comment> Comments { get; set; }
+        public int LikesCount { get; set; }
+        public int ViewsCount { get; set; }
     }
 }

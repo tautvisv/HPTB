@@ -36,7 +36,10 @@ namespace Repositories
             return result;
         }
 
-        public void Update(TEntity entity)
+        public abstract void Update(TEntity entity, int dif);
+        public abstract TEntity Insert(TEntity entity, int dif);
+
+        public virtual void Update(TEntity entity)
         {
             entity.Date = DateTime.UtcNow;
             DbContext.Entry(entity).State = EntityState.Modified;
