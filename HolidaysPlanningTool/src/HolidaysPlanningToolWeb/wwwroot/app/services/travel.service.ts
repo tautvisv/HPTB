@@ -74,10 +74,20 @@ export class TravelService {
 
     getTravel(travelId: number): Observable<FullTravel> { //UserSettingsMock
         console.log("service gettings data from", Constants.WebAPIUrl);
+        //this.http.get("https://maps.googleapis.com/maps/api/streetview?size=400x400&location=40.720032,-73.988354&fov=90&heading=235&pitch=10", {}).subscribe((par) => {
+        //    console.log(par);
+        //    console.log("great success");
+        //}, (err) => {
+        //    console.log(err);
+        //    console.log("not great error");
+        //    });
         return this.http.get(Constants.WebAPIUrl + this._controllerName + travelId, {})
             .map(response => response.json()).map((result: FullTravel) => {
                 console.log("response from API:", result);
                 TravelMethodsHelper.processTravelFromServer(result);
+                TravelMethodsHelper.processTravelsImages([result.StartDay]);
+                TravelMethodsHelper.processTravelsImages([result.EndDay]);
+                TravelMethodsHelper.processTravelsImages(result.WayPoints);
                 console.log("response from API after change:", result);
                 return result;
             });

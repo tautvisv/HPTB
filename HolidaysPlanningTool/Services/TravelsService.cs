@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
+using GoogleImageParser;
 using Microsoft.AspNet.Identity;
 using Models;
 using Repositories;
@@ -13,6 +14,7 @@ namespace Services
 {
     public class TravelsService:EntityService<Travel>, ITravelService
     {
+        public IIMageParser ImageParser { get; set; }
         protected readonly ITravelDayRepository TravelDayRepository;
         protected readonly ITravelRepository TravelRepository;
         public TravelsService(IUnitOfWork unitOfWork, ITravelRepository repository, ITravelDayRepository travelDayRepository) : base(unitOfWork, repository)
@@ -33,13 +35,33 @@ namespace Services
             }
             var userId = identity.GetUserId();
             travel.AuthorId = userId;
-            if(travel.ImageUrls != null)
+
+            if (ImageParser != null)
+            {
+                ParseImage(travel.StartDay);
+                ParseImage(travel.EndDay);
+                if (travel.WayPoints != null)
+                {
+                    foreach (var travelDayPlan in travel.WayPoints)
+                    {
+                        ParseImage(travelDayPlan);
+                    }
+                }
+            }
+
+            if (travel.ImageUrls != null)
                 travel.ImageUrl = string.Join("# #", travel.ImageUrls);
             var newTravel = _repository.Add(travel);
             //InsertAllTravelDays(newTravel, travel.WayPoints);
             //  AddTravelDayPlan(travel.StartDay, newTravel);
             // AddTravelDayPlan(travel.EndDay, newTravel);
             _unitOfWork.Commit();
+        }
+        private void ParseImage(TravelDayPlan travel)
+        {
+            if (travel == null) return;
+            if(!string.IsNullOrEmpty(travel.ImageUrl)) return;
+            travel.ImageUrl = ImageParser.Parse(travel.Point.Latitude, travel.Point.Longitude);
         }
 
         public Travel GetById(int id)
@@ -81,3 +103,4 @@ namespace Services
     }
 
 }
+

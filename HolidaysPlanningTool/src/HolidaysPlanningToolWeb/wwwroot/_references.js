@@ -14,6 +14,7 @@
 /// <reference path="app/services/account.service.js" />
 /// <reference path="app/services/angular2-jwt.js" />
 /// <reference path="app/services/file-upload.service.js" />
+/// <reference path="app/services/global-emmiter.js" />
 /// <reference path="app/services/http-authorized.js" />
 /// <reference path="app/services/is-auth.js" />
 /// <reference path="app/services/misc.service.js" />

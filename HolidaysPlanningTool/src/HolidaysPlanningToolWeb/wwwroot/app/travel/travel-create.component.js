@@ -13,19 +13,26 @@ var TravelClass_1 = require("./TravelClass");
 var file_upload_service_1 = require('../services/file-upload.service');
 //import {Accordion} from 'primeng/primeng';
 var TravelCreateComponent = (function () {
-    function TravelCreateComponent(_notificationService, router, travelService) {
+    function TravelCreateComponent(_notificationService, router, travelService, todoService) {
+        var _this = this;
         this._notificationService = _notificationService;
         this.router = router;
         this.travelService = travelService;
+        this.todoService = todoService;
         // private travels: TravelClass[];
         //  private travelHome: TravelClass;
         this.fileUploader = new file_upload_service_1.UploadService();
         this.travel = new TravelClass_1.FullTravel();
+        this.a = new TravelClass_1.TravelClass(new TravelClass_1.Point());
         var p = new TravelClass_1.TravelClass(new TravelClass_1.Point());
         this.travel.StartDay = p;
         var p2 = new TravelClass_1.TravelClass(new TravelClass_1.Point());
         this.travel.EndDay = p2;
         this.zone = new core_1.NgZone({ enableLongStackTrace: false });
+        this.todoService.itemAdded$.subscribe(function (address) {
+            console.log("item added", address);
+            _this.mapComponent.setWaypoints(_this.travel);
+        });
     }
     TravelCreateComponent.prototype.setNewTravel = function (travel) {
         this.travel = travel;
@@ -87,7 +94,6 @@ var TravelCreateComponent = (function () {
                     travelDay.OrderIndex = index + 2;
                     _this.travel.WayPoints.push(travelDay);
                 }
-                _this._notificationService.warning("click" + _this.travel.WayPoints.length);
                 _this.zone.run(function () {
                     console.log('Updated List: ');
                 });
@@ -109,12 +115,35 @@ var TravelCreateComponent = (function () {
                 });
             },
             rightClick: function (index) {
-                if (index < 0) {
+                if (index == -1) {
                     _this._notificationService.warning("Pašalinti pradžios ir pabaigos taškų negalima");
                     return;
                 }
-                _this.travel.WayPoints.splice(index, 1);
-                _this._notificationService.warning("right");
+                var newStDay;
+                if (index == -2) {
+                    if (_this.travel.WayPoints.length) {
+                        newStDay = _this.travel.WayPoints.splice(0, 1)[0];
+                    }
+                    else {
+                        newStDay = new TravelClass_1.TravelClass(new TravelClass_1.Point());
+                    }
+                    _this.travel.StartDay = newStDay;
+                }
+                else if (index == -3) {
+                    if (_this.travel.WayPoints.length) {
+                        newStDay = _this.travel.WayPoints.splice(_this.travel.WayPoints.length - 1, 1)[0];
+                    }
+                    else {
+                        newStDay = new TravelClass_1.TravelClass(new TravelClass_1.Point());
+                    }
+                    _this.travel.EndDay = newStDay;
+                }
+                else {
+                    _this.travel.WayPoints.splice(index, 1);
+                }
+                for (var i = 0; i < _this.travel.WayPoints.length; i++) {
+                    _this.travel.WayPoints[i].OrderIndex = i + 2;
+                }
                 _this.zone.run(function () {
                     console.log('Updated List: ');
                 });

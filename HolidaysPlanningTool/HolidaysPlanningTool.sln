@@ -41,6 +41,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Servic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Constants", "Constants\Constants.csproj", "{4B0BBAD5-E4BE-43EF-990F-655E44AB5FD2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleImageParser", "GoogleImageParser\GoogleImageParser.csproj", "{EEADE495-5A42-4982-9B8A-44F54BC875E2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -95,6 +97,10 @@ Global
 		{4B0BBAD5-E4BE-43EF-990F-655E44AB5FD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B0BBAD5-E4BE-43EF-990F-655E44AB5FD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4B0BBAD5-E4BE-43EF-990F-655E44AB5FD2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEADE495-5A42-4982-9B8A-44F54BC875E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEADE495-5A42-4982-9B8A-44F54BC875E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEADE495-5A42-4982-9B8A-44F54BC875E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEADE495-5A42-4982-9B8A-44F54BC875E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -115,5 +121,6 @@ Global
 		{1FB564F2-6C51-4BE4-9F06-C65C853B26C1} = {10A60037-F2A6-486B-8F1D-AC40F38AE8FD}
 		{E638B0B3-733A-4397-B2C3-CEF6F20127A8} = {10A60037-F2A6-486B-8F1D-AC40F38AE8FD}
 		{4B0BBAD5-E4BE-43EF-990F-655E44AB5FD2} = {10A60037-F2A6-486B-8F1D-AC40F38AE8FD}
+		{EEADE495-5A42-4982-9B8A-44F54BC875E2} = {10A60037-F2A6-486B-8F1D-AC40F38AE8FD}
 	EndGlobalSection
 EndGlobal

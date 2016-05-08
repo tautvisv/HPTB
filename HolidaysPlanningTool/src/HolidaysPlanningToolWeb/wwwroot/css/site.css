@@ -151,3 +151,6 @@ textarea {
 select.form-control, .form-group input.form-control, .form-group textarea.form-control {
     background-size: 0 2px,100% 2px;
 }
+.pac-container {
+    z-index: 1055;
+}

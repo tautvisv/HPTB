@@ -11,7 +11,7 @@
                     <option *ngFor="#day of travel.TravelDays;  #i = index;" [value]="i">{{day.Name || i || 'H'}}</option>
                 </select>
             </div>
-            <travel-day-details-edit-modal *ngIf="selectedDay != null && (selectedDay || selectedDay == 0)" [selectedDay]="travel.TravelDays[selectedDay]"></travel-day-details-edit-modal>
+            <travel-day-details-edit-modal *ngIf="selectedDay != null && (selectedDay || selectedDay == 0)" [selectedDay]="travel.TravelDays[selectedDay]" (pointChanged)="recalculateRoute($event)"></travel-day-details-edit-modal>
             <div class="col-sm-12" id="travel_day_map" style="height: 500px;"></div>
         </div>
     </modal-body>

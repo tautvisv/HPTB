@@ -84,10 +84,20 @@ var TravelService = (function () {
     }
     TravelService.prototype.getTravel = function (travelId) {
         console.log("service gettings data from", Constants_1.Constants.WebAPIUrl);
+        //this.http.get("https://maps.googleapis.com/maps/api/streetview?size=400x400&location=40.720032,-73.988354&fov=90&heading=235&pitch=10", {}).subscribe((par) => {
+        //    console.log(par);
+        //    console.log("great success");
+        //}, (err) => {
+        //    console.log(err);
+        //    console.log("not great error");
+        //    });
         return this.http.get(Constants_1.Constants.WebAPIUrl + this._controllerName + travelId, {})
             .map(function (response) { return response.json(); }).map(function (result) {
             console.log("response from API:", result);
             TravelClass_1.TravelMethodsHelper.processTravelFromServer(result);
+            TravelClass_1.TravelMethodsHelper.processTravelsImages([result.StartDay]);
+            TravelClass_1.TravelMethodsHelper.processTravelsImages([result.EndDay]);
+            TravelClass_1.TravelMethodsHelper.processTravelsImages(result.WayPoints);
             console.log("response from API after change:", result);
             return result;
         });

@@ -10,7 +10,9 @@ var TravelClass_1 = require("./TravelClass");
 var ng2_bs3_modal_1 = require('ng2-bs3-modal/ng2-bs3-modal');
 var GoogleMap_1 = require("./maps/GoogleMap");
 var TravelDayDetailsEditComponent = (function () {
-    function TravelDayDetailsEditComponent() {
+    function TravelDayDetailsEditComponent(myElement) {
+        this.myElement = myElement;
+        this.pointChanged = new core_1.EventEmitter();
         this.isVisible = true;
     }
     TravelDayDetailsEditComponent.prototype.ngOnChanges = function (changeRecord) {
@@ -21,6 +23,31 @@ var TravelDayDetailsEditComponent = (function () {
         }
         this.isVisible = true;
     };
+    TravelDayDetailsEditComponent.prototype.ngAfterViewInit = function () {
+        var input = $(this.myElement.nativeElement).find("#day_point_address")[0]; // < HTMLInputElement > document.getElementById('point_address');
+        this.autocomplete = new google.maps.places.Autocomplete(input);
+        var that = this;
+        this.autocomplete.addListener('place_changed', function () {
+            var place = that.autocomplete.getPlace();
+            console.log("pasirinkta vieta modale", input.value);
+            if (!place.geometry) {
+                console.error("vietove nerasta: ", input.value);
+                return;
+            }
+            that.selectedDay.Point.Address = input.value;
+            that.selectedDay.Point.Latitude = place.geometry.location.lat();
+            that.selectedDay.Point.Longitude = place.geometry.location.lng();
+            that.pointChanged.emit(null);
+            //that.todoService.itemAdded$.emit(that.travel.Point);
+            // this.itemAdded$.emit(item);
+        });
+    };
+    TravelDayDetailsEditComponent.prototype.ngOnDestroy = function () {
+        google.maps.event.trigger(this.autocomplete, 'remove', true);
+    };
+    __decorate([
+        core_1.Output()
+    ], TravelDayDetailsEditComponent.prototype, "pointChanged", void 0);
     __decorate([
         core_1.Input("selectedDay")
     ], TravelDayDetailsEditComponent.prototype, "selectedDay", void 0);
@@ -30,7 +57,7 @@ var TravelDayDetailsEditComponent = (function () {
             selector: 'travel-day-details-edit-modal',
             // Location of the template for this component
             //templateUrl: './app/travel/travel-day-item-details.component.html',
-            template: "<div *ngIf=\"isVisible\">\n                <div class=\"form-group label-floating col-md-4\">\n                    <label for=\"name\" class=\"control-label\">Pavadinimas</label>\n                    <input type=\"text\" [(ngModel)]=\"selectedDay.Name\" id=\"name\" class=\"form-control\" />\n                </div>\n                <div class=\"form-group label-floating col-md-4\">\n                    <label for=\"duration\" class=\"control-label\">Trukm\u0117:</label>\n                    <input type=\"time\" [(ngModel)]=\"selectedDay.Duration\" id=\"duration\" class=\"form-control\" />\n                </div>\n                <div class=\"form-group label-floating col-md-4\">\n                    <label for=\"date_s\" class=\"control-label\">Data:</label>\n                    <input type=\"datetime-local\" [(ngModel)]=\"selectedDay.Date\" id=\"date_s\" class=\"form-control\" />\n                </div>\n                <div class=\"form-group label-floating col-md-12\">\n                    <label for=\"desc_i\" class=\"control-label\">Apra\u0161ymas:</label>\n                    <textarea rows=\"3\" type=\"text\" [(ngModel)]=\"selectedDay.Description\" id=\"desc_i\" class=\"form-control\"></textarea>\n                </div>\n            </div>",
+            template: "<div *ngIf=\"isVisible\">\n                <div class=\"form-group label-floating col-md-4\">\n                    <label for=\"travel_day_name\" class=\"control-label\">Pavadinimas</label>\n                    <input type=\"text\" [(ngModel)]=\"selectedDay.Name\" id=\"travel_day_name\" class=\"form-control\" />\n                </div>\n                <div class=\"form-group label-floating col-md-4\">\n                    <label for=\"duration\" class=\"control-label\">Trukm\u0117:</label>\n                    <input type=\"time\" [(ngModel)]=\"selectedDay.Duration\" id=\"duration\" class=\"form-control\" />\n                </div>\n                <div class=\"form-group label-floating col-md-4\">\n                    <label for=\"date_s\" class=\"control-label\">Data:</label>\n                    <input type=\"datetime-local\" [(ngModel)]=\"selectedDay.Date\" id=\"date_s\" class=\"form-control\" />\n                </div>\n                <div class=\"form-group label-floating col-md-4\" *ngIf=\"selectedDay.Point\">\n                    <label for=\"day_point_address\" class=\"control-label\">Adresas:</label>\n                    <input type=\"text\" [(ngModel)]=\"selectedDay.Point.Address\" id=\"day_point_address\" class=\"form-control\" />\n                </div>\n                <div class=\"form-group label-floating col-md-12\">\n                    <label for=\"desc_i\" class=\"control-label\">Apra\u0161ymas:</label>\n                    <textarea rows=\"3\" type=\"text\" [(ngModel)]=\"selectedDay.Description\" id=\"desc_i\" class=\"form-control\"></textarea>\n                </div>\n            </div>",
             providers: [],
             directives: []
         })
@@ -82,7 +109,9 @@ var TravelDayDetailsComponent = (function () {
         this.map.setOptimizeRoute(true);
         var clicks = {
             click: function (homePoint, endPoint, waypoints, index, coords, address) {
-                _this.travel.TravelDays.push(new TravelClass_1.TravelDayPlan(new TravelClass_1.Point(coords.lat(), coords.lng())));
+                var point = new TravelClass_1.Point(coords.lat(), coords.lng());
+                point.Address = address;
+                _this.travel.TravelDays.push(new TravelClass_1.TravelDayPlan(point));
                 _this.recalculateRoute();
                 /*this._notificationService.warning("click" + this.travel.wayPoints.length);
                 this.zone.run(() => {
@@ -93,13 +122,19 @@ var TravelDayDetailsComponent = (function () {
                 var newPoint = new TravelClass_1.Point(coords.lat(), coords.lng());
                 newPoint.Address = address;
                 if (index === -2) {
-                    _this.travel.TravelDays[0].Point = newPoint;
+                    _this.travel.TravelDays[0].Point.Address = address;
+                    _this.travel.TravelDays[0].Point.Latitude = newPoint.Latitude;
+                    _this.travel.TravelDays[0].Point.Longitude = newPoint.Longitude;
                 }
                 else if (index === -3) {
-                    _this.travel.TravelDays[_this.travel.TravelDays.length - 1].Point = newPoint;
+                    _this.travel.TravelDays[_this.travel.TravelDays.length - 1].Point.Address = address;
+                    _this.travel.TravelDays[_this.travel.TravelDays.length - 1].Point.Latitude = newPoint.Latitude;
+                    _this.travel.TravelDays[_this.travel.TravelDays.length - 1].Point.Longitude = newPoint.Longitude;
                 }
                 else {
-                    _this.travel.TravelDays[index + 1].Point = newPoint;
+                    _this.travel.TravelDays[index + 1].Point.Address = address;
+                    _this.travel.TravelDays[index + 1].Point.Latitude = newPoint.Latitude;
+                    _this.travel.TravelDays[index + 1].Point.Longitude = newPoint.Longitude;
                 }
             },
             rightClick: function (index) {

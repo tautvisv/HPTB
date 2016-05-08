@@ -1,4 +1,8 @@
-﻿using System.Web.Http;
+﻿using System.Drawing;
+using System.IO;
+using System.Net;
+using System.Web;
+using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using Models;
 using Repositories;
@@ -31,7 +35,6 @@ namespace HoolidaysPlanningToolsAPIMVC5.Controllers
             {
                 Repository.Insert(view,1);
             }
-
             return Results(new { exist });
         }
 

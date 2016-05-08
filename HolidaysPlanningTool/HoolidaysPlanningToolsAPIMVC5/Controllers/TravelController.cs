@@ -1,5 +1,6 @@
 ﻿using System.Security.Principal;
 using System.Threading;
+using System.Web;
 using System.Web.Http;
 using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
@@ -21,6 +22,7 @@ namespace HoolidaysPlanningToolsAPIMVC5.Controllers
         public IHttpActionResult PostTravel([FromBody]Travel travel)
         {
             //var userId = ide.GetUserId();
+            TravelService.ImageParser = new GoogleImageParser.GoogleImageParser(HttpContext.Current.Server.MapPath("~"));
             TravelService.Create(travel, User.Identity);
             return Ok(travel);
         }

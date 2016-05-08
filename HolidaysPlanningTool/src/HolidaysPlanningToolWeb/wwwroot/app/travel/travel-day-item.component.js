@@ -7,9 +7,38 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var core_1 = require('angular2/core');
 var TravelDayComponent = (function () {
-    function TravelDayComponent() {
+    function TravelDayComponent(myElement, todoService) {
+        this.myElement = myElement;
+        this.todoService = todoService;
     }
     TravelDayComponent.prototype.ngOnInit = function () {
+    };
+    TravelDayComponent.prototype.ngAfterViewInit = function () {
+        var input = $(this.myElement.nativeElement).find("#point_address")[0]; // < HTMLInputElement > document.getElementById('point_address');
+        var autocomplete = new google.maps.places.Autocomplete(input);
+        var thisTodo = this.todoService;
+        var that = this;
+        autocomplete.addListener('place_changed', function () {
+            var place = autocomplete.getPlace();
+            console.log("pasirinkta vieta", input.value);
+            if (!place.geometry) {
+                console.error("vietove nerasta: ", input.value);
+                return;
+            }
+            that.travel.Point.Address = input.value;
+            that.travel.Point.Latitude = place.geometry.location.lat();
+            that.travel.Point.Longitude = place.geometry.location.lng();
+            that.todoService.itemAdded$.emit(that.travel.Point);
+            // this.itemAdded$.emit(item);
+        });
+        this.autocomplete = autocomplete;
+    };
+    TravelDayComponent.prototype.ngOnDestroy = function () {
+        //  google.maps.event.removeListener(this.autocompleteLsr);
+        // google.maps.event.clearInstanceListeners(this.autocomplete);
+        google.maps.event.trigger(this.autocomplete, 'remove', true);
+        google.maps.event.clearInstanceListeners(this.autocomplete);
+        //this.autocomplete.unbindAll();
     };
     __decorate([
         core_1.Input()

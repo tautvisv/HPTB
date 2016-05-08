@@ -47,7 +47,16 @@ export class TravelMethodsHelper {
     public static processTravels(result: FullTravel[]) {
         console.log("response from API:", result);
         result.forEach(function (travel) {
+            if (travel.Author)
             travel.Author.ImageUrl = TravelMethodsHelper.getPhotoUrl(travel.Author.ImageUrl);
+            travel.ImageUrl = TravelMethodsHelper.getPhotoUrl(travel.ImageUrl);
+        });
+
+    }
+
+    public static processTravelsImages(result: IImage[]) {
+        console.log("response from API:", result);
+        result.forEach(function (travel) {
             travel.ImageUrl = TravelMethodsHelper.getPhotoUrl(travel.ImageUrl);
         });
 
@@ -69,6 +78,9 @@ export class TravelMethodsHelper {
 }
 export interface ILocationPoint {
     Point: Point;
+}
+export interface IImage {
+    ImageUrl: string;
 }
 export class Point {
     public Latitude: number;
@@ -98,7 +110,7 @@ export class TravelDayPlan implements ILocationPoint {
         this.Point = point;
     }
 }
-export class TravelClass implements ILocationPoint  {
+export class TravelClass implements ILocationPoint,IImage  {
     public Name: string;
     public Description: string;
     public TravelDays: TravelDayPlan[];
@@ -111,7 +123,7 @@ export class TravelClass implements ILocationPoint  {
         this.Point = point;
     }
 }
-export class FullTravel {
+export class FullTravel implements IImage {
     public Id: number;
     public Name: string;
     public StartDay: TravelClass;

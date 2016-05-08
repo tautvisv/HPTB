@@ -7,7 +7,8 @@ import { Router, Location} from "angular2/router";
 import { FullTravel, Point, TravelClass, TravelDayPlan, UserLocation } from "./TravelClass";
 import { TravelService } from '../services/travel.service';
 import { UploadService } from '../services/file-upload.service';
-import {Constants} from '../utils/Constants';
+import {Constants} from '../utils/Constants'; 
+import {TodoService} from '../services/global-emmiter'; 
 
 //import {Accordion} from 'primeng/primeng';
 
@@ -30,13 +31,18 @@ export class TravelCreateComponent implements OnInit {
     private travel: FullTravel = new FullTravel();
     zone: NgZone;
 
-    constructor(private _notificationService: ToastsManager, private router: Router, public travelService: TravelService) {
+    constructor(private _notificationService: ToastsManager, private router: Router, public travelService: TravelService, private todoService: TodoService) {
         var p = new TravelClass(new Point());
         this.travel.StartDay = p;
         var p2 = new TravelClass(new Point());
         this.travel.EndDay = p2;
         this.zone = new NgZone({ enableLongStackTrace: false });
+        this.todoService.itemAdded$.subscribe((address) => {
+            console.log("item added", address);
+            this.mapComponent.setWaypoints(this.travel);
+        });
     }
+    private a = new TravelClass(new Point());
     public setNewTravel(travel: FullTravel) {
         this.travel = travel;
         this.mapComponent.setWaypoints(travel);
@@ -95,7 +101,6 @@ export class TravelCreateComponent implements OnInit {
                     travelDay.OrderIndex = index + 2;
                     this.travel.WayPoints.push(travelDay);
                 }
-                this._notificationService.warning("click" + this.travel.WayPoints.length);
                 this.zone.run(() => {
                     console.log('Updated List: ');
                 });
@@ -115,15 +120,35 @@ export class TravelCreateComponent implements OnInit {
                 });
             },
             rightClick: (index: number) => {
-                if (index < 0) {
+                if (index == -1) {
                     this._notificationService.warning("Pašalinti pradžios ir pabaigos taškų negalima");
                     return;
                 }
-                this.travel.WayPoints.splice(index, 1);
-                this._notificationService.warning("right");
+                var newStDay: TravelClass;
+                if (index == -2) {
+                    if (this.travel.WayPoints.length) {
+                        newStDay = this.travel.WayPoints.splice(0, 1)[0];
+                    } else {
+                        newStDay = new TravelClass(new Point());
+                    }
+                    this.travel.StartDay = newStDay;
+                } else if (index == -3) {
+                    if (this.travel.WayPoints.length) {
+                        newStDay = this.travel.WayPoints.splice(this.travel.WayPoints.length-1, 1)[0];
+                    } else {
+                        newStDay = new TravelClass(new Point());
+                    }
+                    this.travel.EndDay = newStDay;
+                } else {
+                    this.travel.WayPoints.splice(index, 1);
+                }
+                for (let i = 0; i < this.travel.WayPoints.length; i++) {
+                    this.travel.WayPoints[i].OrderIndex = i + 2;
+                }
                 this.zone.run(() => {
                     console.log('Updated List: ');
-                }); }
+                });
+            }
         };
         this.mapComponent.setMapClicks(clicks);
     }

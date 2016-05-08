@@ -1308,6 +1308,8 @@ declare module google.maps {
             setBounds(bounds: LatLngBounds): void;
             setComponentRestrictions(restrictions: ComponentRestrictions): void;
             setTypes(types: string[]): void;
+            //Keista 2016 - 04 - 08
+            addListener(type: string, action: Function);
         }
 
         export interface AutocompleteOptions {

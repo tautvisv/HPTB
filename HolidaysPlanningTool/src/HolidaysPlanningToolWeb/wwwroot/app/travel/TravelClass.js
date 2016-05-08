@@ -57,7 +57,14 @@ var TravelMethodsHelper = (function () {
     TravelMethodsHelper.processTravels = function (result) {
         console.log("response from API:", result);
         result.forEach(function (travel) {
-            travel.Author.ImageUrl = TravelMethodsHelper.getPhotoUrl(travel.Author.ImageUrl);
+            if (travel.Author)
+                travel.Author.ImageUrl = TravelMethodsHelper.getPhotoUrl(travel.Author.ImageUrl);
+            travel.ImageUrl = TravelMethodsHelper.getPhotoUrl(travel.ImageUrl);
+        });
+    };
+    TravelMethodsHelper.processTravelsImages = function (result) {
+        console.log("response from API:", result);
+        result.forEach(function (travel) {
             travel.ImageUrl = TravelMethodsHelper.getPhotoUrl(travel.ImageUrl);
         });
     };
