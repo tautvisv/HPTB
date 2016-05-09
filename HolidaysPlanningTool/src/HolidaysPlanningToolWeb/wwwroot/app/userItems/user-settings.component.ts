@@ -44,10 +44,17 @@ export class UserSettingsComponent implements OnInit {
         var userSettings: UserSettings = this.userInfo.getUserSettings();
         this._settingsService.saveUserSettings(userSettings).subscribe(
             res => {
-                this._notificationService.success("Vartotojo informacija atnaujinta, atsakas iš serverio: " );
+                this._notificationService.success("Vartotojo informacija atnaujinta, atsakas iš serverio." );
                 this.router.navigate(["ToursList"])
             },
-            (err: any) => { this._notificationService.error("Atnaujinti vartotojo duomenų nepavyko: kodas: " + err.status); }
+            (err: any) => {
+                var message = "";
+                if (err) {
+                    var response = err.json();
+                    message = (response && response.Message) ? response.Message : "";
+                }
+                this._notificationService.error("Atnaujinti vartotojo duomenų nepavyko. " + message);
+            }
         );
     }
     cancelSettings(): void {

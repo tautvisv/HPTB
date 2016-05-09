@@ -10,20 +10,6 @@ import 'rxjs/operator/delay';
 import 'rxjs/operator/mergeMap';
 import 'rxjs/operator/switchMap';
 
-class UserSettingsMock extends UserSettings {
-    constructor() {
-        super();
-    }
-    public name: string = "Tautvydas";
-    public surname: string = "Vaitiekūnas";
-    public address: string = "Tauro g. 13";
-    public phone: string = "+37068559976";
-    public description: string = "Aš šiuo metu programuoju";
-    public extra_info: string = "Papildoma informacija";
-    public email: string = "tautvisv@gmail.com";
-}
-
-//http://localhost:2922/api/Mock/5
 @Injectable()
 export class UserSettingsService {
     private _controllerName = "UserSettings/";

@@ -23,11 +23,13 @@ var LoginComponent = (function () {
             _this.notificationsService.error("Prisijungti nepavyko");
         });
     };
+    LoginComponent.prototype.back = function () {
+        this.router.navigate(["ToursList"]);
+    };
     LoginComponent = __decorate([
         core_1.Component({
             selector: 'account-login',
-            templateUrl: './app/account/account-login.component.html',
-            directives: []
+            templateUrl: './app/account/account-login.component.html'
         })
     ], LoginComponent);
     return LoginComponent;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using Models;
@@ -10,6 +11,7 @@ namespace Repositories
     public interface IUserRepository : IGenericRepository<User>
     {
         User GetById(string userId);
+        bool Exist(string username, string email);
     }
     public class UserRepository:GenericRepository<User>, IUserRepository
     {
@@ -20,6 +22,12 @@ namespace Repositories
         public User GetById(string userId)
         {
             return _dbset.Find(userId);
+        }
+
+        public bool Exist(string username, string email)
+        {
+            var user = _dbset.FirstOrDefault(x => x.Username.Equals(username) || x.Email.Equals(email));
+            return user != null;
         }
     }
     //tODO do somethning
@@ -45,8 +53,10 @@ namespace Repositories
     }
     public class UserService : EntityService<User>, IUserService
     {
+        private readonly IUserRepository Repository;
         public UserService(IUnitOfWork unitOfWork, IUserRepository repository) : base(unitOfWork, repository)
         {
+            Repository = repository;
         }
 
         public override void Create(User user)
@@ -59,10 +69,15 @@ namespace Repositories
             _repository.Add(user);
             _unitOfWork.Commit();
         }
+
+        public bool Exist(string username, string email)
+        {
+            return Repository.Exist(username, email);
+        }
     }
 
     public interface IUserService : IEntityService<User>
     {
-        
+        bool Exist(string username, string email);
     }
 }

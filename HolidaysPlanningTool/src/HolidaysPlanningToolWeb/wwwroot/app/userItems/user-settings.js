@@ -27,7 +27,7 @@ var UserSettingsViewItem = (function () {
         this.phone = new UserSettingsItem("", "", "", "", "[\\+]?\\d{5,15}");
         this.description = new UserSettingsItem("", "", "", "", ".*");
         this.extra_info = new UserSettingsItem("", "", "", "", ".*");
-        this.email = new UserSettingsItem("", "", "", "", "[a-zA-Z0-9]*@[a-zA-Z0-9.]*");
+        this.email = new UserSettingsItem("", "", "", "", ".+@.+");
         this.image = { fullUrl: "", url: "" };
     }
     UserSettingsViewItem.prototype.createFromUserSettings = function (userSettings) {
@@ -37,7 +37,7 @@ var UserSettingsViewItem = (function () {
         this.phone = new UserSettingsItem("Telefonas", userSettings.Phone, "phone", "Vartotojo numeris", "[\\+]?\\d{5,15}");
         this.description = new UserSettingsItem("Apie", userSettings.Description, "description", "Vartotojo trumpas aprašymas", ".*");
         this.extra_info = new UserSettingsItem("Informacija", userSettings.ExtraInfo, "extra_info", "Papildoma informacija apie vartotoją", ".*");
-        this.email = new UserSettingsItem("El. paštas", userSettings.Email, "email", "vartotojo paštas", "[a-zA-Z0-9]*@[a-zA-Z0-9]*");
+        this.email = new UserSettingsItem("El. paštas", userSettings.Email, "email", "vartotojo paštas", ".+@.+");
         this.image.fullUrl = Constants_1.Constants.WebUrl + userSettings.ImageUrl;
         this.image.url = userSettings.ImageUrl;
     };

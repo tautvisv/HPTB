@@ -13,7 +13,35 @@ import 'rxjs/operator/mergeMap';
 import 'rxjs/operator/switchMap';
 
 
-
+export class UserRegisterModel {
+    public Username: string; 
+    public Name: string; 
+    public Surname: string; 
+    public Email: string; 
+    public Password: string; 
+    public ConfirmPassword: string;
+    public isValid(): number {
+        if (!this.Username || !this.Name) {
+            return -10;
+        }
+        if (!this.Email) {
+            return -20;
+        }
+        if (!/^(.+@.+)$/.test(this.Email)) {
+            return -21;
+        }
+        if (!this.Password || this.Password != this.ConfirmPassword) {
+            return -30;
+        }
+        if (this.Password.length < 6) {
+            return -31;
+        }
+        if (!/^(?=.*[a-zA-Z])(?=.*[0-9]).+$/.test(this.Password)) {
+            return -32;
+        }
+        return 1;
+    }
+}
 
 @Injectable()
 export class AccountService {
@@ -46,6 +74,17 @@ export class AccountService {
             .map(response => response.json()).map((result: number) => {
                 this.myHttp.removeToken();
                 return status;
+            });
+    }
+    register(user: UserRegisterModel) {
+        //var headers = new Headers();
+        //headers.append('Content-Type', 'application/json');
+        return this.myHttp.post(Constants.WebAPIUrl + this._controllerName + "Register",
+            JSON.stringify(user), {
+            })
+            .map(response => response.json()).map((result: any) => {
+                // this.myHttp.removeToken();
+                return result;
             });
     }
 }

@@ -1,5 +1,6 @@
 ﻿<div class="component">
-    <like-directive  [travelId]="travel.Id" *ngIf="travel.Id"></like-directive>
+    <facebook-share [link]="pageLink"></facebook-share>
+    <like-directive [travelId]="travel.Id" *ngIf="travel.Id"></like-directive>
     <div class="component-header">
         <div class="travel-view-component-name">{{travel.Name}}</div>
     </div>
@@ -9,7 +10,7 @@
 
             </div>
             <div class="col-md-4 item-description ">{{travel.Description}}</div>
-                <img src="{{travel.ImageUrl}}" alt="" class="travel-image-src">
+            <img src="{{travel.ImageUrl}}" alt="" class="travel-image-src">
             <div style="clear: both"></div>
         </div>
 
@@ -22,7 +23,7 @@
         <travel-days-container [days]="travel.WayPoints" (show-route)="showRoute($event)"></travel-days-container>
 
         <a class="btn btn-info" (click)="showMainRoute(travel)">Rodyti pagrindinį kelionės maršrutą</a>
-        <div id="the_view_map" style="min-height:400px;"></div>
+        <div id="the_view_map" style="min-height: 400px;"></div>
     </div>
 </div>
 

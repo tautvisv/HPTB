@@ -11,6 +11,7 @@ var comments_component_1 = require('./comments/comments.component');
 var comment_create_component_1 = require('./comments/comment-create.component');
 var like_directive_component_1 = require('./like-directive.component');
 var Constants_1 = require('../utils/Constants');
+var facebook_share_component_1 = require('../utils/facebook-share.component');
 var GoogleMap_1 = require('./maps/GoogleMap');
 var travel_view_days_container_component_1 = require('./travel-view-days-container.component');
 var MyTime = (function () {
@@ -28,6 +29,7 @@ var TravelViewComponent = (function () {
         this.travelHelper = travelHelper;
         this.travelService = travelService;
         this.travel = new TravelClass_1.FullTravel();
+        this.pageLink = location.href;
     }
     TravelViewComponent.prototype.msToTime = function (s) {
         var newTime = new MyTime();
@@ -145,7 +147,7 @@ var TravelViewComponent = (function () {
             // Location of the template for this component
             templateUrl: './app/travel/travel-view.component.html',
             providers: [GoogleMap_1.GoogleMaps, TravelClass_1.TravelMethodsHelper],
-            directives: [comments_component_1.CommentsComponent, comment_create_component_1.CommentCreateComponent, like_directive_component_1.LikeDirectiveComponent, travel_view_days_container_component_1.TravelViewDaysContainerComponent]
+            directives: [comments_component_1.CommentsComponent, comment_create_component_1.CommentCreateComponent, like_directive_component_1.LikeDirectiveComponent, travel_view_days_container_component_1.TravelViewDaysContainerComponent, facebook_share_component_1.FacebookShareComponent]
         })
     ], TravelViewComponent);
     return TravelViewComponent;

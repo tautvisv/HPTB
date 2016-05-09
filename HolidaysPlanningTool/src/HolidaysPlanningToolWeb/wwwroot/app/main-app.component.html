@@ -14,7 +14,7 @@
             <ul class="nav navbar-nav">
                 <!--<li class="active"><a href="javascript:void(0)">Active</a></li>-->
                 <li><a [routerLink]="['CreateTour']" *ngIf="isAuth">Pridėti kelionę</a></li>
-                <li class="dropdown">
+                <li class="dropdown" *ngIf="isAuth">
                     <a href="" data-target="#" class="dropdown-toggle" data-toggle="dropdown">
                         Kelionės
                         <b class="caret"></b>
@@ -41,7 +41,7 @@
                     <ul class="dropdown-menu">
                         <li><a [routerLink]="['Settings']" *ngIf="isAuth">Nustatymai</a></li>
                         <!--<li class="divider"></li>-->
-                        <li><a href="/Account/Register" *ngIf="!isAuth">Registracija</a></li>
+                        <li><a [routerLink]="['Register']" *ngIf="!isAuth">Registracija</a></li>
                         <li><a [routerLink]="['Login']" *ngIf="!isAuth">Prisijungti</a></li>
                         <li><a [routerLink]="['Logout']" *ngIf="isAuth">Atsijungti</a></li>
                     </ul>

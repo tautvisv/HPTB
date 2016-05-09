@@ -1,0 +1,59 @@
+﻿<div class="component account">
+    <div class="component-header">
+        <div class="component-header-title">
+            <h4>Registracija</h4>
+        </div>
+    </div>
+    <div class="component-body">
+        <div class="edit-field">
+            <div class="form-group label-floating">
+                <label for="login_user_name" class="control-label">Prisijungimo vardas:</label>
+                <input type="text" class="form-control" id="login_user_name" [(ngModel)]="user.Username" required="">
+                <p class="help-block show">Vartotojo prisijungimo vardas. Laukas privalomas!</p>
+            </div>
+        </div>
+        <div class="edit-field">
+            <div class="form-group label-floating">
+                <label for="user_name" class="control-label">Vardas:</label>
+                <input type="text" class="form-control" id="user_name" [(ngModel)]="user.Name" required="">
+                <p class="help-block show">Vartotojo vardas. Laukas privalomas!</p>
+            </div>
+        </div>
+        <div class="edit-field">
+            <div class="form-group label-floating">
+                <label for="user_surname" class="control-label">Pavardė:</label>
+                <input type="text" class="form-control" id="user_surname" [(ngModel)]="user.Surname" >
+                <p class="help-block">Vartotojo pavardė</p>
+            </div>
+        </div>
+        <div class="edit-field">
+            <div class="form-group label-floating">
+                <label for="user_email" class="control-label">El. paštas:</label>
+                <input type="email" class="form-control" id="user_email" pattern=".*@.*" [(ngModel)]="user.Email" required="">
+                <p class="help-block show">Vartotojo el. paštas. Laukas privalomas!</p>
+            </div>
+        </div>
+        <div class="edit-field">
+            <div class="form-group label-floating">
+                <label for="password" class="control-label">Vartotojo slaptažodis:</label>
+                <input type="password" class="form-control" id="password" [(ngModel)]="user.Password" required="">
+                <p class="help-block show">Laukas privalomas!</p>
+            </div>
+        </div>
+        <div class="edit-field">
+            <div class="form-group label-floating">
+                <label for="password_repeat" class="control-label">Pakartoti slaptažodį:</label>
+                <input type="password" class="form-control" id="password_repeat" [(ngModel)]="user.ConfirmPassword" required="">
+                <p class="help-block show">Laukas privalomas!</p>
+            </div>
+        </div>
+    </div>
+    <div class="component-footer">
+        <a class="btn btn-raised btn-success" (click)="Register()">
+            Registruoti
+        </a>
+        <a class="btn btn-raised btn-info" (click)="back()">
+            Atšaukti
+        </a>
+    </div>
+</div>

@@ -13,7 +13,7 @@ namespace HoolidaysPlanningToolsAPIMVC5.Controllers
 {
     [Authorize]
     [Route(Constants.Constants.WebApiPrefix + "UserSettings")]
-    public class UserSettingsController : ApiController
+    public class UserSettingsController : AbstractApiController
     {
         protected readonly IUserSettingsService UserSettingsService;
         public UserSettingsController(IUserSettingsService userService)
@@ -26,15 +26,24 @@ namespace HoolidaysPlanningToolsAPIMVC5.Controllers
         {
             var id = User.Identity.GetUserId();
             var user = UserSettingsService.GetUserSettings(id);
-            return Ok(user);
+            return Results(user);
         }
         [HttpPost]
         public IHttpActionResult PostUserSettings([FromBody]User settings)
         {
+            if (string.IsNullOrEmpty(settings.Email))
+            {
+                return BadRequest("El. paštas privalomas");
+            }
             settings.Username = User.Identity.Name;
             settings.UserId = User.Identity.GetUserId();
+            var exist = UserSettingsService.Exist(settings.Username, settings.Email);
+            if (exist)
+            {
+                return BadRequest("Toks el. paštas jau naudojamas");
+            }
             UserSettingsService.Update(settings);
-            return Ok("Ok");
+            return Results("Ok");
         }
     }
 }

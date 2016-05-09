@@ -28,7 +28,7 @@ export class UserSettingsViewItem {
     public phone: UserSettingsItem = new UserSettingsItem("", "", "", "", "[\\+]?\\d{5,15}");
     public description: UserSettingsItem = new UserSettingsItem("", "", "", "", ".*");
     public extra_info: UserSettingsItem = new UserSettingsItem("", "", "", "", ".*");
-    public email: UserSettingsItem = new UserSettingsItem("", "", "", "", "[a-zA-Z0-9]*@[a-zA-Z0-9.]*");
+    public email: UserSettingsItem = new UserSettingsItem("", "", "", "", ".+@.+");
     public image = { fullUrl: "", url:""};
 
     public createFromUserSettings(userSettings: UserSettings): void {
@@ -38,7 +38,7 @@ export class UserSettingsViewItem {
         this.phone = new UserSettingsItem("Telefonas", userSettings.Phone, "phone", "Vartotojo numeris", "[\\+]?\\d{5,15}");
         this.description = new UserSettingsItem("Apie", userSettings.Description, "description", "Vartotojo trumpas aprašymas", ".*");
         this.extra_info = new UserSettingsItem("Informacija", userSettings.ExtraInfo, "extra_info", "Papildoma informacija apie vartotoją", ".*");
-        this.email = new UserSettingsItem("El. paštas", userSettings.Email, "email", "vartotojo paštas", "[a-zA-Z0-9]*@[a-zA-Z0-9]*");
+        this.email = new UserSettingsItem("El. paštas", userSettings.Email, "email", "vartotojo paštas", ".+@.+");
         this.image.fullUrl = Constants.WebUrl + userSettings.ImageUrl;
         this.image.url = userSettings.ImageUrl;
     }

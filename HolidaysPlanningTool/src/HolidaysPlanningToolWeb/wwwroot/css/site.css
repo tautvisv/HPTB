@@ -151,6 +151,21 @@ textarea {
 select.form-control, .form-group input.form-control, .form-group textarea.form-control {
     background-size: 0 2px,100% 2px;
 }
+.facebook-share {
+    position: absolute;
+    right: 20px;
+    top: 50px;
+    z-index: 5;
+}
+
+
+    .facebook-share img {
+        height: 40px;
+    }
+
 .pac-container {
     z-index: 1055;
+}
+.help-block.show {
+    display: block !important;
 }

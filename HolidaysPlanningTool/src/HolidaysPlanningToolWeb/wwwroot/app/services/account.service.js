@@ -11,6 +11,33 @@ require('rxjs/add/operator/map');
 require('rxjs/operator/delay');
 require('rxjs/operator/mergeMap');
 require('rxjs/operator/switchMap');
+var UserRegisterModel = (function () {
+    function UserRegisterModel() {
+    }
+    UserRegisterModel.prototype.isValid = function () {
+        if (!this.Username || !this.Name) {
+            return -10;
+        }
+        if (!this.Email) {
+            return -20;
+        }
+        if (!/^(.+@.+)$/.test(this.Email)) {
+            return -21;
+        }
+        if (!this.Password || this.Password != this.ConfirmPassword) {
+            return -30;
+        }
+        if (this.Password.length < 6) {
+            return -31;
+        }
+        if (!/^(?=.*[a-zA-Z])(?=.*[0-9]).+$/.test(this.Password)) {
+            return -32;
+        }
+        return 1;
+    };
+    return UserRegisterModel;
+}());
+exports.UserRegisterModel = UserRegisterModel;
 var AccountService = (function () {
     function AccountService(myHttp) {
         this.myHttp = myHttp;
@@ -38,6 +65,15 @@ var AccountService = (function () {
             .map(function (response) { return response.json(); }).map(function (result) {
             _this.myHttp.removeToken();
             return status;
+        });
+    };
+    AccountService.prototype.register = function (user) {
+        //var headers = new Headers();
+        //headers.append('Content-Type', 'application/json');
+        return this.myHttp.post(Constants_1.Constants.WebAPIUrl + this._controllerName + "Register", JSON.stringify(user), {})
+            .map(function (response) { return response.json(); }).map(function (result) {
+            // this.myHttp.removeToken();
+            return result;
         });
     };
     AccountService = __decorate([

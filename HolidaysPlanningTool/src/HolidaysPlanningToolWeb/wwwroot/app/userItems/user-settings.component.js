@@ -41,9 +41,16 @@ var UserSettingsComponent = (function () {
         //TODO createuserSettings
         var userSettings = this.userInfo.getUserSettings();
         this._settingsService.saveUserSettings(userSettings).subscribe(function (res) {
-            _this._notificationService.success("Vartotojo informacija atnaujinta, atsakas iš serverio: ");
+            _this._notificationService.success("Vartotojo informacija atnaujinta, atsakas iš serverio.");
             _this.router.navigate(["ToursList"]);
-        }, function (err) { _this._notificationService.error("Atnaujinti vartotojo duomenų nepavyko: kodas: " + err.status); });
+        }, function (err) {
+            var message = "";
+            if (err) {
+                var response = err.json();
+                message = (response && response.Message) ? response.Message : "";
+            }
+            _this._notificationService.error("Atnaujinti vartotojo duomenų nepavyko. " + message);
+        });
     };
     UserSettingsComponent.prototype.cancelSettings = function () {
         this._notificationService.info("nustatymai neišsaugoti");

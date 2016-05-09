@@ -5,8 +5,7 @@ import {Router} from "angular2/router";
 
 @Component({
     selector: 'account-login',
-    templateUrl: './app/account/account-login.component.html',
-    directives: []
+    templateUrl: './app/account/account-login.component.html'
 })
 export class LoginComponent implements OnInit {
     private name: string;
@@ -24,5 +23,8 @@ export class LoginComponent implements OnInit {
             () => {
                 this.notificationsService.error("Prisijungti nepavyko");
             });
+    }
+    back() {
+        this.router.navigate(["ToursList"]);
     }
 }

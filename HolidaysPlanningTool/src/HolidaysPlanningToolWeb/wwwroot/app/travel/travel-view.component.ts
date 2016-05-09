@@ -6,6 +6,7 @@ import { CommentsComponent } from './comments/comments.component';
 import { CommentCreateComponent } from './comments/comment-create.component';
 import { LikeDirectiveComponent } from './like-directive.component';
 import { Constants } from '../utils/Constants';
+import { FacebookShareComponent } from '../utils/facebook-share.component';
 import { GoogleMaps } from './maps/GoogleMap';
 import { TravelViewDaysContainerComponent } from './travel-view-days-container.component';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
@@ -25,11 +26,12 @@ class MyTime {
     // Location of the template for this component
     templateUrl: './app/travel/travel-view.component.html',
     providers: [GoogleMaps, TravelMethodsHelper],
-    directives: [CommentsComponent, CommentCreateComponent, LikeDirectiveComponent, TravelViewDaysContainerComponent]
+    directives: [CommentsComponent, CommentCreateComponent, LikeDirectiveComponent, TravelViewDaysContainerComponent, FacebookShareComponent]
 })
 export class TravelViewComponent implements OnInit {
     private travel: FullTravel;
     private durationString: MyTime;
+    private pageLink: string;
     constructor(private _router: Router,
         private _routeParams: RouteParams,
         private _notificationService: ToastsManager,
@@ -38,6 +40,7 @@ export class TravelViewComponent implements OnInit {
         private travelHelper: TravelMethodsHelper,
         private travelService: TravelService) {
         this.travel = new FullTravel();
+        this.pageLink = location.href;
     }
 
     msToTime(s): MyTime {

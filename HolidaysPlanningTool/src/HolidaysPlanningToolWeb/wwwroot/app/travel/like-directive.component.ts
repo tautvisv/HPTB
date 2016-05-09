@@ -46,8 +46,13 @@ export class LikeDirectiveComponent implements OnInit {
             this.travelLikesData.UserLikeStatus = status;
             this.notificationManager.info("jums patinka ši kelionė");
         },
-            () => {
-        });
+            this.notAuthMessage.bind(this)
+        );
+    }
+    private notAuthMessage(err) {
+        if (err.status == 401) {
+            this.notificationManager.info("Prisijunkite prie sistemos norėdami vertinti kelionę");
+        }
     }
     dislike() {
         this.service.like(this.travelId, -1).subscribe((status) => {
@@ -58,8 +63,7 @@ export class LikeDirectiveComponent implements OnInit {
             this.travelLikesData.DislikesCount++;
             this.notificationManager.info("jums nepatinka ši kelionė");
         },
-            () => {
-            });
+            this.notAuthMessage.bind(this));
     }
     removeLike() {
         this.service.like(this.travelId, 0).subscribe((status) => {
@@ -73,8 +77,7 @@ export class LikeDirectiveComponent implements OnInit {
             this.travelLikesData.UserLikeStatus = status;
             this.notificationManager.info("Panaikintas statusas");
         },
-            () => {
-            });
+            this.notAuthMessage.bind(this));
     }
 
     ngOnInit() {

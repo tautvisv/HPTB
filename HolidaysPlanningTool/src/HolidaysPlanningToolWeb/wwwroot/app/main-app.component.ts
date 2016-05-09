@@ -6,6 +6,7 @@ import {TravelViewComponent} from './travel/travel-view.component';
 import {TravelHomePageComponent, TravelsSearchedComponent, TravelsViewedComponent, TravelsLikedComponent} from './travel/travel-home-page.component';
 import {LoginComponent} from './account/account-login.component';
 import {LogoutComponent} from './account/account-logout.component';
+import {RegisterComponent} from './account/account-register.component';
 import { Auth } from './services/is-auth';
 //import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
@@ -13,6 +14,11 @@ import {LocationStrategy, HashLocationStrategy} from 'angular2/router';
 import { provide } from 'angular2/core';
 
 @RouteConfig([
+    {
+        path: '/Register',
+        name: 'Register',
+        component: RegisterComponent
+    },
     {
         path: '/Login',
         name: 'Login',

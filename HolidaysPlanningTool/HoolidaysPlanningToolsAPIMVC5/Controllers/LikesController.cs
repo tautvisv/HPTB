@@ -5,7 +5,6 @@ using Repositories;
 
 namespace HoolidaysPlanningToolsAPIMVC5.Controllers
 {
-    [AllowAnonymous]
     [RoutePrefix(Constants.Constants.WebApiPrefix + "Likes")]
     public class LikesController : CounterController<Like>
     {

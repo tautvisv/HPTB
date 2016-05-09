@@ -15,6 +15,7 @@ namespace HoolidaysPlanningToolsAPIMVC5.Controllers
             Repository = viewsRepository;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("Travel/{id}")]
         public IHttpActionResult GetViewsByTravel(int id)

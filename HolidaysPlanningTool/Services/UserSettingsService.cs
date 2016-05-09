@@ -8,6 +8,7 @@ namespace Services
     public interface IUserSettingsService:IEntityService<User>
     {
         User GetUserSettings(string userId);
+        bool Exist(string username, string email);
     }
 
     public class UserSettingsService: EntityService<User>, IUserSettingsService
@@ -17,6 +18,7 @@ namespace Services
         {
             this.SettingsRepository = settingsRepository;
         }
+        
         public override void Update(User userSettings)
         {
             if (userSettings == null) throw new ArgumentNullException(nameof(userSettings));
@@ -28,6 +30,11 @@ namespace Services
         {
             var settings = SettingsRepository.GetByUserId(userId);
             return settings;
+        }
+
+        public bool Exist(string username, string email)
+        {
+            return SettingsRepository.Exist(username, email);
         }
 
         private User CreateSettings(User settings)

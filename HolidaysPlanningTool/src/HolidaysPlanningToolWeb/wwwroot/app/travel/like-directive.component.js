@@ -42,8 +42,12 @@ var LikeDirectiveComponent = (function () {
             _this.travelLikesData.LikesCount++;
             _this.travelLikesData.UserLikeStatus = status;
             _this.notificationManager.info("jums patinka ši kelionė");
-        }, function () {
-        });
+        }, this.notAuthMessage.bind(this));
+    };
+    LikeDirectiveComponent.prototype.notAuthMessage = function (err) {
+        if (err.status == 401) {
+            this.notificationManager.info("Prisijunkite prie sistemos norėdami vertinti kelionę");
+        }
     };
     LikeDirectiveComponent.prototype.dislike = function () {
         var _this = this;
@@ -54,8 +58,7 @@ var LikeDirectiveComponent = (function () {
             _this.travelLikesData.UserLikeStatus = status;
             _this.travelLikesData.DislikesCount++;
             _this.notificationManager.info("jums nepatinka ši kelionė");
-        }, function () {
-        });
+        }, this.notAuthMessage.bind(this));
     };
     LikeDirectiveComponent.prototype.removeLike = function () {
         var _this = this;
@@ -71,8 +74,7 @@ var LikeDirectiveComponent = (function () {
             }
             _this.travelLikesData.UserLikeStatus = status;
             _this.notificationManager.info("Panaikintas statusas");
-        }, function () {
-        });
+        }, this.notAuthMessage.bind(this));
     };
     LikeDirectiveComponent.prototype.ngOnInit = function () {
         var _this = this;

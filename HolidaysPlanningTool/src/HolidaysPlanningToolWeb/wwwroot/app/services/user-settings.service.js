@@ -1,9 +1,4 @@
 "use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -12,26 +7,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var core_1 = require('angular2/core');
 var Constants_1 = require('../utils/Constants');
-var user_settings_1 = require('../userItems/user-settings');
 require('rxjs/add/operator/map');
 require('rxjs/operator/delay');
 require('rxjs/operator/mergeMap');
 require('rxjs/operator/switchMap');
-var UserSettingsMock = (function (_super) {
-    __extends(UserSettingsMock, _super);
-    function UserSettingsMock() {
-        _super.call(this);
-        this.name = "Tautvydas";
-        this.surname = "Vaitiekūnas";
-        this.address = "Tauro g. 13";
-        this.phone = "+37068559976";
-        this.description = "Aš šiuo metu programuoju";
-        this.extra_info = "Papildoma informacija";
-        this.email = "tautvisv@gmail.com";
-    }
-    return UserSettingsMock;
-}(user_settings_1.UserSettings));
-//http://localhost:2922/api/Mock/5
 var UserSettingsService = (function () {
     function UserSettingsService(http) {
         this.http = http;

@@ -45,6 +45,41 @@ namespace HoolidaysPlanningToolsAPIMVC5.Controllers
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
+    public class UserRegisterModel
+    {
+        [Required]
+        [Display(Name = "Username")]
+        public string Username { get; set; }
+        [Required]
+        [Display(Name = "Name")]
+        public string Name { get; set; }
+        [Display(Name = "Surname")]
+        public string Surname { get; set; }
+
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
+        public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm password")]
+        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; }
+
+        public User CreateUser()
+        {
+            var result = new User();
+            result.Username = Username;
+            result.Email = Email;
+            result.Name = Name;
+            result.Surname = Surname;
+            return result;
+        }
+    }
     [Authorize]
     [RoutePrefix(Constants.Constants.WebApiPrefix + "User")]
     public class UserController : ApiController
@@ -74,11 +109,15 @@ namespace HoolidaysPlanningToolsAPIMVC5.Controllers
         [HttpPost]
         [AllowAnonymous]
         [Route("Register")]
-        public async Task<IHttpActionResult> Register(UserLoginModel model)
+        public async Task<IHttpActionResult> Register(UserRegisterModel model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
+            }
+            if (UserService.Exist(model.Username, model.Email))
+            {
+                return BadRequest("Vartotojo prisijungimo vardas arba paštas jau naudojamas");
             }
 
             var user = new IdentityUser { UserName = model.Username, Email = model.Email };
@@ -89,8 +128,11 @@ namespace HoolidaysPlanningToolsAPIMVC5.Controllers
             {
                 return GetErrorResult(result);
             }
+            var newUser = model.CreateUser();
+            newUser.UserId = user.Id;
+            UserService.Create(newUser);
 
-            return Ok();
+            return Ok("Ok");
         }
 
         [HttpPost]
