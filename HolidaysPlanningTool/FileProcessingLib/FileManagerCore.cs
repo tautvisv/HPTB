@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using ImageProcessor;
 using System.Drawing;
-using ImageProcessor.Imaging;
 using ImageProcessor.Imaging.Formats;
-using EmptyProject;
 
 namespace FileProcessingLib
 {
@@ -17,7 +14,6 @@ namespace FileProcessingLib
             if (string.IsNullOrEmpty(root))
                 throw new NullReferenceException($"{nameof(root)} cannot be mepty or null");
             Root = root;
-            var a = new EmptyClass("test");
         }
         public static byte[] ReadFully(Stream input)
         {

@@ -15,7 +15,6 @@ namespace UnitOfWork
         /// <param name="context">The object context</param>
         public UnitOfWork(DatabaseDbContext context)
         {
-
             _dbContext = context;
         }
 

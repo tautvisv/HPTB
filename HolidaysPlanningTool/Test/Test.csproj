@@ -104,9 +104,9 @@
       <Project>{e638b0b3-733a-4397-b2c3-cef6f20127a8}</Project>
       <Name>Services</Name>
     </ProjectReference>
-    <ProjectReference Include="..\UnitOfWork\UnitOfWork.csproj">
+    <ProjectReference Include="..\UnitOfWork\DatabaseContext.csproj">
       <Project>{02868d18-57af-4c50-916a-5089b7b1ce4c}</Project>
-      <Name>UnitOfWork</Name>
+      <Name>DatabaseContext</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

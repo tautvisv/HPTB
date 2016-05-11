@@ -327,10 +327,6 @@
       <Project>{4B0BBAD5-E4BE-43EF-990F-655E44AB5FD2}</Project>
       <Name>Constants</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EmptyProject\EmptyProject.csproj">
-      <Project>{d2e57280-6b61-4245-92fb-9339b74bd0af}</Project>
-      <Name>EmptyProject</Name>
-    </ProjectReference>
     <ProjectReference Include="..\FileProcessingLib\FileProcessingLib.csproj">
       <Project>{62b22c66-f908-4d1e-8a3f-3e6309652598}</Project>
       <Name>FileProcessingLib</Name>
@@ -355,9 +351,9 @@
       <Project>{E638B0B3-733A-4397-B2C3-CEF6F20127A8}</Project>
       <Name>Services</Name>
     </ProjectReference>
-    <ProjectReference Include="..\UnitOfWork\UnitOfWork.csproj">
+    <ProjectReference Include="..\UnitOfWork\DatabaseContext.csproj">
       <Project>{02868d18-57af-4c50-916a-5089b7b1ce4c}</Project>
-      <Name>UnitOfWork</Name>
+      <Name>DatabaseContext</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
