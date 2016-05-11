@@ -2,7 +2,7 @@
 
 namespace UnitOfWork
 {
-    public sealed class UnitOfWork : IUnitOfWork
+    public sealed class UnitOfWork : IUnitOfWork.IUnitOfWork
     {
         /// <summary>
         /// The DbContext

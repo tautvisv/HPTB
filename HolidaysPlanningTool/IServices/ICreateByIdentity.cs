@@ -1,7 +1,7 @@
 ﻿using System.Security.Principal;
 using Models;
 
-namespace Services
+namespace IServices
 {
     //TODO merge it
     public interface ICreateByIdentity<in T> where T : Entity

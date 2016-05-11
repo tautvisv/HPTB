@@ -60,16 +60,6 @@
     <Compile Include="AbstractIndependentRepository.cs" />
     <Compile Include="CommentsRepository.cs" />
     <Compile Include="GenericRepository.cs" />
-    <Compile Include="EntityService.cs" />
-    <Compile Include="IAbstractIndependentRepository.cs" />
-    <Compile Include="ICommentsRepository.cs" />
-    <Compile Include="IEntityService.cs" />
-    <Compile Include="IGenericRepository.cs" />
-    <Compile Include="ILikeRepository.cs" />
-    <Compile Include="IPointRepository.cs" />
-    <Compile Include="IService.cs" />
-    <Compile Include="ITravelRepository.cs" />
-    <Compile Include="IViewRepository.cs" />
     <Compile Include="LikesRepository.cs" />
     <Compile Include="PointRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -79,17 +69,21 @@
     <Compile Include="ViewsRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GoogleImageParser\GoogleImageParser.csproj">
-      <Project>{EEADE495-5A42-4982-9B8A-44F54BC875E2}</Project>
-      <Name>GoogleImageParser</Name>
+    <ProjectReference Include="..\IRepositories\IRepositories.csproj">
+      <Project>{b068ecc2-555a-469b-a5ef-7dac8e579fa6}</Project>
+      <Name>IRepositories</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IUnitOfWork\IUnitOfWork.csproj">
+      <Project>{b7bfee4a-7d48-435c-9c82-f824083a99d9}</Project>
+      <Name>IUnitOfWork</Name>
     </ProjectReference>
     <ProjectReference Include="..\Models\Models.csproj">
       <Project>{e9da77cb-9b04-4337-b8f7-b7d92f7c9df5}</Project>
       <Name>Models</Name>
     </ProjectReference>
-    <ProjectReference Include="..\UnitOfWork\DatabaseContext.csproj">
+    <ProjectReference Include="..\TravelsDatabaseContext\TravelsDatabaseContext.csproj">
       <Project>{02868d18-57af-4c50-916a-5089b7b1ce4c}</Project>
-      <Name>DatabaseContext</Name>
+      <Name>TravelsDatabaseContext</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

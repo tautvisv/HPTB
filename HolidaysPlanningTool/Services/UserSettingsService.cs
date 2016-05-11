@@ -1,7 +1,7 @@
 ﻿using System;
+using IRepositories;
+using IServices;
 using Models;
-using Repositories;
-using UnitOfWork;
 
 namespace Services
 {
@@ -14,7 +14,7 @@ namespace Services
     public class UserSettingsService: EntityService<User>, IUserSettingsService
     {
         protected readonly IUserSettingsRepository SettingsRepository;
-        public UserSettingsService(IUnitOfWork uow, IUserSettingsRepository settingsRepository) : base(uow, settingsRepository)
+        public UserSettingsService(IUnitOfWork.IUnitOfWork uow, IUserSettingsRepository settingsRepository) : base(uow, settingsRepository)
         {
             this.SettingsRepository = settingsRepository;
         }

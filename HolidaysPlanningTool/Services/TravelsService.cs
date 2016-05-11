@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
-using GoogleImageParser;
+using IMisc;
+using IRepositories;
+using IServices;
 using Microsoft.AspNet.Identity;
 using Models;
-using Repositories;
-using UnitOfWork;
 
 namespace Services
 {
@@ -17,7 +14,7 @@ namespace Services
         public IIMageParser ImageParser { get; set; }
         protected readonly ITravelDayRepository TravelDayRepository;
         protected readonly ITravelRepository TravelRepository;
-        public TravelsService(IUnitOfWork unitOfWork, ITravelRepository repository, ITravelDayRepository travelDayRepository) : base(unitOfWork, repository)
+        public TravelsService(IUnitOfWork.IUnitOfWork unitOfWork, ITravelRepository repository, ITravelDayRepository travelDayRepository) : base(unitOfWork, repository)
         {
             TravelDayRepository = travelDayRepository;
             TravelRepository = repository;

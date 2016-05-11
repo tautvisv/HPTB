@@ -1,6 +1,7 @@
-namespace Repositories
+﻿namespace IServices
 {
     public interface IService
     {
+        
     }
 }

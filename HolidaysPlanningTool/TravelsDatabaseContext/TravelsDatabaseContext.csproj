@@ -7,8 +7,8 @@
     <ProjectGuid>{02868D18-57AF-4C50-916A-5089B7B1CE4C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UnitOfWork</RootNamespace>
-    <AssemblyName>UnitOfWork</AssemblyName>
+    <RootNamespace>TravelsDatabaseContext</RootNamespace>
+    <AssemblyName>TravelsDatabaseContext</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -126,9 +126,7 @@
       <DependentUpon>201605081135064_ViewsAndLikesCount.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="UnitOfWork.cs" />
     <Compile Include="DatabaseDbContext.cs" />
-    <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -136,6 +134,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\IUnitOfWork\IUnitOfWork.csproj">
+      <Project>{b7bfee4a-7d48-435c-9c82-f824083a99d9}</Project>
+      <Name>IUnitOfWork</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Models\Models.csproj">
       <Project>{e9da77cb-9b04-4337-b8f7-b7d92f7c9df5}</Project>
       <Name>Models</Name>

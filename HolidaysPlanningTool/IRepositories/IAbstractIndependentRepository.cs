@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Models;
 
-namespace Repositories
+namespace IRepositories
 {
     public interface IAbstractIndependentRepository<TEntity> where TEntity : Entity, ITravelItem, IUserItem, IDateNow
     {

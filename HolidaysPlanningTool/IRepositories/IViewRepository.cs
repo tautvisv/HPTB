@@ -1,6 +1,6 @@
 using Models;
 
-namespace Repositories
+namespace IRepositories
 {
     public interface IViewRepository : IAbstractIndependentRepository<View>
     {

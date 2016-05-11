@@ -1,4 +1,5 @@
-﻿using Models;
+﻿using IRepositories;
+using Models;
 using UnitOfWork;
 
 namespace Repositories
@@ -14,9 +15,5 @@ namespace Repositories
         public TravelDayRepositoryRepository(DatabaseDbContext context) : base(context)
         {
         }
-    }
-
-    public interface ITravelDayRepository: IGenericRepository<TravelDayPlan>
-    {
     }
 }

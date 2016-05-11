@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{62B22C66-F908-4D1E-8A3F-3E6309652598}</ProjectGuid>
+    <ProjectGuid>{B068ECC2-555A-469B-A5EF-7DAC8E579FA6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FileProcessingLib</RootNamespace>
-    <AssemblyName>FileProcessingLib</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <RootNamespace>IRepositories</RootNamespace>
+    <AssemblyName>IRepositories</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,26 +30,34 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ImageProcessor, Version=2.3.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ImageProcessor.2.3.3.0\lib\net45\ImageProcessor.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileManagerCore.cs" />
-    <Compile Include="ImageSaver.cs" />
+    <Compile Include="IAbstractIndependentRepository.cs" />
+    <Compile Include="ICommentsRepository.cs" />
+    <Compile Include="IGenericRepository.cs" />
+    <Compile Include="ILikeRepository.cs" />
+    <Compile Include="IParentCount.cs" />
+    <Compile Include="IPointRepository.cs" />
+    <Compile Include="ITravelDayRepository.cs" />
+    <Compile Include="ITravelRepository.cs" />
+    <Compile Include="IUserRepository.cs" />
+    <Compile Include="IUserSettingsRepository.cs" />
+    <Compile Include="IViewRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\Models\Models.csproj">
+      <Project>{e9da77cb-9b04-4337-b8f7-b7d92f7c9df5}</Project>
+      <Name>Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

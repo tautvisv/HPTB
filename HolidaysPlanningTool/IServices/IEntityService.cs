@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Models;
 
-namespace Repositories
+namespace IServices
 {
     public interface IEntityService<T> : IService
         where T : Entity

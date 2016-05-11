@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net;
 using System.Drawing;
+using IMisc;
 
 namespace GoogleImageParser
 {
@@ -41,8 +42,4 @@ namespace GoogleImageParser
         }
     }
 
-    public interface IIMageParser
-    {
-        string Parse(float latitude, float longitude);
-    }
 }

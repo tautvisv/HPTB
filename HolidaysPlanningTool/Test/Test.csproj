@@ -88,9 +88,25 @@
       <Project>{4b0bbad5-e4be-43ef-990f-655e44ab5fd2}</Project>
       <Name>Constants</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FileProcessingLib\FileProcessingLib.csproj">
+      <Project>{62b22c66-f908-4d1e-8a3f-3e6309652598}</Project>
+      <Name>FileProcessingLib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GoogleImageParser\GoogleImageParser.csproj">
       <Project>{eeade495-5a42-4982-9b8a-44f54bc875e2}</Project>
       <Name>GoogleImageParser</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IMisc\IMisc.csproj">
+      <Project>{24514b86-6d34-4695-aaae-8c48f05d3263}</Project>
+      <Name>IMisc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IRepositories\IRepositories.csproj">
+      <Project>{B068ECC2-555A-469B-A5EF-7DAC8E579FA6}</Project>
+      <Name>IRepositories</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IUnitOfWork\IUnitOfWork.csproj">
+      <Project>{b7bfee4a-7d48-435c-9c82-f824083a99d9}</Project>
+      <Name>IUnitOfWork</Name>
     </ProjectReference>
     <ProjectReference Include="..\Models\Models.csproj">
       <Project>{e9da77cb-9b04-4337-b8f7-b7d92f7c9df5}</Project>
@@ -104,9 +120,13 @@
       <Project>{e638b0b3-733a-4397-b2c3-cef6f20127a8}</Project>
       <Name>Services</Name>
     </ProjectReference>
-    <ProjectReference Include="..\UnitOfWork\DatabaseContext.csproj">
+    <ProjectReference Include="..\TravelsDatabaseContext\TravelsDatabaseContext.csproj">
       <Project>{02868d18-57af-4c50-916a-5089b7b1ce4c}</Project>
-      <Name>DatabaseContext</Name>
+      <Name>TravelsDatabaseContext</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnitOfWork\UnitOfWork.csproj">
+      <Project>{f2d33271-d258-419a-acf7-0ee76dfdf647}</Project>
+      <Name>UnitOfWork</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

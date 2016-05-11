@@ -1,16 +1,10 @@
-﻿using System.Data.Entity;
-using System.Linq;
+﻿using System.Linq;
+using IRepositories;
 using Models;
 using UnitOfWork;
 
 namespace Repositories
 {
-    public interface IUserSettingsRepository:IGenericRepository<User>
-    {
-        User GetByUserId(string userId);
-        bool Exist(string username, string email);
-    }
-
     public class UserSettingsRepository : GenericRepository<User>, IUserSettingsRepository
     {
         public UserSettingsRepository(DatabaseDbContext context) : base(context)

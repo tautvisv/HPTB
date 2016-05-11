@@ -4,6 +4,8 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using IRepositories;
+using IServices;
 using Repositories;
 using Services;
 using SimpleInjector;
@@ -33,7 +35,7 @@ namespace HoolidaysPlanningToolsAPIMVC5
             // container.Register<DbContext>(() => new DatabaseDbContext(System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString), Lifestyle.Scoped);
             //System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString
             container.Register<DatabaseDbContext>(() => new DatabaseDbContext("name=DefaultConnection"), Lifestyle.Scoped);
-            container.Register<IUnitOfWork, UnitOfWork.UnitOfWork>(Lifestyle.Scoped);
+            container.Register<IUnitOfWork.IUnitOfWork, UnitOfWork.UnitOfWork>(Lifestyle.Scoped);
             container.Register<IUserRepository, UserRepository>(Lifestyle.Scoped);
             container.Register<IUserService, UserService>(Lifestyle.Scoped);
             container.Register<IUserSettingsRepository, UserSettingsRepository>(Lifestyle.Scoped);

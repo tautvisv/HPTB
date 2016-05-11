@@ -1,13 +1,8 @@
 using Models;
 
-namespace Repositories
+namespace IRepositories
 {
     public interface ICommentsRepository : IGenericRepository<Comment>, IParentCount
     {
-    }
-
-    public interface IParentCount
-    {
-        int GetCount(int parentId);
     }
 }

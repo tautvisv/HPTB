@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using IRepositories;
+using IServices;
 using Models;
-using UnitOfWork;
 
-namespace Repositories
+namespace Services
 {
     public abstract class EntityService<T> : IEntityService<T> where T : Entity
     {
-        protected IUnitOfWork _unitOfWork;
+        protected IUnitOfWork.IUnitOfWork _unitOfWork;
         protected IGenericRepository<T> _repository;
 
-        protected EntityService(IUnitOfWork unitOfWork, IGenericRepository<T> repository)
+        protected EntityService(IUnitOfWork.IUnitOfWork unitOfWork, IGenericRepository<T> repository)
         {
             _unitOfWork = unitOfWork;
             _repository = repository;

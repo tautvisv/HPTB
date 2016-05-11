@@ -1,11 +1,7 @@
-﻿using System.Security.Principal;
-using System.Threading;
-using System.Web;
+﻿using System.Web;
 using System.Web.Http;
-using Microsoft.Ajax.Utilities;
-using Microsoft.AspNet.Identity;
+using IServices;
 using Models;
-using Services;
 
 namespace HoolidaysPlanningToolsAPIMVC5.Controllers
 {

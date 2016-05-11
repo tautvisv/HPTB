@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using Models;
 
-namespace Repositories
+namespace IRepositories
 {
     public interface IGenericRepository<T> where T : Entity
     {

@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Security.Principal;
+using IRepositories;
+using IServices;
 using Microsoft.AspNet.Identity;
 using Models;
-using Repositories;
-using UnitOfWork;
 
 namespace Services
 {
     public class CommentsService : EntityService<Comment>, ICommentsService
     {
         protected readonly IUserRepository UserRepository;
-        public CommentsService(IUnitOfWork unitOfWork, ICommentsRepository repository, IUserRepository userRepository) : base(unitOfWork, repository)
+        public CommentsService(IUnitOfWork.IUnitOfWork unitOfWork, ICommentsRepository repository, IUserRepository userRepository) : base(unitOfWork, repository)
         {
             UserRepository = userRepository;
         }

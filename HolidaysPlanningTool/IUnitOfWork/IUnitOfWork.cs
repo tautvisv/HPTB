@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UnitOfWork
+namespace IUnitOfWork
 {
     public interface IUnitOfWork : IDisposable
     {

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Net.Sockets;
+﻿using System.Linq;
+using IRepositories;
 using Models;
 using UnitOfWork;
 

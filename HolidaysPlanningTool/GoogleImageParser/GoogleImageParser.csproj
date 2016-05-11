@@ -44,6 +44,12 @@
     <Compile Include="GoogleImageParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IMisc\IMisc.csproj">
+      <Project>{24514B86-6D34-4695-AAAE-8C48F05D3263}</Project>
+      <Name>IMisc</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

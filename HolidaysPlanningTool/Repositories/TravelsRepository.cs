@@ -3,20 +3,12 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Text.RegularExpressions;
-using GoogleImageParser;
+using IRepositories;
 using Models;
 using UnitOfWork;
 
 namespace Repositories
 {
-    public class PagedResult<T>
-    {
-        public IList<T> Results { get; set; }
-        public int CurrentPage { get; set; }
-        public int PageCount { get; set; }
-        public int PageSize { get; set; }
-        public int Count { get; set; }
-    }
     public class TravelsRepository: GenericRepository<Travel>, ITravelRepository
     {
         public TravelsRepository(DatabaseDbContext context) : base(context)

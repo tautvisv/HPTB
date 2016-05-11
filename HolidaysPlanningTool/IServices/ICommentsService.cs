@@ -1,7 +1,6 @@
 ﻿using Models;
-using Repositories;
 
-namespace Services
+namespace IServices
 {
     public interface ICommentsService : IEntityService<Comment>, ICreateByIdentityR<Comment>
     {

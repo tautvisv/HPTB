@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using System.Security.Principal;
-using GoogleImageParser;
+using IMisc;
 using Models;
-using Repositories;
 
-namespace Services
+namespace IServices
 {
     public interface ITravelService:IEntityService<Travel>, ICreateByIdentity<Travel>
     {
