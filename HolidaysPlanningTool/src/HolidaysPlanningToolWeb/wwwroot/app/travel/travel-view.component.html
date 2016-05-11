@@ -20,7 +20,7 @@
             <span class="point-item-hours">{{durationString.minutes}} </span> {{translateMinutes(durationString.minutes)}}
         </div>
 
-        <travel-days-container [days]="travel.WayPoints" (show-route)="showRoute($event)"></travel-days-container>
+        <travel-days-container [days]="travels" (show-route)="showRoute($event)"></travel-days-container>
 
         <a class="btn btn-info" (click)="showMainRoute(travel)">Rodyti pagrindinį kelionės maršrutą</a>
         <div id="the_view_map" style="min-height: 400px;"></div>

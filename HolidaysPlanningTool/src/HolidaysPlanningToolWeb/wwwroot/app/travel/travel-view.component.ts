@@ -32,6 +32,7 @@ export class TravelViewComponent implements OnInit {
     private travel: FullTravel;
     private durationString: MyTime;
     private pageLink: string;
+    private travels: TravelClass[];
     constructor(private _router: Router,
         private _routeParams: RouteParams,
         private _notificationService: ToastsManager,
@@ -136,6 +137,11 @@ export class TravelViewComponent implements OnInit {
             else { this.travel.ImageUrl = "/images/no_img.png"; }
             this.durationString = this.duration();
             this.miscService.addView(this.travel.Id);
+            var travels = [];
+            travels.push(travel.StartDay);
+            travels = travels.concat(travel.WayPoints);
+            travels.push(travel.EndDay);
+            this.travels = travels;
             this.showMainRoute();
         }, (error) => {
             if (error && error.status === 404) {

@@ -128,6 +128,11 @@ var TravelViewComponent = (function () {
             }
             _this.durationString = _this.duration();
             _this.miscService.addView(_this.travel.Id);
+            var travels = [];
+            travels.push(travel.StartDay);
+            travels = travels.concat(travel.WayPoints);
+            travels.push(travel.EndDay);
+            _this.travels = travels;
             _this.showMainRoute();
         }, function (error) {
             if (error && error.status === 404) {
