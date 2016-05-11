@@ -168,12 +168,12 @@ var TravelService = (function () {
         if (!travel.WayPoints) {
             travel.WayPoints = [];
         }
-        if (travel.StartDay) {
-            travel.WayPoints.unshift(travel.StartDay);
-        }
-        if (travel.EndDay) {
-            travel.WayPoints.push(travel.EndDay);
-        }
+        //if (travel.StartDay) {
+        //    travel.WayPoints.unshift(travel.StartDay);
+        //}
+        //if (travel.EndDay) {
+        //    travel.WayPoints.push(travel.EndDay);
+        //}
         return this.http.post(Constants_1.Constants.WebAPIUrl + this._controllerName, JSON.stringify(travel), {})
             .map(function (response) { return response.json(); });
     };
