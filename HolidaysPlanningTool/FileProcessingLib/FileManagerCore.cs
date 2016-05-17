@@ -12,7 +12,7 @@ namespace FileProcessingLib
         public FileManagerCore(string root)
         {
             if (string.IsNullOrEmpty(root))
-                throw new NullReferenceException($"{nameof(root)} cannot be mepty or null");
+                throw new NullReferenceException($"{nameof(root)} cannot be empty or null");
             Root = root;
         }
         public static byte[] ReadFully(Stream input)

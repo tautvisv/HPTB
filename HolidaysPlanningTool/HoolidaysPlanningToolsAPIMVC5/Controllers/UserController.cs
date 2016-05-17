@@ -1,28 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using HoolidaysPlanningToolsAPIMVC5.Models;
-using HoolidaysPlanningToolsAPIMVC5.Providers;
 using HoolidaysPlanningToolsAPIMVC5.Results;
 using IServices;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using Models;
-using Owin;
-using OwinAuth;
-using Repositories;
 
 namespace HoolidaysPlanningToolsAPIMVC5.Controllers
 {
@@ -83,7 +76,7 @@ namespace HoolidaysPlanningToolsAPIMVC5.Controllers
     }
     [Authorize]
     [RoutePrefix(Constants.Constants.WebApiPrefix + "User")]
-    public class UserController : ApiController
+    public class UserController : AbstractApiController
     {
         private ApplicationUserManager _userManager;
         protected readonly IUserService UserService;
@@ -92,20 +85,6 @@ namespace HoolidaysPlanningToolsAPIMVC5.Controllers
             UserService = userService;
         }
 
-        [HttpGet]
-        [Route("loginauth")]
-        public object GetTestAuth()
-        {
-            return UserService.GetAll().ToList();
-        }
-
-        [HttpGet]
-        [AllowAnonymous]
-        [Route("login")]
-        public object GetTest()
-        {
-            return UserService.GetAll().ToList();
-        }
 
         [HttpPost]
         [AllowAnonymous]

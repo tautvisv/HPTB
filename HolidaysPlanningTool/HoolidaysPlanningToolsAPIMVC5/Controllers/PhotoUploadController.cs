@@ -4,7 +4,6 @@ using System.Web;
 using System.Web.Http;
 using FileProcessingLib;
 using HoolidaysPlanningToolsAPIMVC5.Managers;
-using Microsoft.AspNet.Identity;
 
 namespace HoolidaysPlanningToolsAPIMVC5.Controllers
 {
@@ -15,20 +14,14 @@ namespace HoolidaysPlanningToolsAPIMVC5.Controllers
     // [RoutePrefix("api/{controllername:regex(^Mock|PhotoUpload$)}")]
     [RoutePrefix(Constants.Constants.WebApiPrefix + "PhotoUpload")]
     //[RoutePrefix("api/[controller]")]
-    public class PhotoUploadController : ApiController
+    public class PhotoUploadController : AbstractApiController
     {
         private readonly IStreamSaver fileManager;
         public PhotoUploadController()
         {
             fileManager = new ImageManager(HttpContext.Current.Server.MapPath("~"), @"\nuotraukosjega");
         }
-
-        [HttpGet]
-        [Route("testf")]
-        public int GetTest()
-        {
-            return 15;
-        }
+        
 
         [Route("UploadUserPhoto")]
         [HttpPost]
@@ -59,23 +52,6 @@ namespace HoolidaysPlanningToolsAPIMVC5.Controllers
                 photosList.Add(filePath);
             }
             return Ok(photosList);
-        }
-        // GET: api/5
-        [Route(("{id}"))]
-        [HttpGet]
-        public object GetController([FromUri] string id)
-        {
-            var identity = User.Identity.GetUserId();
-            return Ok(identity);
-        }
-
-
-        // POST: api/
-        [Route(("{id}"))]
-        [HttpPost]
-        public object PostController([FromUri] string id, [FromBody] object userSettings)
-        {
-            return Ok(userSettings);
         }
 
     }

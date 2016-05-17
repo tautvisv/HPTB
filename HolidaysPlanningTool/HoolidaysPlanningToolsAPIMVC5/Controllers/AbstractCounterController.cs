@@ -1,19 +1,18 @@
 ﻿using System.Web.Http;
-using IRepositories;
+using IServices;
 using Microsoft.AspNet.Identity;
 using Models;
-using Repositories;
 
 namespace HoolidaysPlanningToolsAPIMVC5.Controllers
 {
-    public abstract class CounterController<TEntity> : AbstractApiController
+    public abstract class AbstractCounterController<TEntity> : AbstractApiController
         where TEntity : Entity, ITravelItem, IUserItem, IDateNow
     {
-        protected readonly IAbstractIndependentRepository<TEntity> Repository;
+        protected readonly IAbstractIndependentService<TEntity> Service;
 
-        protected CounterController(IAbstractIndependentRepository<TEntity> viewsRepository)
+        protected AbstractCounterController(IAbstractIndependentService<TEntity> service)
         {
-            Repository = viewsRepository;
+            Service = service;
         }
 
         [AllowAnonymous]
@@ -21,7 +20,7 @@ namespace HoolidaysPlanningToolsAPIMVC5.Controllers
         [Route("Travel/{id}")]
         public IHttpActionResult GetViewsByTravel(int id)
         {
-            var views = Repository.GetAllByTravel(id);
+            var views = Service.GetAllByTravel(id);
             return Results(views);
         }
 
@@ -32,7 +31,7 @@ namespace HoolidaysPlanningToolsAPIMVC5.Controllers
         public IHttpActionResult GetViewsByUser(int limit = 50)
         {
             var id = User.Identity.GetUserId();
-            var views = Repository.GetAllByUser(id);
+            var views = Service.GetAllByUser(id);
             return Results(views);
         }
 

@@ -236,7 +236,7 @@
     <Compile Include="Controllers\AbstractApiController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
-    <Compile Include="Controllers\CounterController.cs" />
+    <Compile Include="Controllers\AbstractCounterController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LikesController.cs" />
     <Compile Include="Controllers\PhotoUploadController.cs" />

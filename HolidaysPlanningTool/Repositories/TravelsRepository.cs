@@ -31,7 +31,7 @@ namespace Repositories
         public override Travel GetById(int id)
         {
             var travel = _dbset
-                .Include(x => x.Author).Include(x => x.EndDay.Point).Include(x => x.StartDay.Point).Include(x => x.Comments).Include(x => x.WayPoints.Select(w => w.TravelDays.Select(d => d.Point))).Include(x => x.WayPoints.Select(w => w.Point))
+                .Include(x => x.Author).Include(x => x.EndDay.Point).Include(x => x.StartDay.Point).Include(x => x.Comments.Select(c => c.Author)).Include(x => x.WayPoints.Select(w => w.TravelDays.Select(d => d.Point))).Include(x => x.WayPoints.Select(w => w.Point))
                 .SingleOrDefault(x => x.Id == id);
             return travel;
         }
@@ -154,6 +154,7 @@ namespace Repositories
         //TODO move from here
         private string MinPhotoName(string photoName)
         {
+            if (string.IsNullOrEmpty(photoName)) return "";
             return Regex.Replace(photoName, @"(.*)([.])(.+)$", m => m.Groups[1].Value + ".min." + m.Groups[3].Value);
         }
     }

@@ -1,24 +1,19 @@
-﻿using System.Drawing;
-using System.IO;
-using System.Net;
-using System.Web;
-using System.Web.Http;
-using IRepositories;
+﻿using System.Web.Http;
+using IServices;
 using Microsoft.AspNet.Identity;
 using Models;
-using Repositories;
 
 namespace HoolidaysPlanningToolsAPIMVC5.Controllers
 {
     [AllowAnonymous]
     [RoutePrefix(Constants.Constants.WebApiPrefix + "Views")]
-    public class ViewsController : CounterController<View>
+    public class ViewsController : AbstractCounterController<View>
     {
-        protected readonly IViewRepository ViewsRepository;
+        protected readonly IViewService ViewsService;
 
-        public ViewsController(IViewRepository viewsRepository) : base(viewsRepository)
+        public ViewsController(IViewService viewsService) : base(viewsService)
         {
-            ViewsRepository = viewsRepository;
+            ViewsService = viewsService;
         }
 
         [Authorize]
@@ -27,14 +22,14 @@ namespace HoolidaysPlanningToolsAPIMVC5.Controllers
         {
             var userId = User.Identity.GetUserId();
             view.UserId = userId;
-            var exist = Repository.Exist(view.UserId, view.TravelId);
+            var exist = Service.Exist(view.UserId, view.TravelId);
             if (exist != null)
             {
-                Repository.Update(exist);
+                Service.Update(exist);
             }
             else
             {
-                Repository.Insert(view,1);
+                Service.Insert(view,1);
             }
             return Results(new { exist });
         }

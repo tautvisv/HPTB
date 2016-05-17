@@ -46,6 +46,7 @@
     <Compile Include="IService.cs" />
     <Compile Include="ITravelService.cs" />
     <Compile Include="IUserService.cs" />
+    <Compile Include="IViewService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

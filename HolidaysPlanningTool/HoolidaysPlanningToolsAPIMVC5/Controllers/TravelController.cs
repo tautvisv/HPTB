@@ -5,7 +5,6 @@ using Models;
 
 namespace HoolidaysPlanningToolsAPIMVC5.Controllers
 {
-    [AllowAnonymous]
     [RoutePrefix(Constants.Constants.WebApiPrefix + "Travel")]
     public class TravelController : AbstractApiController
     {

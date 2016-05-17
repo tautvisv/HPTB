@@ -17,6 +17,10 @@ namespace Services
 
         public Comment Create(Comment comment, IIdentity identity)
         {
+            if (identity == null)
+            {
+                throw new ArgumentNullException(nameof(identity));
+            }
             comment.AuthorId = identity.GetUserId();
             comment.Date = DateTime.UtcNow;
             var newComment = _repository.Add(comment);

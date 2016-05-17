@@ -1,6 +1,4 @@
-﻿using System.Data.Entity;
-using System.Reflection;
-using System.Web.Http;
+﻿using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -48,6 +46,8 @@ namespace HoolidaysPlanningToolsAPIMVC5
             container.Register<ICommentsService, CommentsService>(Lifestyle.Scoped); 
             container.Register<IViewRepository, ViewsRepository>(Lifestyle.Scoped); 
             container.Register<ILikeRepository, LikesRepository>(Lifestyle.Scoped); 
+            container.Register<ILikeService, LikeService>(Lifestyle.Scoped); 
+            container.Register<IViewService, ViewService>(Lifestyle.Scoped); 
 
             // This is an extension method from the integration package.
             container.RegisterWebApiControllers(GlobalConfiguration.Configuration);

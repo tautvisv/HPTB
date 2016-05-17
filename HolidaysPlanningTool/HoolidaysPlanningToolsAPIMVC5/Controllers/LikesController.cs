@@ -1,19 +1,18 @@
 ﻿using System.Web.Http;
-using IRepositories;
+using IServices;
 using Microsoft.AspNet.Identity;
 using Models;
-using Repositories;
 
 namespace HoolidaysPlanningToolsAPIMVC5.Controllers
 {
     [RoutePrefix(Constants.Constants.WebApiPrefix + "Likes")]
-    public class LikesController : CounterController<Like>
+    public class LikesController : AbstractCounterController<Like>
     {
-        protected readonly ILikeRepository LikeRepository;
+        protected readonly ILikeService LikeService;
 
-        public LikesController(ILikeRepository likeRepository) : base(likeRepository)
+        public LikesController(ILikeService likeService) : base(likeService)
         {
-            LikeRepository = likeRepository;
+            LikeService = likeService;
         }
 
         [Authorize]
@@ -21,18 +20,18 @@ namespace HoolidaysPlanningToolsAPIMVC5.Controllers
         public override IHttpActionResult PostView(Like like)
         {
             var userId = User.Identity.GetUserId();
-            var exist = Repository.Exist(userId, like.TravelId);
+            var exist = Service.Exist(userId, like.TravelId);
             if (exist != null)
             {
                 var dif = like.Status - exist.Status;
                 exist.TravelId = like.TravelId;
                 exist.Status = like.Status;
-                Repository.Update(exist, dif);
+                Service.Update(exist, dif);
             }
             else
             {
                 like.UserId = userId;
-                Repository.Insert(like, (int)like.Status);
+                Service.Insert(like, (int)like.Status);
             }
             return Results(like.Status);
 
@@ -43,7 +42,7 @@ namespace HoolidaysPlanningToolsAPIMVC5.Controllers
         public IHttpActionResult GetLikeByTravel(int travelId)
         {
             var userId = User.Identity.GetUserId();
-            var result = LikeRepository.GetTravelLikeByUser(userId, travelId);
+            var result = LikeService.GetTravelLikeByUser(userId, travelId);
             return Results(result);
         }
 
@@ -53,7 +52,7 @@ namespace HoolidaysPlanningToolsAPIMVC5.Controllers
         public IHttpActionResult GetTravelInformation(int travelId)
         {
             var user = User.Identity;
-            var likeModel = LikeRepository.GetTravelLikesModel(user?.GetUserId(), travelId);
+            var likeModel = LikeService.GetTravelLikesModel(user?.GetUserId(), travelId);
             return Results(likeModel);
         }
         

@@ -6,4 +6,5 @@ namespace IServices
     {
         bool Exist(string username, string email);
     }
+
 }
