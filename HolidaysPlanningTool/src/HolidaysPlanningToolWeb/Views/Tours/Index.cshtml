@@ -1,7 +1,6 @@
-@{
-}
-<link href="~/css/tours.css" rel="stylesheet" />
+@model HolidaysPlanningToolWeb.ViewModels.TravelIndexModel
 
+<link href="~/css/tours.css" rel="stylesheet" />
 
 <main-app>
     <div class="navbar-collapse collapse navbar-responsive-collapse">
@@ -9,7 +8,15 @@
     </div>
 </main-app>
 
-<script>
+<script data-server="@Model.ServerAPI" id="main_script">
+    var $vars = $('#main_script').data();
+    window.Server = { 
+        Address: 
+        { 
+            value: $vars.server
+        } 
+    };
+    window.ServerAddress = "testas";
     System.config({
       //  baseUrl:"/test",
         transpiler: 'typescript',
@@ -23,4 +30,7 @@
       console.log("done!!!!");
       //System.import('app/main2')
       //      .then(null, console.error.bind(console));
+
+
+
 </script>

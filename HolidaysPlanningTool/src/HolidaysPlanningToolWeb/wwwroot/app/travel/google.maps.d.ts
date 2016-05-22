@@ -18,6 +18,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
+declare module Server {
+    export class Address {
+        public static value: string;
+    }
+}
 
 declare module google.maps {
 

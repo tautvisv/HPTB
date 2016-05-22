@@ -17,8 +17,6 @@ var UserSettings = (function () {
     return UserSettings;
 }());
 exports.UserSettings = UserSettings;
-//TOOd remove this comment
-//http://localhost:37096/
 var UserSettingsViewItem = (function () {
     function UserSettingsViewItem() {
         this.name = new UserSettingsItem("", "", "", "", ".*");

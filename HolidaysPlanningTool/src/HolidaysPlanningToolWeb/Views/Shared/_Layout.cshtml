@@ -4,24 +4,33 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <base href="/" />
-    <title>@ViewData["Title"] - HolidaysPlanningToolWeb</title>
+    <title>@ViewData["Title"] - Atostogų planavimo sistema</title>
 
     <environment names="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css"/>
+        <link rel="stylesheet" href="~/css/site.css"/>
+        <link href="~/css/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet"/>
+        <link href="~/css/ng2-toastr.min.css" rel="stylesheet"/>
+        <link href="~/css/primeui-ng-all.min.css" rel="stylesheet"/>
+        <link href="~/css/ripples.min.css" rel="stylesheet"/>
+        <link href="~/css/bootstrap-material-design.min.css" rel="stylesheet"/>
+    </environment>
+    <environment names="Staging,Production">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
         <link href="~/css/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
-        <link href="~/css/ng2-toastr.min.css" rel="stylesheet"/>
+        <link href="~/css/ng2-toastr.min.css" rel="stylesheet" />
         <link href="~/css/primeui-ng-all.min.css" rel="stylesheet" />
         <link href="~/css/ripples.min.css" rel="stylesheet" />
         <link href="~/css/bootstrap-material-design.min.css" rel="stylesheet" />
     </environment>
-    <environment names="Staging,Production">
+    @*<environment names="Staging,Production">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"/>
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true"/>
         <link href="~/css/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet"/>
-    </environment>
+    </environment>*@
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSjYCCntbYJDDuF4CLpX61HV4PqlqSuIw&libraries=places&sensor=false"
             type="text/javascript"></script>
 
@@ -117,7 +126,24 @@
     @*<script src="~/js/angular2-jwt.js"></script>*@
     <script src="~/js/site.js" asp-append-version="true"></script>
 </environment>
-<environment names="Staging,Production">
+    <environment names="Staging,Production">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/material.min.js"></script>
+        <script src="~/js/ripples.min.js"></script>
+        <script src="~/js/system.js"></script>
+        <script src="~/js/rx.js"></script>
+        <script src="~/js/typescript.js"></script>
+        <script src="~/js/angular2/angular2.dev.js"></script>
+        <script src="~/js/angular2/angular2-polyfills.js"></script>
+        <script src="~/js/angular2/http.dev.js"></script>
+        <script src="~/js/angular2/router.dev.js"></script>
+        <script src="~/js/ng2-toastr.js"></script>
+        <script src="~/js/ng2-bs3-modal.min.js"></script>
+        @*<script src="~/js/angular2-jwt.js"></script>*@
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+@*<environment names="Staging,Production">
     <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"
             asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
             asp-fallback-test="window.jQuery">
@@ -137,7 +163,7 @@
     <script src="~/js/angular2/router.dev.min.js"></script>
 
     <script src="~/js/site.min.js" asp-append-version="true"></script>
-</environment>
+</environment>*@
 
     @RenderBody()
     <hr/>
