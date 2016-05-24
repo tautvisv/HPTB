@@ -50,6 +50,10 @@
       <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MySql.Data, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.6.9.8\lib\net45\MySql.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Npgsql, Version=3.0.5.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
       <HintPath>..\packages\Npgsql.3.0.5\lib\net45\Npgsql.dll</HintPath>
       <Private>True</Private>
@@ -65,68 +69,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201604241601160_initial.cs" />
-    <Compile Include="Migrations\201604241601160_initial.Designer.cs">
-      <DependentUpon>201604241601160_initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201604302012178_userID.cs" />
-    <Compile Include="Migrations\201604302012178_userID.Designer.cs">
-      <DependentUpon>201604302012178_userID.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605010934237_userSettingsModelChanged.cs" />
-    <Compile Include="Migrations\201605010934237_userSettingsModelChanged.Designer.cs">
-      <DependentUpon>201605010934237_userSettingsModelChanged.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605011007202_userSettingsModelChangedAgain.cs" />
-    <Compile Include="Migrations\201605011007202_userSettingsModelChangedAgain.Designer.cs">
-      <DependentUpon>201605011007202_userSettingsModelChangedAgain.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605011022242_userSettingsModelChangedAgainAgain.cs" />
-    <Compile Include="Migrations\201605011022242_userSettingsModelChangedAgainAgain.Designer.cs">
-      <DependentUpon>201605011022242_userSettingsModelChangedAgainAgain.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605011036488_userSettingsModelDescriptionRenamed.cs" />
-    <Compile Include="Migrations\201605011036488_userSettingsModelDescriptionRenamed.Designer.cs">
-      <DependentUpon>201605011036488_userSettingsModelDescriptionRenamed.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605011542016_MyUserIdChanged.cs" />
-    <Compile Include="Migrations\201605011542016_MyUserIdChanged.Designer.cs">
-      <DependentUpon>201605011542016_MyUserIdChanged.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605011551239_TravelModelChanged.cs" />
-    <Compile Include="Migrations\201605011551239_TravelModelChanged.Designer.cs">
-      <DependentUpon>201605011551239_TravelModelChanged.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605011552525_TravelModelChanged1.cs" />
-    <Compile Include="Migrations\201605011552525_TravelModelChanged1.Designer.cs">
-      <DependentUpon>201605011552525_TravelModelChanged1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605011633291_TravelModelChanged2.cs" />
-    <Compile Include="Migrations\201605011633291_TravelModelChanged2.Designer.cs">
-      <DependentUpon>201605011633291_TravelModelChanged2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605022212175_CommentModelChanged.cs" />
-    <Compile Include="Migrations\201605022212175_CommentModelChanged.Designer.cs">
-      <DependentUpon>201605022212175_CommentModelChanged.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605032111411_TravelWithUrlArray.cs" />
-    <Compile Include="Migrations\201605032111411_TravelWithUrlArray.Designer.cs">
-      <DependentUpon>201605032111411_TravelWithUrlArray.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605032116266_TravelWithoutUrlArray.cs" />
-    <Compile Include="Migrations\201605032116266_TravelWithoutUrlArray.Designer.cs">
-      <DependentUpon>201605032116266_TravelWithoutUrlArray.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605051945575_ViewsAndLikes.cs" />
-    <Compile Include="Migrations\201605051945575_ViewsAndLikes.Designer.cs">
-      <DependentUpon>201605051945575_ViewsAndLikes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605081135064_ViewsAndLikesCount.cs" />
-    <Compile Include="Migrations\201605081135064_ViewsAndLikesCount.Designer.cs">
-      <DependentUpon>201605081135064_ViewsAndLikesCount.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="DatabaseDbContext.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -143,53 +87,7 @@
       <Name>Models</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201604241601160_initial.resx">
-      <DependentUpon>201604241601160_initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604302012178_userID.resx">
-      <DependentUpon>201604302012178_userID.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605010934237_userSettingsModelChanged.resx">
-      <DependentUpon>201605010934237_userSettingsModelChanged.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605011007202_userSettingsModelChangedAgain.resx">
-      <DependentUpon>201605011007202_userSettingsModelChangedAgain.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605011022242_userSettingsModelChangedAgainAgain.resx">
-      <DependentUpon>201605011022242_userSettingsModelChangedAgainAgain.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605011036488_userSettingsModelDescriptionRenamed.resx">
-      <DependentUpon>201605011036488_userSettingsModelDescriptionRenamed.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605011542016_MyUserIdChanged.resx">
-      <DependentUpon>201605011542016_MyUserIdChanged.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605011551239_TravelModelChanged.resx">
-      <DependentUpon>201605011551239_TravelModelChanged.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605011552525_TravelModelChanged1.resx">
-      <DependentUpon>201605011552525_TravelModelChanged1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605011633291_TravelModelChanged2.resx">
-      <DependentUpon>201605011633291_TravelModelChanged2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605022212175_CommentModelChanged.resx">
-      <DependentUpon>201605022212175_CommentModelChanged.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605032111411_TravelWithUrlArray.resx">
-      <DependentUpon>201605032111411_TravelWithUrlArray.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605032116266_TravelWithoutUrlArray.resx">
-      <DependentUpon>201605032116266_TravelWithoutUrlArray.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605051945575_ViewsAndLikes.resx">
-      <DependentUpon>201605051945575_ViewsAndLikes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605081135064_ViewsAndLikesCount.resx">
-      <DependentUpon>201605081135064_ViewsAndLikesCount.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

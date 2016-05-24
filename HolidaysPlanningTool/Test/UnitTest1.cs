@@ -20,6 +20,26 @@ namespace Test
             conn.Open();
             conn.Close();
         }
+
+        [TestMethod]
+        public void TestKTUConnection()
+        {
+            //var conn = new NpgsqlConnection("Server=127.0.0.1;Port=5432;User Id=joe;Password=secret;Database=joedata;");
+            // Server = localhost; Port = 5432; User Id = postgres; Password = admin; Database = ktu_bakalauras;
+            var conn = new MySql.Data.MySqlClient.MySqlConnection(@"Server = db.if.ktu.lt; User Id = tauvai; Password = eivuShooYaeZagh1; Database = tauvai");
+            conn.Open();
+            conn.Close();
+        }
+        [TestMethod]
+        public void TestHerokuConnection()
+        {
+            //var conn = new NpgsqlConnection("Server=127.0.0.1;Port=5432;User Id=joe;Password=secret;Database=joedata;");
+            // Server = localhost; Port = 5432; User Id = postgres; Password = admin; Database = ktu_bakalauras;
+            var conn = new NpgsqlConnection(@"Server= ec2-54-228-189-127.eu-west-1.compute.amazonaws.com; Port=5432; User Id = npoqopmgckqucr; Password = m5Cr9iDtIjlqzqeHhyagJxFXZ1;
+Database = dahvv335igg0cu; SSL Mode=Require;");
+            conn.Open();
+            conn.Close(); 
+        }
     }
     [TestClass]
     public class LikesRepositoryTest
