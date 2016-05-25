@@ -11,6 +11,7 @@ require('rxjs/add/operator/map');
 require('rxjs/operator/delay');
 require('rxjs/operator/mergeMap');
 require('rxjs/operator/switchMap');
+//http://localhost:2922/api/Mock/5
 var MiscService = (function () {
     //private _controllerName = "PhotoUpload/testf";
     function MiscService(http) {

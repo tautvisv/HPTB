@@ -19,8 +19,7 @@ var TravelCreateComponent = (function () {
         this.router = router;
         this.travelService = travelService;
         this.todoService = todoService;
-        // private travels: TravelClass[];
-        //  private travelHome: TravelClass;
+        this.hotels = [];
         this.fileUploader = new file_upload_service_1.UploadService();
         this.travel = new TravelClass_1.FullTravel();
         this.a = new TravelClass_1.TravelClass(new TravelClass_1.Point());
@@ -53,8 +52,30 @@ var TravelCreateComponent = (function () {
             _this.travel.ImageUrl = photoUrl[0];
         });
     };
+    TravelCreateComponent.prototype.validate = function (travel) {
+        if (!travel.Name) {
+            this._notificationService.error("Įveskite kelionės pavadinimą");
+            return false;
+        }
+        if (!travel.Description) {
+            this._notificationService.error("Įveskite kelionės aprašymą");
+            return false;
+        }
+        if (!travel.StartDay || !travel.StartDay.Point || (!travel.StartDay.Point.Latitude && !travel.StartDay.Point.Longitude)) {
+            this._notificationService.error("Žemėlapyje pasirinkite kelionės pradžią");
+            return false;
+        }
+        if (!travel.EndDay || !travel.EndDay.Point || (!travel.EndDay.Point.Latitude && !travel.EndDay.Point.Longitude)) {
+            this._notificationService.error("Žemėlapyje pasirinkite kelionės pabaigą");
+            return false;
+        }
+        return true;
+    };
     TravelCreateComponent.prototype.saveTravel = function () {
         var _this = this;
+        if (!this.validate(this.travel)) {
+            return;
+        }
         this.travelService.saveTravel(this.travel).subscribe(function (response) {
             _this._notificationService.success("kelionė sėkmingai išsaugota");
             _this.router.navigate(["Tour", { id: response.Id }]);
@@ -83,16 +104,19 @@ var TravelCreateComponent = (function () {
                 if (index === -2) {
                     _this.travel.StartDay.Point = new TravelClass_1.Point(coords.lat(), coords.lng());
                     _this.travel.StartDay.Point.Address = address;
+                    _this.map.placeSearch(coords, function (hotels) { return _this.hotels[29] = hotels; });
                 }
                 else if (index === -3) {
                     _this.travel.EndDay.Point = new TravelClass_1.Point(coords.lat(), coords.lng());
                     _this.travel.EndDay.Point.Address = address;
+                    _this.map.placeSearch(coords, function (hotels) { return _this.hotels[30] = hotels; });
                 }
                 else {
                     var travelDay = new TravelClass_1.TravelClass(new TravelClass_1.Point(coords.lat(), coords.lng()));
                     travelDay.Point.Address = address;
                     travelDay.OrderIndex = index + 2;
                     _this.travel.WayPoints.push(travelDay);
+                    _this.map.placeSearch(coords, function (hotels) { return _this.hotels[index] = hotels; });
                 }
                 _this.zone.run(function () {
                     console.log('Updated List: ');
@@ -103,12 +127,15 @@ var TravelCreateComponent = (function () {
                 newPoint.Address = address;
                 if (index === -2) {
                     _this.travel.StartDay.Point = newPoint;
+                    _this.map.placeSearch(coords, function (hotels) { return _this.hotels[29] = hotels; });
                 }
                 else if (index === -3) {
                     _this.travel.EndDay.Point = newPoint;
+                    _this.map.placeSearch(coords, function (hotels) { return _this.hotels[30] = hotels; });
                 }
                 else {
                     _this.travel.WayPoints[index].Point = newPoint;
+                    _this.map.placeSearch(coords, function (hotels) { return _this.hotels[index] = hotels; });
                 }
                 _this.zone.run(function () {
                     console.log('Updated List: ');
@@ -150,6 +177,7 @@ var TravelCreateComponent = (function () {
             }
         };
         this.mapComponent.setMapClicks(clicks);
+        this.map = this.mapComponent.map;
     };
     __decorate([
         core_1.ViewChild(travel_map_component_1.TravelMapComponent)

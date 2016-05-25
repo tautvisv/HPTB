@@ -19,7 +19,7 @@ export class TravelMapComponent implements OnInit {
     constructor(private notificationService: ToastsManager, private travelMethods: TravelMethodsHelper, public map: GoogleMaps) {
     }
     public setMapClicks(clicks: MapClickCallbacks) {
-       this. map.setCallBacks(clicks);
+       this.map.setCallBacks(clicks);
     }
     public setWaypoints(travel: FullTravel) {
         var list: google.maps.DirectionsWaypoint[] = [];

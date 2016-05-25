@@ -11,6 +11,7 @@ import 'rxjs/operator/delay';
 import 'rxjs/operator/mergeMap';
 import 'rxjs/operator/switchMap';
 
+//http://localhost:2922/api/Mock/5
 @Injectable()
 export class MiscService {
     //private _controllerName = "PhotoUpload/testf";

@@ -17,6 +17,8 @@ export class UserSettings {
     public Email: string;
     public ImageUrl: string;
 }
+//TOOd remove this comment
+//http://localhost:37096/
 export class UserSettingsViewItem {
     constructor() {
     }

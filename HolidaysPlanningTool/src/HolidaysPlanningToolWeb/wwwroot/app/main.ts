@@ -24,9 +24,9 @@ import {AuthHttp, AuthConfig, AUTH_PROVIDERS} from './services/angular2-jwt';
 import {MainApp} from './main-app.component';
 
 let notificationOptions = {
-    autoDismiss: false,
+    autoDismiss: true,
     positionClass: 'toast-top-right',
-
+    
 };
 
 bootstrap(MainApp, [ToastsManager, TravelService, MiscService, AccountService, httpAuthorized, TodoService,

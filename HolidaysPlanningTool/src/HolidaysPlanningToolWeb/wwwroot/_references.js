@@ -64,7 +64,6 @@
 /// <reference path="js/jquery.js" />
 /// <reference path="js/material.min.js" />
 /// <reference path="js/ng2-bs3-modal.min.js" />
-/// <reference path="js/ng2-bs3-modal.min.min.js" />
 /// <reference path="js/ng2-pagination-bundle.js" />
 /// <reference path="js/ng2-toastr.js" />
 /// <reference path="js/primeui-ng-all.js" />

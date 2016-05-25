@@ -26,7 +26,7 @@ namespace Repositories
         }
         public bool Exist(string username, string email)
         {
-            var user = _dbset.FirstOrDefault(x => x.Email.Equals(email) && !x.Username.Equals(username));
+            var user = _dbset.FirstOrDefault(x => x.Email.Equals(email) && !x.Username.ToLower().Equals(username.ToLower()));
             return user != null;
         }
     }

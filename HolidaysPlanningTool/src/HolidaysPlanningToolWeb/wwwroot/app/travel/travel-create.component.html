@@ -30,14 +30,14 @@
         <div style="clear: both"></div>
         <ul class="travel-items">
             <li class="first">
-                <travel-day-item-component [travel]="travel.StartDay"></travel-day-item-component>
+                <travel-day-item-component [travel]="travel.StartDay" [hotelsList]="hotels[29]"></travel-day-item-component>
             </li>
             <li *ngFor="#travela of travel.WayPoints; #i = index" >
-                <travel-day-item-component [travel]="travela" [title]="i+1">loading</travel-day-item-component>
+                <travel-day-item-component [travel]="travela" [title]="i+1" [hotelsList]="hotels[i]">loading</travel-day-item-component>
                 <a class="btn btn-info" (click)="openTravelDayModal(travela)">Detalus dienos planas</a>
             </li>
             <li class="last">
-                <travel-day-item-component [travel]="travel.EndDay"></travel-day-item-component>
+                <travel-day-item-component [travel]="travel.EndDay" [hotelsList]="hotels[30]"></travel-day-item-component>
             </li>
         </ul>
 

@@ -11,25 +11,38 @@ import {TodoService} from '../services/global-emmiter';
 export class TravelDayComponent implements OnInit, AfterViewInit, OnDestroy {
     @Input() travel: TravelClass;
     @Input() title: string;
-    private autocomplete: any;
+    @Input() hotelsList: any[];
+    private input: HTMLInputElement;
+    private autocomplete: google.maps.places.Autocomplete;
+    private selectedHotel: any;
     constructor(private myElement: ElementRef, private todoService: TodoService) {
     }
-
+    private onChangeHotel(address) {
+        console.log(address);
+        this.travel.Point.Address = address;
+        this.input.value = address;
+        
+        google.maps.event.trigger(this.autocomplete, 'place_changed');
+    }
     ngOnInit() {
     }
     ngAfterViewInit() {
-        var input = <HTMLInputElement>$(this.myElement.nativeElement).find("#point_address")[0];// < HTMLInputElement > document.getElementById('point_address');
-        var autocomplete = new google.maps.places.Autocomplete(input);
+        this.input = <HTMLInputElement>$(this.myElement.nativeElement).find("#point_address")[0];// < HTMLInputElement > document.getElementById('point_address');
+        var autocomplete = new google.maps.places.Autocomplete(this.input);
         var thisTodo = this.todoService;
         var that = this;
         autocomplete.addListener('place_changed', function () {
             var place = autocomplete.getPlace();
-            console.log("pasirinkta vieta", input.value);
-            if (!place.geometry) {
-                console.error("vietove nerasta: ", input.value);
+            console.log("pasirinkta vieta", that.input.value);
+            if (!place) {
+                console.warn("no place");
                 return;
             }
-            that.travel.Point.Address = input.value;
+            if (!place.geometry) {
+                console.error("vietove nerasta: ", that.input.value);
+                return;
+            }
+            that.travel.Point.Address = that.input.value;
             that.travel.Point.Latitude = place.geometry.location.lat()
             that.travel.Point.Longitude = place.geometry.location.lng()
             that.todoService.itemAdded$.emit(that.travel.Point);

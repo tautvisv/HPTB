@@ -18,11 +18,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-declare module Server {
-    export class Address {
-        public static value: string;
-    }
-}
 
 declare module google.maps {
 
@@ -1355,12 +1350,12 @@ declare module google.maps {
         }
 
         export interface PlaceSearchRequest {
-            bounds: LatLngBounds;
-            keyword: string;
+            bounds?: LatLngBounds;
+            keyword?: string;
             location: LatLng;
-            name: string;
+            name?: string;
             radius: number;
-            rankBy: RankBy;
+            rankBy?: RankBy;
             types: string[];
         }
 

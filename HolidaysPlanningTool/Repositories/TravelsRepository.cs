@@ -25,9 +25,39 @@ namespace Repositories
         {
             entity.LikesCount = 0;
             entity.ViewsCount = 0;
+            entity.KeyWords = CreateKeyWords(entity);
             return _dbset.Add(entity);
         }
 
+        private string CreateKeyWords(Travel travel)
+        {
+            var keywords = new List<string> {travel.Name, travel.Description, travel.AuthorId};
+            if (travel.StartDay != null)
+            {
+                keywords.Add(travel.StartDay.Name);
+                keywords.Add(travel.StartDay.Description);
+            }
+            if (travel.EndDay != null)
+            {
+                keywords.Add(travel.EndDay.Name);
+                keywords.Add(travel.EndDay.Description);
+            }
+            if (travel.WayPoints != null)
+            {
+                foreach (var travelDayPlan in travel.WayPoints)
+                {
+                    keywords.Add(travelDayPlan.Name);
+                    keywords.Add(travelDayPlan.Description);
+                    foreach (var travelPointPlan in travelDayPlan.TravelDays)
+                    {
+
+                        keywords.Add(travelPointPlan.Name);
+                        keywords.Add(travelPointPlan.Description);
+                    }
+                }
+            }
+            return string.Join(" ", keywords);
+        }
         public override Travel GetById(int id)
         {
             var travel = _dbset
@@ -102,7 +132,7 @@ namespace Repositories
             if (!string.IsNullOrEmpty(phrase))
             {
                 travelsQuery = travelsQuery.Where(
-                    t =>
+                    t => t.KeyWords.Contains(phrase) || 
                         t.Author.Name.Contains(phrase) || t.Author.UserId.Contains(phrase) ||
                         t.Author.UserId.Contains(phrase) || t.Name.Contains(phrase) || t.Description.Contains(phrase) || t.StartDay.Point.Address.Contains(phrase) || t.EndDay.Point.Address.Contains(phrase));
                 // travelsQuery = (from t in _dbset where (t.Author.Name.Contains(phrase)) || t.Author.UserId.Contains(phrase) || t.Author.UserId.Contains(phrase) || t.Name.Contains(phrase) || t.Description.Contains(phrase) select t);

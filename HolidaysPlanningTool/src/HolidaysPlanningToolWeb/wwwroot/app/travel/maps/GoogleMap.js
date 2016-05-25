@@ -119,6 +119,7 @@ var GoogleMaps = (function () {
         };
         this.clickFunctions = clicks;
         var that = this;
+        this.places = new google.maps.places.PlacesService(this.map);
         google.maps.event.addListener(this.map, 'click', function ($event) {
             if (_this.disableClick) {
                 return;
@@ -237,6 +238,18 @@ var GoogleMaps = (function () {
         else {
             this.routeService.removeRoute();
         }
+    };
+    GoogleMaps.prototype.placeSearch = function (coords, callback) {
+        var search = {
+            location: coords,
+            types: ['lodging'],
+            radius: 5000,
+        };
+        this.places.nearbySearch(search, function (results, status) {
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
+                callback(results);
+            }
+        });
     };
     GoogleMaps = __decorate([
         core_1.Injectable()

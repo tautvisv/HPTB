@@ -36,10 +36,20 @@ var UserSettingsComponent = (function () {
             _this.userInfo.image.url = photoUrl;
         });
     };
+    UserSettingsComponent.prototype.validateUserSettings = function (userSettings) {
+        if (!userSettings.Email) {
+            this._notificationService.error("Elektroninis paštas yra privalomas laukas");
+            return false;
+        }
+        return true;
+    };
     UserSettingsComponent.prototype.saveSettings = function () {
         var _this = this;
         //TODO createuserSettings
         var userSettings = this.userInfo.getUserSettings();
+        if (!this.validateUserSettings(userSettings)) {
+            return;
+        }
         this._settingsService.saveUserSettings(userSettings).subscribe(function (res) {
             _this._notificationService.success("Vartotojo informacija atnaujinta, atsakas iš serverio.");
             _this.router.navigate(["ToursList"]);

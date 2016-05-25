@@ -14,10 +14,6 @@ using HolidaysPlanningToolWeb.Services;
 
 namespace HolidaysPlanningToolWeb
 {
-    public class APIOptions
-    {
-        public string Address { get; set; }
-    }
     public class Startup
     {
         public Startup(IHostingEnvironment env)
@@ -53,9 +49,6 @@ namespace HolidaysPlanningToolWeb
                 .AddSqlServer()
                 .AddDbContext<ApplicationDbContext>(options =>
                     options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
-
-            services.Configure<APIOptions>(options =>
-                options.Address = Configuration["Data:DefaultConnection:apiAddress"]);
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()

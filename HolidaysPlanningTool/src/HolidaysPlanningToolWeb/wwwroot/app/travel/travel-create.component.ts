@@ -27,6 +27,8 @@ export class TravelCreateComponent implements OnInit {
 
    // private travels: TravelClass[];
     //  private travelHome: TravelClass;
+    private map: any;
+    private hotels = [];
     private fileUploader: UploadService = new UploadService();
     private travel: FullTravel = new FullTravel();
     zone: NgZone;
@@ -62,8 +64,30 @@ export class TravelCreateComponent implements OnInit {
             this.travel.ImageUrl = photoUrl[0];
         });
     }
+    private validate(travel: FullTravel) {
+        if (!travel.Name) {
+            this._notificationService.error("Įveskite kelionės pavadinimą");
+            return false;
+        }
+        if (!travel.Description) {
+            this._notificationService.error("Įveskite kelionės aprašymą");
+            return false;
+        }
+        if (!travel.StartDay || !travel.StartDay.Point || (!travel.StartDay.Point.Latitude && !travel.StartDay.Point.Longitude)) {
+            this._notificationService.error("Žemėlapyje pasirinkite kelionės pradžią");
+            return false;
+        }
+        if (!travel.EndDay || !travel.EndDay.Point || (!travel.EndDay.Point.Latitude && !travel.EndDay.Point.Longitude)) {
+            this._notificationService.error("Žemėlapyje pasirinkite kelionės pabaigą");
+            return false;
+        }
+        return true;
+    }
 
     saveTravel(): void {
+        if (!this.validate(this.travel)) {
+            return;
+        }
         this.travelService.saveTravel(this.travel).subscribe((response: FullTravel) => {
             this._notificationService.success("kelionė sėkmingai išsaugota");
             this.router.navigate(["Tour", { id: response.Id }]);
@@ -92,14 +116,17 @@ export class TravelCreateComponent implements OnInit {
                 if (index === -2) {
                     this.travel.StartDay.Point = new Point(coords.lat(), coords.lng());
                     this.travel.StartDay.Point.Address = address;
+                    this.map.placeSearch(coords, (hotels) => this.hotels[29] = hotels);
                 } else if (index === -3) {
                     this.travel.EndDay.Point = new Point(coords.lat(), coords.lng());
                     this.travel.EndDay.Point.Address = address;
+                    this.map.placeSearch(coords, (hotels) => this.hotels[30] = hotels);
                 } else {
                     var travelDay = new TravelClass(new Point(coords.lat(), coords.lng()));
                     travelDay.Point.Address = address;
                     travelDay.OrderIndex = index + 2;
                     this.travel.WayPoints.push(travelDay);
+                    this.map.placeSearch(coords, (hotels) => this.hotels[index] = hotels);
                 }
                 this.zone.run(() => {
                     console.log('Updated List: ');
@@ -110,10 +137,13 @@ export class TravelCreateComponent implements OnInit {
                 newPoint.Address = address;
                 if (index === -2) {
                     this.travel.StartDay.Point = newPoint;
+                    this.map.placeSearch(coords, (hotels) => this.hotels[29] = hotels);
                 } else if (index === -3) {
                     this.travel.EndDay.Point = newPoint;
+                    this.map.placeSearch(coords, (hotels) => this.hotels[30] = hotels);
                 }else{
                     this.travel.WayPoints[index].Point = newPoint;
+                    this.map.placeSearch(coords, (hotels) => this.hotels[index] = hotels);
                 }
                 this.zone.run(() => {
                     console.log('Updated List: ');
@@ -151,5 +181,6 @@ export class TravelCreateComponent implements OnInit {
             }
         };
         this.mapComponent.setMapClicks(clicks);
+        this.map = this.mapComponent.map;
     }
 }

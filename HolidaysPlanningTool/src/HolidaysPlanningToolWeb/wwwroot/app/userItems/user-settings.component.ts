@@ -39,9 +39,21 @@ export class UserSettingsComponent implements OnInit {
             this.userInfo.image.url = photoUrl;
         });
     }
+    private validateUserSettings(userSettings: UserSettings): boolean {
+        if (!userSettings.Email) {
+            this._notificationService.error("Elektroninis paštas yra privalomas laukas");
+            return false;
+        }
+        return true;
+    }
     saveSettings(): void {
         //TODO createuserSettings
-        var userSettings: UserSettings = this.userInfo.getUserSettings();
+        var userSettings = this.userInfo.getUserSettings();
+
+        if (!this.validateUserSettings(userSettings)) {
+            return;
+        }
+
         this._settingsService.saveUserSettings(userSettings).subscribe(
             res => {
                 this._notificationService.success("Vartotojo informacija atnaujinta, atsakas iš serverio." );

@@ -132,7 +132,7 @@ export class FullTravel implements IImage {
     public ImageUrl: string;
     public ImageUrls: string[];
     public FullImageUrl(): string { return this.ImageUrl? Constants.WebAPI + this.ImageUrl: ""; };
-    public Descrription: string;
+    public Description: string;
     public Author: Author;
     public Likes: number;
     public Views: number;

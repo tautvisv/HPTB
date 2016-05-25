@@ -18,7 +18,14 @@
 
         <div class="form-group col-sm-6" style="margin-top: 0;">
             <label for="point_address" class="control-label">Adresas</label>
-            <input type="text" [(ngModel)]="travel.Point.Address" id="point_address"  class="form-control"/>
+            <input type="text" [(ngModel)]="travel.Point.Address" id="point_address" class="form-control"/>
+        </div>
+        <div class="form-group col-sm-12" style="margin-top: 0;" *ngIf="hotelsList">
+            <label class="control-label">Viešbučiai</label>
+            <select class="form-control" #s (change)="onChangeHotel(s.value)">
+                <option>Pasirinkite</option>
+                <option *ngFor="#hotel of hotelsList" [value]="hotel.vicinity" >{{hotel.name + " " + hotel.vicinity}}</option>
+            </select>
         </div>
         <div style="clear: both"></div>
         <div class="tavel-item-description form-group label-floating is-empty">

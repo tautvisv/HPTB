@@ -24,10 +24,10 @@ var TravelMapComponent = (function () {
     TravelMapComponent.prototype.setWaypoints = function (travel) {
         var _this = this;
         var list = [];
-        travel.wayPoints.forEach(function (day) {
+        travel.WayPoints.forEach(function (day) {
             list.push(_this.travelMethods.convertPointToDirectionsWaypoint(day.Point));
         });
-        this.map.setWayPoints(this.travelMethods.convertPointToDirectionsWaypoint(travel.startDay.Point), this.travelMethods.convertPointToDirectionsWaypoint(travel.endDay.Point), list); //, travel.endDay, []);
+        this.map.setWayPoints(this.travelMethods.convertPointToDirectionsWaypoint(travel.StartDay.Point), this.travelMethods.convertPointToDirectionsWaypoint(travel.EndDay.Point), list); //, travel.endDay, []);
     };
     //private travelToWaypoint(travel: TravelClass, stopover: boolean = false): google.maps.DirectionsWaypoint {
     //    return {

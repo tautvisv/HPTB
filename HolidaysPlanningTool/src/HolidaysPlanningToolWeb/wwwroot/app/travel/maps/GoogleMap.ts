@@ -24,6 +24,7 @@ export class GoogleMaps {
     private map: google.maps.Map;
     private autoFindRoute: boolean = true;
     private disableClick: boolean = false;
+    private places: google.maps.places.PlacesService;
 
     constructor(private notificationServiceToaster: ToastsManager) {//private map: google.maps.Map, private routeService: IRouteService, 
        // var mapOption = new google.maps.MapOptions();
@@ -136,6 +137,7 @@ export class GoogleMaps {
         };
         this.clickFunctions = clicks;
         var that = this;
+        this.places = new google.maps.places.PlacesService(this.map);
         google.maps.event.addListener(this.map, 'click', ($event) => {
             if (this.disableClick) {
                 return;
@@ -255,7 +257,38 @@ export class GoogleMaps {
             this.routeService.removeRoute();
         }
     }
+    
+    placeSearch(coords: google.maps.LatLng, callback: Function) {
+        var search = {
+            location: coords,
+            types: ['lodging'],
+            radius: 5000,
+        };
 
+        this.places.nearbySearch(search, function (results, status) {
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
+                callback(results);
+                // Create a marker for each hotel found, and
+                // assign a letter of the alphabetic to each marker icon.
+                //for (var i = 0; i < results.length; i++) {
+                //    var markerLetter = String.fromCharCode('A'.charCodeAt(0) + i);
+                //    var markerIcon = MARKER_PATH + markerLetter + '.png';
+                //    // Use marker animation to drop the icons incrementally on the map.
+                //    markers[i] = new google.maps.Marker({
+                //        position: results[i].geometry.location,
+                //        animation: google.maps.Animation.DROP,
+                //        icon: markerIcon
+                //    });
+                //    // If the user clicks a hotel marker, show the details of that hotel
+                //    // in an info window.
+                //    markers[i].placeResult = results[i];
+                //    google.maps.event.addListener(markers[i], 'click', showInfoWindow);
+                //    setTimeout(dropMarker(i), i * 100);
+                //    addResult(results[i], i);
+                //}
+            }
+        });
+    }
 
 }
 export interface IRouteService {
