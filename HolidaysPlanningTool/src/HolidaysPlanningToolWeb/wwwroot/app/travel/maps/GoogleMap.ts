@@ -98,10 +98,10 @@ export class GoogleMaps {
                         this.clickFunctions.dragged(this.startPoint, this.endPoint, this.wayPoints, index, coordinates, results[0].formatted_address);
                         if (this.autoFindRoute) this.findRoute();
                     } else {
-                        window.alert('No results found');
+                        console.warn('No results found');
                     }
                 } else {
-                    window.alert('Geocoder failed due to: ' + status);
+                    console.warn('Geocoder failed due to: ' + status);
                 }
             });
             
@@ -176,7 +176,7 @@ export class GoogleMaps {
                         //
                         //this.map.setZoom(11);
                     } else {
-                        window.alert('No results found');
+                        console.warn('No results found');
                     }
                 } else {
                     window.alert('Geocoder failed due to: ' + status);
@@ -333,7 +333,7 @@ export class RouteService implements IRouteService {
                 //    this._map.fitBounds(latlngbounds); 
                 //}
             } else {
-                window.alert('Directions request failed due to ' + status);
+                console.warn('Directions request failed due to ' + status);
             }
         });
     }

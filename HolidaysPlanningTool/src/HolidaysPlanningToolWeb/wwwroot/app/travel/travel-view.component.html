@@ -15,7 +15,8 @@
         </div>
 
         <div class="travel-duration" *ngIf="durationString && !durationString.default">
-            Numatoma kelionės trukmė: <span class="point-item-hours">{{durationString.days}} </span> {{translateDays(durationString.days)}}
+            Numatoma kelionės trukmė: 
+            <span class="point-item-hours">{{durationString.days}} </span> {{translateDays(durationString.days)}}
             <span class="point-item-hours">{{durationString.hours}}</span> {{translateHours(durationString.hours)}}
             <span class="point-item-hours">{{durationString.minutes}} </span> {{translateMinutes(durationString.minutes)}}
         </div>

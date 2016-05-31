@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit, Input, Output, EventEmitter } from 'angular2/core';
 import { MiscService } from '../../services/misc.service';
 import { Comment } from '../TravelClass';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 @Component({
     selector: 'comment-create',
@@ -12,7 +13,7 @@ export class CommentCreateComponent implements OnInit {
     @Input() travelId: number;
 
     private comment: Comment;
-    constructor(private service: MiscService) {
+    constructor(private _notificationService: ToastsManager, private service: MiscService) {
         this.comment = new Comment();
     }
 
@@ -26,6 +27,6 @@ export class CommentCreateComponent implements OnInit {
             this.addComment.next(comment);
             this.comment.Text = "";
         },
-            function() { console.error("komentaras neisaugotas", arguments) });
+            () => { this._notificationService.error("Palikti atsiliepimą apie kelionę gali tik tais registruotas vartotojas"); });
     }
 }

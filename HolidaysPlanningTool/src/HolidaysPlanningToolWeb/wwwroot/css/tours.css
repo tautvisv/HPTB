@@ -309,7 +309,8 @@
   top: 5px; }
 
 .user-image.big {
-  width: 100%; }
+  width: 100%;
+  max-width: 300px; }
 
 .travel-day-item-name {
   font-weight: bold;
@@ -393,4 +394,9 @@
 
 .travel-item-misc i {
   padding-right: 5px; }
+
+.travel-days-items .title {
+  font-size: 25px;
+  font-weight: bold;
+  background: #DCDCDC; }
 

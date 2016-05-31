@@ -9,6 +9,12 @@ var core_1 = require('angular2/core');
 var TravelViewDayPointComponent = (function () {
     function TravelViewDayPointComponent() {
     }
+    TravelViewDayPointComponent.prototype.ngOnInit = function () {
+        if (this.point.Duration) {
+            var date = new Date(this.point.Duration.toString());
+            this.point.Duration = date.getHours() + ":" + date.getMinutes();
+        }
+    };
     __decorate([
         core_1.Input("point")
     ], TravelViewDayPointComponent.prototype, "point", void 0);

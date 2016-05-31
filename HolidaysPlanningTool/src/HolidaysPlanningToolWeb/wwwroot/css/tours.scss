@@ -14,6 +14,7 @@ $travel-list-image-size: 40px;
 $travel-item-spacing: 5px;
 $author-image-size: 35px;
 $large-modal-width: 1100px;
+$travel-day-plan-list-background: #DCDCDC;
 
 .component {
     border-radius: 2px;
@@ -375,7 +376,8 @@ $large-modal-width: 1100px;
     
 }
 .user-image.big {
-    width: 100%
+    width: 100%;
+    max-width: 300px;
 }
 .travel-day-item-name {
     font-weight: bold;
@@ -397,7 +399,7 @@ $large-modal-width: 1100px;
 }
 .travel-view-days-container {
     width: 3000px; 
-    background: #DCDCDC;
+    background: $travel-day-plan-list-background;
     padding-top: 10px;
     padding-bottom: 10px;
 }
@@ -462,4 +464,9 @@ $large-modal-width: 1100px;
 }
 .travel-item-misc i {
     padding-right: 5px;
+}
+.travel-days-items .title {
+    font-size: 25px;
+    font-weight: bold;
+    background: $travel-day-plan-list-background;
 }

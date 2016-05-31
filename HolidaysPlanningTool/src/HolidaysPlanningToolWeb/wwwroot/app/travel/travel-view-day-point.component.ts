@@ -15,4 +15,11 @@ export class TravelViewDayPointComponent {
     constructor() {
 
     }
+
+    ngOnInit() {
+        if (this.point.Duration) {
+            var date = new Date(this.point.Duration.toString());
+            this.point.Duration = date.getHours() + ":" + date.getMinutes();
+        }
+    }
 }

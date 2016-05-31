@@ -13,6 +13,8 @@ export class CommentComponent implements OnInit {
     }
 
     ngOnInit() {
-
+        if (this.comment.Date) {
+            this.comment.Date = new Date(this.comment.Date.toString());
+        }
     }
 }

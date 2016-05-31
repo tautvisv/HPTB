@@ -8,7 +8,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var core_1 = require('angular2/core');
 var TravelClass_1 = require('../TravelClass');
 var CommentCreateComponent = (function () {
-    function CommentCreateComponent(service) {
+    function CommentCreateComponent(_notificationService, service) {
+        this._notificationService = _notificationService;
         this.service = service;
         this.addComment = new core_1.EventEmitter();
         this.comment = new TravelClass_1.Comment();
@@ -21,7 +22,7 @@ var CommentCreateComponent = (function () {
         this.service.saveComment(this.comment).subscribe(function (comment) {
             _this.addComment.next(comment);
             _this.comment.Text = "";
-        }, function () { console.error("komentaras neisaugotas", arguments); });
+        }, function () { _this._notificationService.error("Palikti atsiliepimą apie kelionę gali tik tais registruotas vartotojas"); });
     };
     __decorate([
         core_1.Output()

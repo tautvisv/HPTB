@@ -11,6 +11,9 @@ var CommentComponent = (function () {
     function CommentComponent() {
     }
     CommentComponent.prototype.ngOnInit = function () {
+        if (this.comment.Date) {
+            this.comment.Date = new Date(this.comment.Date.toString());
+        }
     };
     __decorate([
         core_1.Input()

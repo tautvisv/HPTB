@@ -131,10 +131,12 @@ namespace Repositories
             var travelsQuery = (from t in _dbset select t);
             if (!string.IsNullOrEmpty(phrase))
             {
+                var phrase2 = phrase.ToLower();
                 travelsQuery = travelsQuery.Where(
-                    t => t.KeyWords.Contains(phrase) || 
-                        t.Author.Name.Contains(phrase) || t.Author.UserId.Contains(phrase) ||
-                        t.Author.UserId.Contains(phrase) || t.Name.Contains(phrase) || t.Description.Contains(phrase) || t.StartDay.Point.Address.Contains(phrase) || t.EndDay.Point.Address.Contains(phrase));
+                    t => t.KeyWords.ToLower().Contains(phrase2) || 
+                        t.Author.Name.ToLower().Contains(phrase2) || t.Author.UserId.ToLower().Contains(phrase2) ||
+                        t.Author.UserId.ToLower().Contains(phrase2) || t.Name.ToLower().Contains(phrase2) || t.Description.ToLower().Contains(phrase2) 
+                        || t.StartDay.Point.Address.ToLower().Contains(phrase2) || t.EndDay.Point.Address.ToLower().Contains(phrase2) );
                 // travelsQuery = (from t in _dbset where (t.Author.Name.Contains(phrase)) || t.Author.UserId.Contains(phrase) || t.Author.UserId.Contains(phrase) || t.Name.Contains(phrase) || t.Description.Contains(phrase) select t);
             }
 

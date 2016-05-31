@@ -86,11 +86,11 @@ var GoogleMaps = (function () {
                             _this.findRoute();
                     }
                     else {
-                        window.alert('No results found');
+                        console.warn('No results found');
                     }
                 }
                 else {
-                    window.alert('Geocoder failed due to: ' + status);
+                    console.warn('Geocoder failed due to: ' + status);
                 }
             });
         });
@@ -157,7 +157,7 @@ var GoogleMaps = (function () {
                             _this.findRoute();
                     }
                     else {
-                        window.alert('No results found');
+                        console.warn('No results found');
                     }
                 }
                 else {
@@ -284,7 +284,7 @@ var RouteService = (function () {
                 _this.directionsDisplay.setMap(_this._map);
             }
             else {
-                window.alert('Directions request failed due to ' + status);
+                console.warn('Directions request failed due to ' + status);
             }
         });
     };

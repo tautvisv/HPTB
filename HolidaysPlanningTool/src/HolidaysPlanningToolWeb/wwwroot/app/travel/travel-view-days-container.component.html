@@ -1,13 +1,14 @@
 ﻿<div class="travel-days-items">
+    <div class="title">Kelionės dienų planas</div>
     <a class="btn btn-info btn-raised scroll-button left" (click)="scrollDetails(false)"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
     <a class="btn btn-info btn-raised scroll-button right" (click)="scrollDetails(true)"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
-    <div class="" style="overflow-x:hidden" id="travel_days_details">
+    <div class="" style="overflow-x: hidden" id="travel_days_details">
         <div class="travel-view-days-container">
             <div *ngFor="#day of days" class="travel-day-item-container">
                 <travel-days-item (show-route)="showRoute" [travel-day]='day'></travel-days-item>
-                <a class="btn btn-info" style="display:block" (click)="findRoute(day)">Rodyti dienos maršrutą</a>
+                <a class="btn btn-info" style="display: block" (click)="findRoute(day)">Rodyti dienos maršrutą</a>
             </div>
-            <div style="clear:both"></div>
+            <div style="clear: both"></div>
         </div>
     </div>
 </div>

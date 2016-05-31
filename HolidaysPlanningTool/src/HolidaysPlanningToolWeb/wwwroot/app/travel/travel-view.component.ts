@@ -53,6 +53,7 @@ export class TravelViewComponent implements OnInit {
         var mins = s % 60;
         var hrs = (s - mins) / 60 % 24;
         var d = (s - mins) / 60 / 24;
+        d = parseInt(d.toFixed(0));
         //return d + 'dienos' + hrs + 'valandos' + mins + 'minutės';
         newTime.days = d;
         newTime.hours = hrs;
